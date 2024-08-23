@@ -5,24 +5,36 @@
     <meta charset="utf-8" />
     <title>Neo Hello</title>
     <link rel="stylesheet" href="style.css" />
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const signUpButton = document.getElementById("signUp");
+        const nameInput = document.getElementById("name");
+        const activeInput = document.getElementById("active");
+
+        signUpButton.addEventListener("click", function (event) {
+          const name = nameInput.value;
+          const active = activeInput.value;
+          localStorage.setItem("name", name);
+          localStorage.setItem("active", active);
+        });
+      });
+    </script>
   </head>
   <body>
-    <div id="container">
-      <div id="QR">
-        <img src="./img/QR.jpg" alt="QRコード" id="qrImg" />
+    <form action="main.html">
+      <div id="container">
+        <div class="inputContainer">
+          <label>名前</label>
+          <input type="text" id="name" placeholder="名前を入力" />
+        </div>
+        <div class="inputContainer">
+          <label>最近の出来事</label>
+          <input type="text" id="active" placeholder="最近の出来事を入力" />
+        </div>
+        <div class="buttonContainer">
+          <button id="signUp">Start</button>
+        </div>
       </div>
-      <div id="icon">
-        <img
-          src="https://cdn.prod.website-files.com/603c87adb15be3cb0b3ed9b5/662b2845cbf67680b11e457e_106.png"
-          alt="icon image"
-          id="iconImg"
-        />
-        <div>福井 鯖子</div>
-      </div>
-      <div id="text">
-        <div>最近あったこと</div>
-        <div>鯖江でBBQをした！</div>
-      </div>
-    </div>
+    </form>
   </body>
 </html>
