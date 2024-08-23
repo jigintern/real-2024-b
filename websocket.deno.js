@@ -1,3 +1,5 @@
+import { serveDir } from "https://deno.land/std@0.151.0/http/file_server.ts";
+
 Deno.serve({
     port: 80,
     handler: async (request) => {
@@ -20,8 +22,12 @@ Deno.serve({
         } else {
             // If the request is a normal HTTP request,
             // we serve the client HTML file.
-            const file = await Deno.open("./public/index.html", { read: true });
-            return new Response(file.readable);
+            return serveDir(request, {
+                fsRoot: "public",
+                urlRoot: "",
+                showDirListing: true,
+                enableCors: true,
+            });
         }
     },
 });
