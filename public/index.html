@@ -1,28 +1,40 @@
 <!DOCTYPE html>
 <html lang="ja">
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="utf-8">
-    <title>ようこそ、jigインターンへ！</title>
-    <style>
-      * {
-        box-sizing: border-box;
-        margin: 0;
-      }
-      html, body {
-        height: 100vh;
-        width: 100%;
-      }
-      body {
-        display: grid;
-        place-content: center;
-      }
-    </style>
-    <script type="module">
-      const message = await fetch("/welcome-message")
-      document.querySelector("body").innerHTML = `<h1>${await message.text()}</h1>`
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <title>Neo Hello</title>
+    <link rel="stylesheet" href="style.css" />
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const signUpButton = document.getElementById("signUp");
+        const nameInput = document.getElementById("name");
+        const activeInput = document.getElementById("active");
+
+        signUpButton.addEventListener("click", function (event) {
+          const name = nameInput.value;
+          const active = activeInput.value;
+          localStorage.setItem("name", name);
+          localStorage.setItem("active", active);
+        });
+      });
     </script>
   </head>
   <body>
+    <form action="main.html">
+      <div id="container">
+        <div class="inputContainer">
+          <label>名前</label>
+          <input type="text" id="name" placeholder="名前を入力" />
+        </div>
+        <div class="inputContainer">
+          <label>最近の出来事</label>
+          <input type="text" id="active" placeholder="最近の出来事を入力" />
+        </div>
+        <div class="buttonContainer">
+          <button id="signUp">Start</button>
+        </div>
+      </div>
+    </form>
   </body>
 </html>
