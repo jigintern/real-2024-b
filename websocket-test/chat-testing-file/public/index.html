@@ -1,0 +1,38 @@
+<!-- index.html -->
+<!DOCTYPE HTML>
+<head>
+    <title>Chat App</title>
+    <script src="/public/app.js"></script>
+</head>
+<body>
+    <div style="text-align: center">
+        <div>
+            <b>Users</b>
+            <br>
+            <button id="readTheQr" onclick="readQr()">Press to send qr data</button>
+            <hr />
+            <div id="users"></div>
+            <hr class="visible-xs visible-sm" />
+        </div>
+        <div>
+            <input id="send-message" placeholder="send message" />
+            <hr />
+            <div id="conversation"></div>
+        </div>
+    </div>
+    <script>
+        function readQr(){
+            userA = localStorage.getItem("Username");
+            console.log(userA);
+            let qrRead = "98456";   // info from qr (user/client B's UID)
+            socket.send(
+              JSON.stringify({
+                event: "qr-reader",
+                userA: userA,   // I read this qr !
+                userB: qrRead,  // The person I read!
+              }),
+            );
+            console.log("qrRead!!");
+        }
+    </script>
+</body>
