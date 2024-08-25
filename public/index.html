@@ -3,7 +3,7 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta charset="utf-8" />
-    <title>Neo Hello</title>
+    <title>HeyHey</title>
     <link rel="stylesheet" href="style.css" />
     <script>
       document.addEventListener("DOMContentLoaded", function () {
@@ -14,8 +14,8 @@
         signUpButton.addEventListener("click", function (event) {
           const name = nameInput.value;
           const active = activeInput.value;
-          localStorage.setItem("name", name);
-          localStorage.setItem("active", active);
+          localStorage.setItem("name", name);     // save name
+          localStorage.setItem("active", active); // save activity
         });
       });
     </script>
@@ -27,7 +27,7 @@
           <label>名前</label>
           <input type="text" id="name" placeholder="名前を入力" />
         </div>
-        <div class="inputContainer">
+        <div class="inputContainer2">
           <label>最近の出来事</label>
           <input type="text" id="active" placeholder="最近の出来事を入力" />
         </div>
