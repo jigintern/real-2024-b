@@ -106,3 +106,10 @@ body {
   width: 60vw;
   height: 60px;
 }
+
+#recordContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: right;
+  margin-top: 20px;
+}
