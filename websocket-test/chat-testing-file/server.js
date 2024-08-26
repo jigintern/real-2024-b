@@ -56,7 +56,7 @@ router.get("/start_web_socket", async (ctx) => {
     if (localStorage.getItem("useruser") !== null) {
       localStorage.removeItem("useruser");
     }
-  }
+  };
 
   // when a client disconnects, remove them from the connected clients list
   // and broadcast the active users list
