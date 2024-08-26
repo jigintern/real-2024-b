@@ -40,7 +40,9 @@ body {
 #icon {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
+  height: 25vh;
 }
 #iconImg {
   height: 15vh;
@@ -50,16 +52,23 @@ body {
   border: 1px solid #000;
 }
 
+#QR {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 35vh;
+}
+
 #qrImg {
-  height: 30vh;
   display: block;
+  height: 100%;
   width: 100%;
 }
 
 #readQrContainer {
   display: flex;
   justify-content: flex-end;
-  align-items: center; /* 必要に応じて垂直方向の配置を調整 */
+  align-items: center;
   width: 100%;
 }
 
@@ -84,6 +93,10 @@ body {
 #nameInput {
   width: 80%;
   height: 40px;
+}
+
+#iconInput {
+  margin-top: 20px;
 }
 
 #activeInput {
