@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <title>HeyHey</title>
+    <link rel="stylesheet" href="style.css" />
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // const name = document.getElementById("usrName");
+        // name.innerHTML = localStorage.getItem("name");
+        // const active = document.getElementById("active");
+        // active.innerHTML = localStorage.getItem("active");
+        const homeButton = document.getElementById("homeButton");
+        homeButton.addEventListener("click", function (event) {
+          window.location.href = "/main.html";
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div id="container">
+      <div id="icon">
+        <img src="img/noImage.jpg" alt="icon image" id="iconImg" />
+        <div id="usrName">福井 敦賀太郎</div>
+      </div>
+      <div id="textContainer">
+        <div>最近あったこと</div>
+        <div id="active">鯖江でBBQをした！</div>
+      </div>
+      <div>
+        <button id="homeButton">Home</button>
+      </div>
+    </div>
+  </body>
+</html>
