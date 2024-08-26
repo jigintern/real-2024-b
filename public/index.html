@@ -7,15 +7,20 @@
     <link rel="stylesheet" href="style.css" />
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        const signUpButton = document.getElementById("signUp");
-        const nameInput = document.getElementById("name");
-        const activeInput = document.getElementById("active");
+        const signUpButton = document.getElementById("signUpButton");
+        const nameInput = document.getElementById("nameInput");
+        const activeInput = document.getElementById("activeInput");
+        const name = localStorage.getItem("name");
+        const active = localStorage.getItem("active");
+        if (name && active) {
+          window.location.href = "/main.html";
+        } else if (name) {
+          nameInput.value = name;
+        }
 
         signUpButton.addEventListener("click", function (event) {
-          const name = nameInput.value;
-          const active = activeInput.value;
-          localStorage.setItem("name", name);     // save name
-          localStorage.setItem("active", active); // save activity
+          localStorage.setItem("name", nameInput.value);     // save name
+          localStorage.setItem("active", activeInput.value); // save activity
         });
       });
     </script>
@@ -25,14 +30,18 @@
       <div id="container">
         <div class="inputContainer">
           <label>名前</label>
-          <input type="text" id="name" placeholder="名前を入力" />
+          <input type="text" id="nameInput" placeholder="名前を入力" />
         </div>
         <div class="inputContainer2">
           <label>最近の出来事</label>
-          <input type="text" id="active" placeholder="最近の出来事を入力" />
+          <input
+            type="text"
+            id="activeInput"
+            placeholder="最近の出来事を入力"
+          />
         </div>
         <div class="buttonContainer">
-          <button id="signUp">Start</button>
+          <button id="signUpButton">Start</button>
         </div>
       </div>
     </form>

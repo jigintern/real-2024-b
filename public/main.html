@@ -3,33 +3,44 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta charset="utf-8" />
-    <title>HeyHey Home Page</title>
+    <title>HeyHey</title>
     <link rel="stylesheet" href="style.css" />
     <script>
-      window.onload = function () {
+      document.addEventListener("DOMContentLoaded", function () {
         const name = document.getElementById("usrName");
         name.innerHTML = localStorage.getItem("name");
         const active = document.getElementById("active");
         active.innerHTML = localStorage.getItem("active");
-      };
+        const editButton = document.getElementById("editButton");
+
+        editButton.addEventListener("click", function (event) {
+          console.log("Edit button clicked");
+          localStorage.setItem("active", "");
+          window.location.href = "/index.html";
+        });
+      });
     </script>
   </head>
   <body>
+    <div id="readQrContainer">
+      <a href="./match.html" id="qrLink">
+        <img src="./img/readQR.png" alt="QRコード読み取り" id="readQrImg" />
+      </a>
+    </div>
     <div id="container">
       <div id="QR">
         <img src="./img/QR.jpg" alt="QRコード" id="qrImg" />
       </div>
       <div id="icon">
-        <img
-          src="https://cdn.prod.website-files.com/603c87adb15be3cb0b3ed9b5/662b271e8b82b058df0982da_089.png"
-          alt="icon image"
-          id="iconImg"
-        />
+        <img src="img/noImage.jpg" alt="icon image" id="iconImg" />
         <div id="usrName"></div>
       </div>
-      <div id="text">
+      <div id="textContainer">
         <div>最近あったこと</div>
-        <div id="active">鯖江でBBQをした！</div>
+        <div id="active"></div>
+      </div>
+      <div>
+        <button id="editButton">Edit</button>
       </div>
     </div>
   </body>

@@ -1,5 +1,10 @@
-#container {
+body {
+  font-family: "ヒラギノ角ゴ ProN W3", "游ゴシック", sans-serif;
   height: 100vh;
+}
+
+#container {
+  height: 95vh;
   display: flex;
   justify-content: space-evenly;
   flex-direction: column;
@@ -32,20 +37,14 @@
   height: 100%;
 }
 
-#QR,
-#icon,
-#text {
-  height: 30vh;
-}
-
 #icon {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 #iconImg {
-  height: 20vh;
-  width: 20vh;
+  height: 15vh;
+  width: 15vh;
   border-radius: 50%;
   object-fit: cover;
   border: 1px solid #000;
@@ -53,24 +52,48 @@
 
 #qrImg {
   height: 30vh;
+  display: block;
+  width: 100%;
 }
 
-#text {
+#readQrContainer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center; /* 必要に応じて垂直方向の配置を調整 */
   width: 100%;
+}
+
+#readQrImg {
+  height: 5vh;
+  display: block;
+}
+
+#qrLink {
+  display: inline-block;
+}
+
+#textContainer {
+  width: 80%;
   text-align: center;
 }
 
-#name {
-  width: 80%;
-  height: 40px;
-}
-
 #active {
+  font-size: x-large;
+}
+
+#nameInput {
   width: 80%;
   height: 40px;
 }
 
-#signUp {
+#activeInput {
+  width: 80%;
+  height: 40px;
+}
+
+#signUpButton,
+#editButton,
+#homeButton {
   border: 0;
   border-radius: 3.75rem;
   background-color: cornflowerblue;
