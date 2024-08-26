@@ -12,9 +12,8 @@
         const active = document.getElementById("active");
         active.innerHTML = localStorage.getItem("active");
         const editButton = document.getElementById("editButton");
-        document.getElementById("iconImg").src = localStorage.getItem("icon");
-
         editButton.addEventListener("click", function (event) {
+          console.log("Edit button clicked");
           localStorage.setItem("active", "");
           window.location.href = "/index.html";
         });
@@ -41,6 +40,7 @@
       </div>
       <div>
         <button id="editButton">Edit</button>
+        <button id = heatmapButton type=“button” onclick="location.href='/heatmap.html'">ヒートマップ</button>
       </div>
     </div>
   </body>
