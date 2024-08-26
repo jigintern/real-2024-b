@@ -33,7 +33,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 20vh;
+  height: 25vh;
 }
 #iconImg {
   height: 15vh;
@@ -84,6 +84,10 @@ body {
 #nameInput {
   width: 80%;
   height: 40px;
+}
+
+#iconInput {
+  margin-top: 20px;
 }
 
 #activeInput {
