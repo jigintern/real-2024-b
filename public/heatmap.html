@@ -1,17 +1,20 @@
 <!DOCTYPE html>
-<html lang="ja">
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta charset="utf-8" />
-    <title>Heatmap</title>
-    <script type="text/javascript" src="https://d3js.org/d3.v3.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/cal-heatmap/3.3.10/cal-heatmap.min.js"></script>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cal-heatmap</title>
     <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <h1>ヒートマップ</h1>
-  <div id="bush">
-    <div id="sample-heatmap"></div>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://unpkg.com/cal-heatmap/dist/cal-heatmap.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/cal-heatmap/dist/cal-heatmap.css">
+</head>
+<body>
+  <div>
+    <div id="cal-heatmap"></div>
+
     <script src="heatmap.js"></script>
-    </div>
-  </body>
+  </div>
+    <button id = homeButton type=“button” onclick="location.href='/main.html'">ホーム画面へ</button>
+</body>
+</html>

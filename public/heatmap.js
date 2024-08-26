@@ -1,21 +1,35 @@
-var datas = {
-    "1630370800" : 1, // 2018/07/01
-    "1530457200" : 3, // 2018/07/02
-    "1533049200" : 5, // 2018/08/01
-    "1533135600" : 7, // 2018/08/02
-    "1546268400" : 10 // 2019/01/01
-};
-let day = Date.now();
-console.log(day);
-var cal = new CalHeatMap();
-var now = new Date();
-cal.init({
-    itemSelector: '#sample-heatmap',
-    domain: "month",
-    data: datas,
-    domainLabelFormat: '%Y-%m',
-    start: new Date(now.getFullYear(), now.getMonth() - 11),
-    cellSize: 10,
-    range: 12,
-    legend: [1, 3, 5, 7, 10],
-});
+let data1 = '2024-06-01';
+    String(data1);
+const data = [
+    { date: data1, count: 6 },
+    { date: '2023-11-02', count: 6 },
+  ];
+const cal = new CalHeatmap();
+const now = new Date();
+cal.paint(
+    {
+        itemSelector: document.getElementById('cal-heatmap'),
+        //or itemSelector: document.getElementById('cal-heatmap'),
+
+        domain: { type: 'month', gutter: 2 },
+        subDomain: { type: 'ghDay', label: 'DD', width: 30, height: 30 },
+        domainLabelFormat: '%Y-%m',
+        date: {
+            
+            start: new Date(now.getFullYear(), now.getMonth() - 11),
+        },
+        data: {
+            source: data,
+            x: 'date',
+            y: 'count'
+        },
+        scale: {
+            color: {
+                // Try some values: Purples, Blues, Turbo, Magma, etc ...
+                scheme: 'Greens',
+                type: 'linear',
+                domain: [0, 30],
+              },
+            },
+          },
+);
