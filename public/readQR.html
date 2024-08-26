@@ -7,13 +7,13 @@
 </head>
 <body>
   <h1>jsQR Demo</h1>
-  <a id="githubLink" href="https://github.com/cozmo/jsQR">View documentation on Github</a>
-  <p>Pure JavaScript QR code decoding library.</p>
+  <a href="http://localhost:8000/makeQR.html">QRコード作成はこちら</a>
   <div id="loadingMessage">🎥 Unable to access video stream (please make sure you have a webcam enabled)</div>
   <canvas id="canvas" hidden></canvas>
   <div id="output" hidden>
     <div id="outputMessage">No QR code detected.</div>
-    <div hidden><b>Data:</b> <span id="outputData"></span></div>
+    <div hidden><b>なまえ:</b> <span id="output_nameData"></span></div>
+    <div hidden><b>最近のできごと:</b> <span id="output_eventData"></span></div>
   </div>
   <script>
     var video = document.createElement("video");
@@ -22,7 +22,8 @@
     var loadingMessage = document.getElementById("loadingMessage");
     var outputContainer = document.getElementById("output");
     var outputMessage = document.getElementById("outputMessage");
-    var outputData = document.getElementById("outputData");
+    var output_nameData = document.getElementById("output_nameData");
+    var output_eventData = document.getElementById("output_eventData");
     
     function drawLine(begin, end, color) {
       canvas.beginPath();
@@ -61,14 +62,18 @@
           drawLine(code.location.bottomRightCorner, code.location.bottomLeftCorner, "#FF3B58");
           drawLine(code.location.bottomLeftCorner, code.location.topLeftCorner, "#FF3B58");
           outputMessage.hidden = true;
-          outputData.parentElement.hidden = false;
+          output_nameData.parentElement.hidden = false;
+          output_eventData.parentElement.hidden = false;
           var text_decoder=new TextDecoder('shift-jis');
-          outputData.innerText = text_decoder.decode(Uint8Array.from(code.binaryData).buffer);
-          var userdata = outputData.innerText.split('/')
-          console.log(outputData.innerText);
+          var text = text_decoder.decode(Uint8Array.from(code.binaryData).buffer);
+          var userdata = text.split('/')
+          output_nameData.innerText = userdata[0];
+          output_eventData.innerText = userdata[1];
+          
         } else {
           outputMessage.hidden = false;
-          outputData.parentElement.hidden = true;
+          output_nameData.parentElement.hidden = true;
+          output_eventData.parentElement.hidden = true;
         }
       }
       requestAnimationFrame(tick);
