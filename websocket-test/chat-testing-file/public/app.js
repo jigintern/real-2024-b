@@ -4,7 +4,7 @@ const myUsername = prompt("Please enter your name") || "Anonymous";
 localStorage.setItem("Username", myUsername);
 console.log(`Username stored here: ${localStorage.getItem("Username")}`);
 const socket = new WebSocket(
-  `ws://localhost:8080/start_web_socket?username=${myUsername}`,  // put username from url
+  `ws://localhost:8080/start_web_socket?username=${myUsername}`, // put username from url
 );
 //const clown = localStorage.setItem("user-name", myUsername);  // store username in localstorage
 //console.log(`Username stored here: ${clown}`);
@@ -26,25 +26,25 @@ socket.onmessage = (m) => {
       // display new chat message
       addMessage(data.username, data.message);
       break;
-    
+
     case "userOK":
-      if(data.isOK == "GOOD"){
+      if (data.isOK == "GOOD") {
         document.getElementById("readTheQr").innerHTML = "YEABOI";
-      }else{
+      } else {
         document.getElementById("readTheQr").innerHTML = "BRUHLOL";
       }
       break;
   }
 };
 
-function readQr(){    // read the qr
+function readQr() { // read the qr
   userA = localStorage.getItem("user-name");
-  let qrRead = "98456";   // info from qr (user/client B's UID)
+  let qrRead = "98456"; // info from qr (user/client B's UID)
   socket.send(
     JSON.stringify({
       event: "qr-reader",
-      userA: userA,   // I read this qr !
-      userB: qrRead,  // The person I read!
+      userA: userA, // I read this qr !
+      userB: qrRead, // The person I read!
     }),
   );
   console.log("qrRead!!");
