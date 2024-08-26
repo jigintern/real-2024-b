@@ -16,6 +16,7 @@
           window.location.href = "/main.html";
         } else if (name) {
           nameInput.value = name;
+          document.getElementById("iconImg").src = localStorage.getItem("icon");
         }
 
         signUpButton.addEventListener("click", function (event) {
@@ -23,6 +24,20 @@
           localStorage.setItem("active", activeInput.value);
         });
       });
+      function previewIcon(input) {
+        // ファイルが選択されているか確認
+        if (input.files && input.files[0]) {
+          const reader = new FileReader();
+          // 画像ファイルを読み込み終えたときに発生するイベント
+          reader.onload = function (e) {
+            // 画像タグのsrcを読み込んだ画像のデータURLに変更
+            document.getElementById("iconImg").src = e.target.result;
+            localStorage.setItem("icon", e.target.result);
+          };
+          // ファイルをデータURLとして読み込む
+          reader.readAsDataURL(input.files[0]);
+        }
+      }
     </script>
   </head>
   <body>
@@ -32,6 +47,11 @@
           <label>名前</label>
           <input type="text" id="nameInput" placeholder="名前を入力" />
         </div>
+        <div id="icon">
+          <img src="img/noImage.jpg" alt="icon image" id="iconImg" />
+          <input type="file" id="iconInput" onchange="previewIcon(this)" />
+        </div>
+        <div></div>
         <div class="inputContainer">
           <label>最近の出来事</label>
           <input
