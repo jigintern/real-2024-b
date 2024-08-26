@@ -8,24 +8,48 @@ import { serveDir } from "http/file_server.ts";
 /**
  * APIリクエストを処理する
  */
-serve((req) => {
-  // URLのパスを取得
-  const pathname = new URL(req.url).pathname;
-  console.log(pathname);
-  // パスが'/welcome-message'だったら「'jigインターンへようこそ！'」の文字を返す
+Deno.serve({
+  port: 8080,
+  handler: async (req) => {
+    if (req.headers.get("upgrade") === "websocket") {
+      const { socket, response } = Deno.upgradeWebSocket(req);
+
+      socket.onopen = () => {
+        // 接続したときの処理
+        console.log("CONNECTED");
+        socket.send("connected");
+      };
+      socket.onmessage = (message) => {
+        const data = JSON.parse(message.data);
+        // 受信したときの処理
+        switch (data.event) {
+          // 送ってきた“もの”のイベント類
+          case "matching-request": // 
+            // Todo: マッチング待ちの時の処理
+            socket.send("send-success");
+            break;
+        }
+      };
+      socket.onclose = () => console.log("DISCONNECTED"); // 接続が終わったときの処理
+      
+      socket.onerror = (error) => console.error("ERROR:", error); // エラーが発生したときの処理
+
+      return response;
   
-  if (req.method === "GET" && pathname === "/welcome-message") {
-    return new Response("jig.jpインターンへようこそ！👍");
+    }else{
+      const pathname = new URL(req.url).pathname;
+      console.log(pathname);
 
+      // publicフォルダ内にあるファイルを返す
+      return serveDir(req, {
+
+        fsRoot: "public",
+        urlRoot: "",
+        showDirListing: true,
+        enableCors: true,
+      });
+    }
   }
-
-  // publicフォルダ内にあるファイルを返す
-  return serveDir(req, {
-
-    fsRoot: "public",
-    urlRoot: "",
-    showDirListing: true,
-    enableCors: true,
-  });
 });
+
 
