@@ -8,7 +8,6 @@ const connectedClients = new Map();
 const app = new Application();
 const port = 8080;
 const router = new Router();
-let userCheck = [];
 
 // send a message to all connected clients
 function broadcast(message) {
@@ -57,15 +56,6 @@ router.get("/start_web_socket", async (ctx) => {
     if (localStorage.getItem("useruser") !== null) {
       localStorage.removeItem("useruser");
     }
-    //if(usercc.length <= 0){
-    //usercc = userCheck();
-    //}else if(usercc.length >= 1){
-    //    broadcast(
-    //        JSON.stringify({
-    //            event: "send-message",
-    //            message: usercc.message
-    //        })
-    //    )
   };
 
   // when a client disconnects, remove them from the connected clients list

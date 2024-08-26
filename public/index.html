@@ -20,8 +20,8 @@
         }
 
         signUpButton.addEventListener("click", function (event) {
-          localStorage.setItem("name", nameInput.value);
-          localStorage.setItem("active", activeInput.value);
+          localStorage.setItem("name", nameInput.value);     // save name
+          localStorage.setItem("active", activeInput.value); // save activity
         });
       });
       function previewIcon(input) {
@@ -47,12 +47,14 @@
           <label>名前</label>
           <input type="text" id="nameInput" placeholder="名前を入力" />
         </div>
+
         <div id="icon">
           <img src="img/noImage.jpg" alt="icon image" id="iconImg" />
           <input type="file" id="iconInput" onchange="previewIcon(this)" />
         </div>
         <div></div>
         <div class="inputContainer">
+
           <label>最近の出来事</label>
           <input
             type="text"
