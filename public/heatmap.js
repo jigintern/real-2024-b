@@ -62,4 +62,8 @@ data,
 scale
 };
 
-cal.paint(options);
+cal.paint(options,{
+  enabled: true,
+  text: (_, value, dayjsDate) => {
+    return `${value ?? 0} 件の投稿 ${dayjs(dayjsDate).format('YYYY/MM/DD')}`;
+  }});
