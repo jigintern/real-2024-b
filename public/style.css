@@ -143,7 +143,7 @@ footer { /* ここからがfooterのcssです　ぐちゃぐちゃになって�
   position: fixed;
   bottom: 0;
   width: 100%;
-  background-color: cornflowerblue;
+  background-color: rgb(200, 200, 200,0.3);
 }
 #footterSearchButton, #footterHomeButton, #editButton{/* ボタンをまとめてます*/
   background: transparent;/* ボタン画像の背景を透明にします*/
