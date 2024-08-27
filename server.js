@@ -10,6 +10,7 @@ const clientsMap = new Map();   // all clients
  * APIリクエストを処理する
  */
 Deno.serve({
+  port: 8080,
   handler: async (req) => {
     if (req.headers.get("upgrade") === "websocket") {
       const { socket, response } = Deno.upgradeWebSocket(req);
@@ -17,7 +18,8 @@ Deno.serve({
       socket.onopen = () => {
         // 接続したときの処理
         console.log("CONNECTED");
-        socket.send("connected");
+        const json = JSON.stringify({ event: "connected" });
+        socket.send(json);
       };
       socket.onmessage = (message) => {
         const data = JSON.parse(message.data);
