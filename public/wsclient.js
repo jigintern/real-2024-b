@@ -1,5 +1,5 @@
 const uri = new URL(window.location.href);
-const myUsername = localStorage.getItem('username');
+const myUsername = localStorage.getItem('name');
 const socket = new WebSocket(
   `wss://${uri.hostname}:8080/start_web_socket?username=${myUsername}`, // put username from url
 );
