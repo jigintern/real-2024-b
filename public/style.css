@@ -126,3 +126,10 @@ body {
   justify-content: right;
   margin-top: 20px;
 }
+
+footer {
+    grid-area: footer;
+    height: 100px;
+    width: auto;
+    background-color: rgb(165, 167, 167);
+}
