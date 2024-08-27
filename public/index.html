@@ -19,9 +19,38 @@
           document.getElementById("iconImg").src = localStorage.getItem("icon");
         }
 
+        if (localStorage.getItem("icon")) {
+          document.getElementById("iconImg").src = localStorage.getItem("icon");
+        } else {
+          document.getElementById("iconImg").src = "img/noImage.jpg";
+        }
+
         signUpButton.addEventListener("click", function (event) {
-          localStorage.setItem("name", nameInput.value);     // save name
-          localStorage.setItem("active", activeInput.value); // save activity
+          // 名前が半角英数字、ひらがな、カタカナ、漢字のみで入力されているか確認
+          if (/[^a-zA-Zぁ-んァ-ン一-龯ー]/.test(nameInput.value)) {
+            nameInput.setCustomValidity(
+              "半角英数字、ひらがな、カタカナ、漢字のみで入力してください"
+            );
+            // 最近の出来事が半角英数字、ひらがな、カタカナ、漢字、！、？のみで入力されているか確認
+          } else if (
+            /[^a-zA-Zぁ-んァ-ン一-龯ー!！?？]/.test(activeInput.value)
+          ) {
+            activeInput.setCustomValidity(
+              "半角英数字、ひらがな、カタカナ、漢字、！、？のみで入力してください"
+            );
+            // 名前と最近の出来事が正しく入力されている場合localStorageに保存
+          } else {
+            localStorage.setItem("name", nameInput.value);     // save name
+            localStorage.setItem("active", activeInput.value); // save activity
+          }
+        });
+        // ユーザが名前を書き換えたらエラーを消す処理
+        nameInput.addEventListener("input", (e) => {
+          nameInput.setCustomValidity("");
+        });
+        // ユーザが最近の出来事を書き換えたらエラーを消す処理
+        activeInput.addEventListener("input", (e) => {
+          activeInput.setCustomValidity("");
         });
       });
       function previewIcon(input) {
@@ -45,12 +74,17 @@
       <div id="container">
         <div class="inputContainer">
           <label>名前</label>
-          <input type="text" id="nameInput" placeholder="名前を入力" />
+          <input type="text" id="nameInput" placeholder="名前を入力" required />
         </div>
 
         <div id="icon">
           <img src="img/noImage.jpg" alt="icon image" id="iconImg" />
-          <input type="file" id="iconInput" onchange="previewIcon(this)" />
+          <input
+            type="file"
+            id="iconInput"
+            onchange="previewIcon(this)"
+            accept=".jpg, .jpeg, .png"
+          />
         </div>
         <div class="inputContainer">
 
@@ -59,6 +93,7 @@
             type="text"
             id="activeInput"
             placeholder="最近の出来事を入力"
+            required
           />
         </div>
         <div class="buttonContainer">
