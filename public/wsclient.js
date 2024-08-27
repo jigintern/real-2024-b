@@ -1,5 +1,5 @@
 const uri = new URL(window.location.href);
-const myUsername = localStorage.getItem('username');
+const myUsername = localStorage.getItem("username");
 const socket = new WebSocket(
   `ws://${uri.hostname}:8080/start_web_socket?username=${myUsername}`, // put username from url
 );
@@ -10,7 +10,7 @@ socket.onmessage = (m) => {
 
   switch (data.event) {
     // 送ってきた“もの”のイベント類
-    case "connected": 
+    case "connected":
       // Todo: 接続成功した時の処理
       break;
 
@@ -25,7 +25,7 @@ socket.onmessage = (m) => {
 };
 
 // sendPair(自分の名前、相手の名前)でサーバに送信する
-function sendPair(myName, pairName){
+function sendPair(myName, pairName) {
   socket.send(
     JSON.stringify({
       event: "matching-request",
