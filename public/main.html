@@ -62,50 +62,6 @@
         });
       });
     </script>
-  </head>
-  <body>
-    <header id="header"></header>
-    <div id="container">
-      <div id="QR">
-        <div id="QRCode"></div>
-        <div>
-          <div class="col-sm-6">
-            <div>
-              <button class="btn btn-primary" value="100" name="size" id="qrBtn">
-                QRを表示
-                <!-- <img src="./img/readQR.png" alt="QRコード読み取り" id="readQrImg" /> -->
-              </button>
-            </div>
-          </div>
-          <div id="QRCode"></div>
-        </div>
-      </div>
-      <div id="recordContainer">
-        <div id="loadingMessage">
-          <!-- 🎥 Unable to access video stream (please make sure you have a webcam
-          enabled) -->
-        </div>
-        <canvas id="canvas" hidden></canvas>
-        <div id="output" hidden>
-          <div id="outputMessage">No QR code detected.</div>
-          <div hidden><b>なまえ:</b> <span id="output_nameData"></span></div>
-          <div hidden>
-            <b>最近のできごと:</b> <span id="output_eventData"></span>
-          </div>
-        </div>
-      </div>
-      <div id="icon">
-        <img src="img/noImage.jpg" alt="icon image" id="iconImg" />
-        <div id="usrName"></div>
-      </div>
-      <div id="textContainer">
-        <div>最近あったこと</div>
-        <div id="active"></div>
-      </div>
-      <div>
-        <button id="editButton">Edit</button>
-      </div>
-    </div>
     <script>
       $(document).ready(function () {
       $("button[name='size']").on("click", function (e) {
@@ -134,6 +90,7 @@
           video.srcObject = stream;
           video.setAttribute("playsinline", true); // required to tell iOS safari we don't want fullscreen
           video.play();
+          video.stop();
           requestAnimationFrame(tick);
         });
 
@@ -195,8 +152,8 @@
             output_eventData.innerText = userdata[1]; // pair's user activity
             const myUsername = localStorage.getItem("name");  // get myUsername
             sendPair(myUsername, userdata[0]);
-            stopStream();
-            canvasElement.hidden = true;
+            //stopStream();
+            //canvasElement.hidden = true;
             return;
           } else {
             outputMessage.hidden = false;
@@ -210,5 +167,54 @@
       });
       
     </script>
+  </head>
+  <body>
+    <!-- <div id="readQrContainer">
+      <a href="./match.html" id="qrLink">
+        <img src="./img/readQR.png" alt="QRコード読み取り" id="readQrImg" />
+      </a>
+    </div> -->
+    <header id="header"></header>
+    <div id="container">
+      <div id="QR">
+        <div id="QRCode"></div>
+        <div>
+          <div class="col-sm-6">
+            <div>
+              <button class="btn btn-primary" value="100" name="size" id="qrBtn">
+                QRを表示
+                <!-- <img src="./img/readQR.png" alt="QRコード読み取り" id="readQrImg" /> -->
+              </button>
+            </div>
+          </div>
+          <div id="QRCode"></div>
+        </div>
+      </div>
+      <div id="recordContainer">
+        <div id="loadingMessage">
+          <!-- 🎥 Unable to access video stream (please make sure you have a webcam
+          enabled) -->
+        </div>
+        <canvas id="canvas" hidden></canvas>
+        <div id="output" hidden>
+          <div id="outputMessage">No QR code detected.</div>
+          <div hidden><b>なまえ:</b> <span id="output_nameData"></span></div>
+          <div hidden>
+            <b>最近のできごと:</b> <span id="output_eventData"></span>
+          </div>
+        </div>
+      </div>
+      <div id="icon">
+        <img src="img/noImage.jpg" alt="icon image" id="iconImg" />
+        <div id="usrName"></div>
+      </div>
+      <div id="textContainer">
+        <div>最近あったこと</div>
+        <div id="active"></div>
+      </div>
+      <div>
+        <button id="editButton">Edit</button>
+      </div>
+    </div>
   </body>
 </html>

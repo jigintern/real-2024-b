@@ -1,10 +1,14 @@
 const uri = new URL(window.location.href);
 const myUsername = localStorage.getItem('username');
-const socket = new WebSocket(
-  `ws://${uri.hostname}:8080/start_web_socket?username=${myUsername}`, // put username from url
-);
+let socket;
 
-socket.onmessage = (m) => {
+$("button[name='size']").on("click", function (e) {
+  socket = new WebSocket(
+    `ws://${uri.hostname}:8080/start_web_socket?username=${myUsername}`, // put username from url
+  );
+});
+
+socket?.onmessage = (m) => {
   // 接続したときの処理
   const data = JSON.parse(m.data);
 
@@ -22,14 +26,14 @@ socket.onmessage = (m) => {
     case "send-success":
       // Todo: 送信成功した時の処理
       // Todo: heyhey by ikebou
-      
+
       break;
   }
 };
 
 // sendPair(自分の名前、相手の名前)でサーバに送信する
 function sendPair(myName, pairName){
-  socket.send(
+  socket?.send(
     JSON.stringify({
       event: "matching-request",
       myName: myName,
