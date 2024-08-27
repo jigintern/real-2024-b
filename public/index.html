@@ -47,8 +47,8 @@
             );
             // 名前と最近の出来事が正しく入力されている場合localStorageに保存
           } else {
-            localStorage.setItem("name", nameInput.value);
-            localStorage.setItem("active", activeInput.value);
+            localStorage.setItem("name", nameInput.value);     // save name
+            localStorage.setItem("active", activeInput.value); // save activity
           }
         });
         // ユーザが名前を書き換えたらエラーを消す処理
@@ -107,6 +107,7 @@
           />
         </div>
         <div class="inputContainer">
+
           <label>最近の出来事</label>
           <input
             type="text"
