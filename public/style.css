@@ -13,6 +13,7 @@ body {
   justify-content: space-evenly;
   flex-direction: column;
   align-items: center;
+  display: flex;
 }
 
 .inputContainer {
@@ -109,7 +110,6 @@ body {
 }
 
 #signUpButton,
-#editButton,
 #homeButton {
   border: 0;
   border-radius: 3.75rem;
@@ -144,6 +144,8 @@ footer {
   background-color: aqua;
 }
 #footterSearchButton, #footterHomeButton, #editButton{
+  display:inline-flexbox;
   background: transparent;
   border: 2px solid transparent;
+  justify-content:space-around;
 }
