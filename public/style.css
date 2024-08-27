@@ -144,8 +144,8 @@ footer {
   background-color: aqua;
 }
 #footterSearchButton, #footterHomeButton, #editButton{
-  display:inline-flexbox;
+  display: inline-block;
   background: transparent;
   border: 2px solid transparent;
-  justify-content:space-around;
+  margin: auto;
 }
