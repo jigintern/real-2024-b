@@ -111,6 +111,16 @@ body {
   height: 60px;
 }
 
+#qrBtn {
+  border: 0;
+  border-radius: 3rem;
+  background-color: cornflowerblue;
+  color: white;
+  font-size: large;
+  width: 60vw;
+  height: 60px;
+}
+
 #recordContainer {
   display: flex;
   flex-direction: column;
