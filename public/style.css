@@ -127,9 +127,41 @@ body {
   margin-top: 20px;
 }
 
-footer {
-    grid-area: footer;
-    height: 100px;
-    width: auto;
-    background-color: rgb(165, 167, 167);
+.footer {
+  padding: 1rem;
+  font-size: 10px;
+  color: #000000;
+  background: #999;
+}
+
+.footer_navi {
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.footer_navi li {
+  display: inline-block;
+}
+
+.footer_navi li:not(:last-child) {
+  margin-right: 16px;
+}
+
+.footer_logo {
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+  .md-flex {
+    display: flex;
+  }
+
+  .md-justify-between {
+    justify-content: space-between;
+  }
+
+  .copyright {
+    text-align: left;
+  }
 }
