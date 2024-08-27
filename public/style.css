@@ -137,15 +137,19 @@ body {
   margin-top: 20px;
 }
 
-footer {
+footer { /* ここからがfooterのcssです　ぐちゃぐちゃになっていますが一応うごきます*/
+  display: flex;
   position: fixed;
   bottom: 0;
   width: 100%;
-  background-color: aqua;
+  background-color: cornflowerblue;
 }
-#footterSearchButton, #footterHomeButton, #editButton{
+.footerContainer{
+  display: flex;
+  justify-content: space-between;
+}
+#footterSearchButton, #footterHomeButton, #editButton{/* ボタンをまとめてます*/
   display: inline-block;
-  background: transparent;
-  border: 2px solid transparent;
-  margin: auto;
+  background: transparent;/* ボタン画像の背景を透明にします*/
+  border: 2px solid transparent;/* ボタン画像の外枠を透明にします*/
 }
