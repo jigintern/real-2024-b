@@ -137,7 +137,7 @@ body {
   margin-top: 20px;
 }
 
-.footer {
+.footer { /*フッターのCSSはここに*/
   padding: 1rem;
   font-size: 10px;
   color: #000000;
