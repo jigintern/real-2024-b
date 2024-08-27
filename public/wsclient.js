@@ -1,12 +1,9 @@
 const uri = new URL(window.location.href);
-const myUsername = localStorage.getItem('username');
-let socket;
-
-$("button[name='size']").on("click", function (e) {
-  socket = new WebSocket(
-    `ws://${uri.hostname}:8080/start_web_socket?username=${myUsername}`, // put username from url
-  );
-});
+const myUsername = localStorage.getItem('name');
+const protocol = uri.host() === "localhost:8080" ? "ws" : "wss";
+const socket = new WebSocket(  
+    `${protocol}://${uri.host}/start_web_socket?username=${myUsername}`, // put username from url
+);
 
 socket?.onmessage = (m) => {
   // 接続したときの処理

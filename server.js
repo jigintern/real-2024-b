@@ -18,6 +18,9 @@ Deno.serve({
       socket.onopen = () => {
         // 接続したときの処理
         console.log("CONNECTED");
+        socket.send(JSON.stringify({
+          event: "connected",
+        }));
       };
       socket.onmessage = (message) => {
         const data = JSON.parse(message.data);
