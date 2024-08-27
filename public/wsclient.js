@@ -16,10 +16,13 @@ socket.onmessage = (m) => {
 
     case "matching-success":
       // Todo: マッチング成功したときの処理
+      window.location.href = "/match.html"; // change page
       break;
 
     case "send-success":
       // Todo: 送信成功した時の処理
+      // Todo: heyhey by ikebou
+      
       break;
   }
 };
