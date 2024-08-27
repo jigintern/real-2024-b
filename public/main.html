@@ -20,16 +20,64 @@
         });
       });
     </script>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+    <script src="https://unpkg.com/encoding-japanese@2.2.0/encoding.min.js"></script>
+    <script src=https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $("button[name='size']").on("click", function (e) {
+          const qrBtn = document.getElementById("qrBtn");
+          qrBtn.style.display = "none";
+          var name = localStorage.getItem("name");
+          var event = localStorage.getItem("active");
+          var value = name + "/" + event;
+          console.log(value);
+          e.preventDefault();
+          var size = $(this).val();
+          var source = Encoding.convert(value, "SJIS");
+
+          try {
+            $("#QRCode").html("").qrcode({
+              width: size,
+              height: size,
+              text: source,
+            });
+          } catch (e) {
+            $("#QRCode")
+              .html("")
+              .append("文字数オーバーです：<br>" + e);
+          }
+        });
+      });
+    </script>
   </head>
   <body>
-    <div id="readQrContainer">
+    <!-- <div id="readQrContainer">
       <a href="./match.html" id="qrLink">
         <img src="./img/readQR.png" alt="QRコード読み取り" id="readQrImg" />
       </a>
-    </div>
+    </div> -->
+    <header id="header"></header>
     <div id="container">
       <div id="QR">
-        <img src="./img/QR.jpg" alt="QRコード" id="qrImg" />
+        <div id="QRCode"></div>
+        <!-- <img src="./img/QR.jpg" alt="QRコード" id="qrImg" /> -->
+        <div>
+          <div class="col-sm-6">
+            <div>
+              <button class="btn btn-primary" value="100" name="size" id="qrBtn">
+                <img src="./img/readQR.png" alt="QRコード読み取り" id="readQrImg" />
+              </button>
+            </div>
+          </div>
+          <div id="QRCode"></div>
+        </div>
       </div>
       <div id="icon">
         <img src="img/noImage.jpg" alt="icon image" id="iconImg" />
@@ -42,6 +90,119 @@
       <div>
         <button id="editButton">Edit</button>
       </div>
+      <div id="recordContainer">
+        <div id="loadingMessage">
+          🎥 Unable to access video stream (please make sure you have a webcam
+          enabled)
+        </div>
+        <canvas id="canvas" hidden></canvas>
+        <div id="output" hidden>
+          <div id="outputMessage">No QR code detected.</div>
+          <div hidden><b>なまえ:</b> <span id="output_nameData"></span></div>
+          <div hidden>
+            <b>最近のできごと:</b> <span id="output_eventData"></span>
+          </div>
+        </div>
+      </div>
     </div>
+    <script>
+      $(document).ready(function () {
+      $("button[name='size']").on("click", function (e) {
+        var video = document.createElement("video");
+        var canvasElement = document.getElementById("canvas");
+        var canvas = canvasElement.getContext("2d");
+        var loadingMessage = document.getElementById("loadingMessage");
+        var outputContainer = document.getElementById("output");
+        var outputMessage = document.getElementById("outputMessage");
+        var output_nameData = document.getElementById("output_nameData");
+        var output_eventData = document.getElementById("output_eventData");
+
+      function drawLine(begin, end, color) {
+        canvas.beginPath();
+        canvas.moveTo(begin.x, begin.y);
+        canvas.lineTo(end.x, end.y);
+        canvas.lineWidth = 4;
+        canvas.strokeStyle = color;
+        canvas.stroke();
+      }
+
+      // Use facingMode: environment to attemt to get the front camera on phones
+      navigator.mediaDevices
+        .getUserMedia({ video: { facingMode: "user" } })
+        .then(function (stream) {
+          video.srcObject = stream;
+          video.setAttribute("playsinline", true); // required to tell iOS safari we don't want fullscreen
+          video.play();
+          requestAnimationFrame(tick);
+        });
+
+      function tick() {
+        loadingMessage.innerText = "⌛ Loading video...";
+        if (video.readyState === video.HAVE_ENOUGH_DATA) {
+          loadingMessage.hidden = true;
+          canvasElement.hidden = false;
+          outputContainer.hidden = false;
+
+          canvasElement.height = 100;
+          canvasElement.width = 100;
+          canvas.drawImage(
+            video,
+            0,
+            0,
+            canvasElement.width,
+            canvasElement.height
+          );
+          var imageData = canvas.getImageData(
+            0,
+            0,
+            canvasElement.width,
+            canvasElement.height
+          );
+          var code = jsQR(imageData.data, imageData.width, imageData.height, {
+            inversionAttempts: "dontInvert",
+          });
+          if (code) {
+            drawLine(
+              code.location.topLeftCorner,
+              code.location.topRightCorner,
+              "#FF3B58"
+            );
+            drawLine(
+              code.location.topRightCorner,
+              code.location.bottomRightCorner,
+              "#FF3B58"
+            );
+            drawLine(
+              code.location.bottomRightCorner,
+              code.location.bottomLeftCorner,
+              "#FF3B58"
+            );
+            drawLine(
+              code.location.bottomLeftCorner,
+              code.location.topLeftCorner,
+              "#FF3B58"
+            );
+            outputMessage.hidden = true;
+            output_nameData.parentElement.hidden = false;
+            output_eventData.parentElement.hidden = false;
+            var text_decoder = new TextDecoder("shift-jis");
+            var text = text_decoder.decode(
+              Uint8Array.from(code.binaryData).buffer
+            );
+            var userdata = text.split("/");
+            output_nameData.innerText = userdata[0];
+            output_eventData.innerText = userdata[1];
+          } else {
+            outputMessage.hidden = false;
+            output_nameData.parentElement.hidden = true;
+            output_eventData.parentElement.hidden = true;
+          }
+        }
+        requestAnimationFrame(tick);
+      }
+        });
+      });
+      
+    </script>
   </body>
 </html>

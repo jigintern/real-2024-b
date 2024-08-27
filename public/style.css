@@ -1,6 +1,10 @@
 body {
   font-family: "ヒラギノ角ゴ ProN W3", "游ゴシック", sans-serif;
-  height: 100vh;
+  overflow: scroll;
+}
+
+#header {
+  height: 15vh;
 }
 
 #container {
@@ -114,4 +118,11 @@ body {
   font-size: large;
   width: 60vw;
   height: 60px;
+}
+
+#recordContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: right;
+  margin-top: 20px;
 }
