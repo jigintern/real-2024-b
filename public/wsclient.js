@@ -5,7 +5,7 @@ const socket = new WebSocket(
     `${protocol}://${uri.host}/start_web_socket?username=${myUsername}`, // put username from url
 );
 
-socket?.onmessage = (m) => {
+socket.onmessage = (m) => {
   // 接続したときの処理
   const data = JSON.parse(m.data);
 
@@ -30,7 +30,7 @@ socket?.onmessage = (m) => {
 
 // sendPair(自分の名前、相手の名前)でサーバに送信する
 function sendPair(myName, pairName){
-  socket?.send(
+  socket.send(
     JSON.stringify({
       event: "matching-request",
       myName: myName,
