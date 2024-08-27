@@ -71,11 +71,26 @@
           <div class="col-sm-6">
             <div>
               <button class="btn btn-primary" value="100" name="size" id="qrBtn">
-                <img src="./img/readQR.png" alt="QRコード読み取り" id="readQrImg" />
+                QRを表示
+                <!-- <img src="./img/readQR.png" alt="QRコード読み取り" id="readQrImg" /> -->
               </button>
             </div>
           </div>
           <div id="QRCode"></div>
+        </div>
+      </div>
+      <div id="recordContainer">
+        <div id="loadingMessage">
+          <!-- 🎥 Unable to access video stream (please make sure you have a webcam
+          enabled) -->
+        </div>
+        <canvas id="canvas" hidden></canvas>
+        <div id="output" hidden>
+          <div id="outputMessage">No QR code detected.</div>
+          <div hidden><b>なまえ:</b> <span id="output_nameData"></span></div>
+          <div hidden>
+            <b>最近のできごと:</b> <span id="output_eventData"></span>
+          </div>
         </div>
       </div>
       <div id="icon">
@@ -88,20 +103,6 @@
       </div>
       <div>
         <button id="editButton">Edit</button>
-      </div>
-      <div id="recordContainer">
-        <div id="loadingMessage">
-          🎥 Unable to access video stream (please make sure you have a webcam
-          enabled)
-        </div>
-        <canvas id="canvas" hidden></canvas>
-        <div id="output" hidden>
-          <div id="outputMessage">No QR code detected.</div>
-          <div hidden><b>なまえ:</b> <span id="output_nameData"></span></div>
-          <div hidden>
-            <b>最近のできごと:</b> <span id="output_eventData"></span>
-          </div>
-        </div>
       </div>
     </div>
     <script>
