@@ -19,6 +19,12 @@
           document.getElementById("iconImg").src = localStorage.getItem("icon");
         }
 
+        if (localStorage.getItem("icon")) {
+          document.getElementById("iconImg").src = localStorage.getItem("icon");
+        } else {
+          document.getElementById("iconImg").src = "img/noImage.jpg";
+        }
+
         signUpButton.addEventListener("click", function (event) {
           localStorage.setItem("name", nameInput.value);
           localStorage.setItem("active", activeInput.value);
@@ -49,7 +55,12 @@
         </div>
         <div id="icon">
           <img src="img/noImage.jpg" alt="icon image" id="iconImg" />
-          <input type="file" id="iconInput" onchange="previewIcon(this)" />
+          <input
+            type="file"
+            id="iconInput"
+            onchange="previewIcon(this)"
+            accept=".jpg, .jpeg, .png, .HEIC"
+          />
         </div>
         <div class="inputContainer">
           <label>最近の出来事</label>

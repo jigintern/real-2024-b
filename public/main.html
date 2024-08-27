@@ -12,7 +12,12 @@
         const active = document.getElementById("active");
         active.innerHTML = localStorage.getItem("active");
         const editButton = document.getElementById("editButton");
-        document.getElementById("iconImg").src = localStorage.getItem("icon");
+
+        if (localStorage.getItem("icon")) {
+          document.getElementById("iconImg").src = localStorage.getItem("icon")
+        } else {
+          document.getElementById("iconImg").src = "img/noImage.jpg";
+        }
 
         editButton.addEventListener("click", function (event) {
           localStorage.setItem("active", "");
@@ -58,16 +63,10 @@
     </script>
   </head>
   <body>
-    <!-- <div id="readQrContainer">
-      <a href="./match.html" id="qrLink">
-        <img src="./img/readQR.png" alt="QRコード読み取り" id="readQrImg" />
-      </a>
-    </div> -->
     <header id="header"></header>
     <div id="container">
       <div id="QR">
         <div id="QRCode"></div>
-        <!-- <img src="./img/QR.jpg" alt="QRコード" id="qrImg" /> -->
         <div>
           <div class="col-sm-6">
             <div>
