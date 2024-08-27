@@ -1,34 +1,65 @@
 let data1 = "2024-06-01";
 String(data1);
-const data = [
-  { date: data1, count: 6 },
-  { date: "2024-08-02", count: 6 },
+const heatmapData = [
+  { date: data1, value: 6 },
+  { date: "2024-08-02", value: 6 },
 ];
 const cal = new CalHeatmap();
-const now = new Date();
-cal.paint(
-  {
-    itemSelector: document.getElementById("cal-heatmap"),
-    //or itemSelector: document.getElementById('cal-heatmap'),
-
-    domain: { type: "month", gutter: 2 },
-    subDomain: { type: "ghDay", label: "DD", width: 30, height: 30 },
-    domainLabelFormat: "%Y-%m",
-    date: {
-      start: new Date(now.getFullYear(), now.getMonth() - 10),
+const domain = {
+  type: 'month',
+  gutter: 2,
+  padding: [0, 0, 0, 0],
+  label: {
+    text: 'M月',
+    position: 'top',
+    textAlign: 'start',
+    offset: {
+      x: 0,
+      y: 0
     },
-    data: {
-      source: data,
-      x: "date",
-      y: "count",
-    },
-    scale: {
-      color: {
-        // Try some values: Purples, Blues, Turbo, Magma, etc ...
-        scheme: "Greens",
-        type: "linear",
-        domain: [0, 30],
-      },
-    },
+    rotate: null,
   },
-);
+  sort: 'asc'
+}
+
+const subDomain = {
+ type: 'ghDay',
+ gutter: 2,
+ width: 11,
+ height: 11,
+ radius: 2,
+ label: null
+};
+
+const date = {
+ start: new Date(),
+ highlight: [new Date()],
+ locale: 'ja',
+ timezone: 'Asia/Tokyo'
+};
+
+const data = {
+source: heatmapData,
+x: 'date',
+y: (d) => +d['value'],
+defaultValue: null
+};
+
+const scale = {
+color: {
+ range: ['#e6e6e6', '#4dd05a'],
+ domain: [1],
+ type: 'threshold',
+}
+};
+
+const options = {
+itemSelector: '#cal-heatmap',
+domain,
+subDomain,
+date,
+data,
+scale
+};
+
+cal.paint(options);
