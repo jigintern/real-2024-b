@@ -66,7 +66,7 @@ Deno.serve({
         const username = new URL(req.url).searchParams.get("name");
         const activity = new URL(req.url).searchParams.get("active");
         const kv = getkvData(username,activity);
-        kv.im
+        const img = kv.image;
       }
       // publicフォルダ内にあるファイルを返す
       return serveDir(req, {
