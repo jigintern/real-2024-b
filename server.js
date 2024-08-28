@@ -34,7 +34,7 @@ Deno.serve({
             const previousName = waitingList.get(data.pairName);  // get previous user's name
             if((previousName != null) && (previousName === data.myName)){
               // マッチングに成功した時の処理
-              const json = JSON.stringify({event: "matching-success"});
+              const json = JSON.stringify({event: "matching-success", pairName: data.pairName, pairActive: data.pairActive});
               const clientA = clientsMap.get(data.myName);
               clientA.send(json);
               const clientB = clientsMap.get(data.pairName);
@@ -61,12 +61,13 @@ Deno.serve({
       const pathname = new URL(req.url).pathname;
       console.log(pathname);
 
-
       if (req.method === "GET" && pathname === "/image") {
         const username = new URL(req.url).searchParams.get("name");
         const activity = new URL(req.url).searchParams.get("active");
-        const kv = getkvData(username,activity);
-        const img = kv.image;
+        const kv = getkvData();
+        const img = getActivityImage(kv,username,activity);
+        console.log()
+        return new Response(img);
       }
       // publicフォルダ内にあるファイルを返す
       return serveDir(req, {
@@ -82,4 +83,9 @@ Deno.serve({
 
 async function getkvData(){
   return await Deno.openKv(Deno.env.get(URL));
+}
+
+async function getActivityImage(kv, username, activity){
+  const actGet = await kv.get(["username", username, "activity", activity, "image"]);
+  return actGet.value;
 }

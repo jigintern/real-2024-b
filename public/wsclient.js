@@ -10,14 +10,18 @@ socket.onmessage = (m) => {
   const data = JSON.parse(m.data);
 
   switch (data.event) {
+    
     // 送ってきた“もの”のイベント類
     case "connected": 
       // Todo: 接続成功した時の処理
       break;
 
     case "matching-success":
+      const pairName = waitingList.get(data.pairName); 
+      const pairActive = waitingList.get(data.pairActive); 
+      console.log(pairActive);
       // Todo: マッチング成功したときの処理
-      window.location.href = "/match.html";
+      window.location.href = "/match.html?name=" + pairName + "?activity=" + pairActive;
       // change page
       break;
     case "send-success":
