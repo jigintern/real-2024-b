@@ -43,7 +43,7 @@
     <script src="./wsclient.js"></script>
     <script type="text/javascript">
       $(document).ready(function () {
-        $("button[name='size']").on("click", function (e) {
+        $("button[id='qrBtn']").on("click", function (e) {
           const qrBtn = document.getElementById("qrBtn");
           qrBtn.style.display = "none";
           var name = localStorage.getItem("name");  // myUsername
@@ -70,7 +70,7 @@
     </script>
     <script>
       $(document).ready(function () {
-      $("button[name='size']").on("click", function (e) {
+      $("button[id='qrBtn']").on("click", function (e) {
         var video = document.createElement("video");
         var canvasElement = document.getElementById("canvas");
         var canvas = canvasElement.getContext("2d");
