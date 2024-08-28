@@ -72,6 +72,7 @@ Deno.serve({
         const json = await req.json();
         const username = json["user_name"];
         const activity = json["activity"];
+        // pngをjpegに変えること
         const image = json["image"];
 
         saveAll(await dbClient, username, activity, image, timeNow);
