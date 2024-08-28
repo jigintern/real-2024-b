@@ -50,6 +50,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 25vh;
+  width: 100%;
 }
 
 #iconImg {
@@ -101,7 +102,7 @@ body {
 #activeImg {
   height: 80%;
   width: 80%;
-  border-radius: 10%;
+  /* border-radius: 15%; */
   object-fit: cover;
   border: 1px solid #000;
 }
@@ -124,6 +125,7 @@ body {
 #nameInput {
   width: 80%;
   height: 40px;
+  font-size: x-large;
 }
 
 #iconInput {
@@ -133,6 +135,7 @@ body {
 #activeInput {
   width: 80%;
   height: 40px;
+  font-size: x-large;
 }
 
 #signUpButton,
@@ -163,17 +166,21 @@ body {
   margin-top: 20px;
 }
 
-footer { /* ここからがfooterのcssです　ぐちゃぐちゃになっていますが一応うごきます*/
+footer {
+  /* ここからがfooterのcssです　ぐちゃぐちゃになっていますが一応うごきます*/
   display: flex;
   justify-content: space-around;
   position: fixed;
   bottom: 0;
   width: 100%;
-  background-color: rgb(200, 200, 200,0.3);
+  background-color: rgb(200, 200, 200, 0.3);
 }
-#footterSearchButton, #footterHomeButton, #editButton{/* ボタンをまとめてます*/
-  background: transparent;/* ボタン画像の背景を透明にします*/
-  border: 2px solid transparent;/* ボタン画像の外枠を透明にします*/
+#footterSearchButton,
+#footterHomeButton,
+#editButton {
+  /* ボタンをまとめてます*/
+  background: transparent; /* ボタン画像の背景を透明にします*/
+  border: 2px solid transparent; /* ボタン画像の外枠を透明にします*/
 }
 
 #footer_margine {

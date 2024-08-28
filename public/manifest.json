@@ -1,8 +1,8 @@
 {
   "name": "HeyHey",
   "short_name": "HeyHey",
-  "theme_color": "#cornflowerblue",
-  "background_color": "#cornflowerblue",
+  "theme_color": "#6495ed",
+  "background_color": "#6495ed",
   "display": "standalone",
   "start_url": "./index.html",
   "icons": [
