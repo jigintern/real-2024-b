@@ -10,6 +10,8 @@
       document.addEventListener("DOMContentLoaded", function () {
         const name = localStorage.getItem("pairName");
         const active = localStorage.getItem("pairActive");
+        document.getElementById('pairName').innerHTML = name;
+        document.getElementById('pairActive').innerHTML = active;
         const homeButton = document.getElementById("homeButton");
         homeButton.addEventListener("click", function (event) {
           window.location.href = "/main.html";
