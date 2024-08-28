@@ -5,6 +5,19 @@
     <meta charset="utf-8" />
     <title>HeyHey</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="manifest" href="manifest.json" />
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register("./sw.js")
+          .then((registration) => {
+            console.log("ServiceWorker registration successful.");
+          })
+          .catch((err) => {
+            console.log("ServiceWorker registration failed.");
+          });
+      }
+    </script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const signUpButton = document.getElementById("signUpButton");
@@ -47,7 +60,7 @@
             );
             // 名前と最近の出来事が正しく入力されている場合localStorageに保存
           } else {
-            localStorage.setItem("name", nameInput.value);     // save name
+            localStorage.setItem("name", nameInput.value); // save name
             localStorage.setItem("active", activeInput.value); // save activity
           }
         });
@@ -107,7 +120,6 @@
           />
         </div>
         <div class="inputContainer">
-
           <label>最近の出来事</label>
           <input
             type="text"
