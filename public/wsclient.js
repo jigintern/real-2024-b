@@ -5,7 +5,7 @@ const socket = new WebSocket(
     `${protocol}://${uri.host}/start_web_socket?username=${myUsername}`, // put username from url
 );
 
-socket.onmessage = async(m) => {
+socket.onmessage = (m) => {
   // 接続したときの処理
   const data = JSON.parse(m.data);
 
@@ -17,7 +17,7 @@ socket.onmessage = async(m) => {
 
     case "matching-success":
       // Todo: マッチング成功したときの処理
-      await audio.play();
+      //await audio.play();
       window.location.href = "/match.html"; // change page
       break;
 

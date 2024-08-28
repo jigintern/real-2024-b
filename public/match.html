@@ -8,10 +8,10 @@
     <link rel="manifest" href="manifest.json" />
     <script>
       var audio;
+      if(!audio){
+        audio = new Audio('./audio/heyhey-aoi.wav');;
+      }
       document.addEventListener("DOMContentLoaded", function () {
-        if(!audio){
-          audio = new Audio('./audio/heyhey-aoi.wav');;
-        }
         audio.play();        
         const name = document.getElementById("pairName");
         name.innerHTML = localStorage.getItem("pairName");
