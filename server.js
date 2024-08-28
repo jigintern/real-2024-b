@@ -6,7 +6,11 @@ import { serveDir } from "http/file_server.ts";
 import { load } from "https://deno.land/std@0.203.0/dotenv/mod.ts"
 const waitingList = new Map();  
 const clientsMap = new Map();   // all clients
-/**
+ if (req.method === "GET" && pathname === "/image") {
+        const pairName = new URL(req.url).searchParams.get("name");
+        const pairActive = new URL(req.url).searchParams.get("active");
+        const kv = getkvData();
+      }/**
  * APIリクエストを処理する
  */
 Deno.serve({
@@ -29,7 +33,7 @@ Deno.serve({
           // 送ってきた“もの”のイベント類
           case "matching-request": 
             clientsMap.set(data.myName, socket);
-            console.log(`matching-request received! user-data: ${data.myName},${data.pairName}`);
+            console.log(`matching-request received! user-data: ${data.myName},${data.pairName},${data.pairActive}`);
             const previousName = waitingList.get(data.pairName);  // get previous user's name
             if((previousName != null) && (previousName === data.myName)){
               // マッチングに成功した時の処理
@@ -59,7 +63,8 @@ Deno.serve({
     }else{
       const pathname = new URL(req.url).pathname;
       console.log(pathname);
-
+    
+     
       // publicフォルダ内にあるファイルを返す
       return serveDir(req, {
 

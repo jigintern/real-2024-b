@@ -18,7 +18,6 @@
         } else {
           document.getElementById("iconImg").src = "img/noImage.jpg";
         }
-
         if (localStorage.getItem("activeImg")) {
           document.getElementById("activeImg").src = localStorage.getItem("activeImg")
         } else {
@@ -158,7 +157,7 @@
             const pairName = localStorage.setItem("pairName", userdata[0]);
             const pairActive = localStorage.setItem("pairActive", userdata[1]);
             const myUsername = localStorage.getItem("name");  // get myUsername
-            sendPair(myUsername, userdata[0]);
+            sendPair(myUsername, userdata[0], userdata[1]);
             //stopStream();
             //canvasElement.hidden = true;
             var audio = new Audio('./audio/heyhey-aoi.wav');  // get audio file
