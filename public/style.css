@@ -151,3 +151,7 @@ footer { /* ここからがfooterのcssです　ぐちゃぐちゃになって�
   background: transparent;/* ボタン画像の背景を透明にします*/
   border: 2px solid transparent;/* ボタン画像の外枠を透明にします*/
 }
+
+#footer_margine {
+  height: 50px;
+}
