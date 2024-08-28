@@ -1,3 +1,5 @@
 deno.lock
 
 .vscode
+
+.env

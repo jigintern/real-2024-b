@@ -3,7 +3,8 @@
 import { serve } from "http/server.ts";
 // https://deno.land/std@0.194.0/http/file_server.ts?s=serveDir
 import { serveDir } from "http/file_server.ts";
-import { load } from "https://deno.land/std@0.203.0/dotenv/mod.ts"
+import "https://deno.land/std@0.203.0/dotenv/mod.ts";
+
 const waitingList = new Map();  
 const clientsMap = new Map();   // all clients
 /**
@@ -73,7 +74,7 @@ Deno.serve({
         const activity = json["activity"];
         const image = json["image"];
 
-        saveAll(dbClient, username, activity, image, timeNow);
+        saveAll(await dbClient, username, activity, image, timeNow);
       }
 
       // publicフォルダ内にあるファイルを返す
@@ -89,11 +90,11 @@ Deno.serve({
 });
 
 async function getkvData(){
-  console.log(Deno.env.get("URL"));
   return await Deno.openKv(Deno.env.get("URL"));
 }
 
-async function saveAll(kv, username, activity, icon, time){await kv.set(
+async function saveAll(kv, username, activity, icon, time){
+  await kv.set(
     ["username", username, "activity", activity, "image"],
     {
         img: icon,
