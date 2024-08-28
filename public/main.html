@@ -70,6 +70,7 @@
       });
     </script>
     <script>
+      var audio;
       $(document).ready(function () {
       $("button[id='qrBtn']").on("click", function (e) {
         var video = document.createElement("video");
@@ -86,6 +87,9 @@
         homeIconWrap.style.display = "none";
         textContainer.style.display = "none";
         homeActiveImgWrap.style.display = "none";
+        if(!audio){
+          audio = new Audio('./audio/heyhey-aoi.wav');;
+        }
         
 
       function drawLine(begin, end, color) {
