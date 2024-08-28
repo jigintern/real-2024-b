@@ -6,11 +6,7 @@ import { serveDir } from "http/file_server.ts";
 import { load } from "https://deno.land/std@0.203.0/dotenv/mod.ts"
 const waitingList = new Map();  
 const clientsMap = new Map();   // all clients
- if (req.method === "GET" && pathname === "/image") {
-        const pairName = new URL(req.url).searchParams.get("name");
-        const pairActive = new URL(req.url).searchParams.get("active");
-        const kv = getkvData();
-      }/**
+ /**
  * APIリクエストを処理する
  */
 Deno.serve({
@@ -64,8 +60,14 @@ Deno.serve({
     }else{
       const pathname = new URL(req.url).pathname;
       console.log(pathname);
-    
-     
+
+
+      if (req.method === "GET" && pathname === "/image") {
+        const username = new URL(req.url).searchParams.get("name");
+        const activity = new URL(req.url).searchParams.get("active");
+        const kv = getkvData(username,activity);
+        kv.im
+      }
       // publicフォルダ内にあるファイルを返す
       return serveDir(req, {
 
