@@ -60,7 +60,7 @@ Deno.serve({
       const pathname = new URL(req.url).pathname;
       console.log(pathname);
 
-      if(req.method ==="POST" && req.pathname === "/activity"){
+      if(req.method ==="POST" && pathname === "/activity"){
         // アクティビティの保存処理
         const dbClient = getkvData();
 
