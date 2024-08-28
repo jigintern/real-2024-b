@@ -12,10 +12,22 @@
         const active = document.getElementById("active");   
         active.innerHTML = localStorage.getItem("active");  // save activity in localStorage
         const editButton = document.getElementById("editButton");
+        
+        if (localStorage.getItem("icon")) {
+          document.getElementById("iconImg").src = localStorage.getItem("icon") // get user's icon from localStorage
+        } else {
+          document.getElementById("iconImg").src = "img/noImage.jpg";
+        }
+
+        if (localStorage.getItem("activeImg")) {
+          document.getElementById("activeImg").src = localStorage.getItem("activeImg")
+        } else {
+          document.getElementById("activeImg").src = "img/noImage.jpg";
+        }
+
         editButton.addEventListener("click", function (event) {
-          console.log("Edit button clicked");
-          localStorage.setItem("active", "");
-          window.location.href = "/index.html";
+          localStorage.setItem("active", "");   // clear user's activity
+          window.location.href = "/index.html"; // go back to home page(index.html)
         });
       });
     </script>
@@ -31,7 +43,7 @@
     <script src="./wsclient.js"></script>
     <script type="text/javascript">
       $(document).ready(function () {
-        $("button[name='size']").on("click", function (e) {
+        $("button[id='qrBtn']").on("click", function (e) {
           const qrBtn = document.getElementById("qrBtn");
           qrBtn.style.display = "none";
           var name = localStorage.getItem("name");  // myUsername
@@ -56,54 +68,9 @@
         });
       });
     </script>
-  </head>
-  <body>
-    <header id="header"></header>
-    <div id="container">
-      <div id="QR">
-        <div id="QRCode"></div>
-        <div>
-          <div class="col-sm-6">
-            <div>
-              <button class="btn btn-primary" value="180" name="size" id="qrBtn">
-                QRを表示
-                <!-- <img src="./img/readQR.png" alt="QRコード読み取り" id="readQrImg" /> -->
-              </button>
-            </div>
-          </div>
-          <div id="QRCode"></div>
-        </div>
-      </div>
-      <div id="recordContainer">
-        <div id="loadingMessage">
-          <!-- 🎥 Unable to access video stream (please make sure you have a webcam
-          enabled) -->
-        </div>
-        <canvas id="canvas" hidden></canvas>
-        <div id="output" hidden>
-          <div id="outputMessage">No QR code detected.</div>
-          <div hidden><b>なまえ:</b> <span id="output_nameData"></span></div>
-          <div hidden>
-            <b>最近のできごと:</b> <span id="output_eventData"></span>
-          </div>
-        </div>
-      </div>
-      <div id="icon">
-        <img src="img/noImage.jpg" alt="icon image" id="iconImg" />
-        <div id="usrName"></div>
-      </div>
-      <div id="textContainer">
-        <div>最近あったこと</div>
-        <div id="active"></div>
-      </div>
-      <div>
-        <button id="editButton">Edit</button>
-        <button id = heatmapButton type=“button” onclick="location.href='/heatmap.html'">ヒートマップ</button>
-      </div>
-    </div>
     <script>
       $(document).ready(function () {
-      $("button[name='size']").on("click", function (e) {
+      $("button[id='qrBtn']").on("click", function (e) {
         var video = document.createElement("video");
         var canvasElement = document.getElementById("canvas");
         var canvas = canvasElement.getContext("2d");
@@ -265,4 +232,5 @@
     <p></p>
    </div>
   </body>
+  
 </html>

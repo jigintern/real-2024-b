@@ -1,18 +1,17 @@
-let data1 = "2024-06-01";
-String(data1);
 const heatmapData = [
-  { date: data1, value: 6 },
+  { date: "2024-08-01", value: 6 },
   { date: "2024-08-02", value: 6 },
 ];
+const now = new Date();
 const cal = new CalHeatmap();
 const domain = {
   type: 'month',
   gutter: 2,
   padding: [0, 0, 0, 0],
   label: {
-    text: 'M月',
+    text: 'MM月',
     position: 'top',
-    textAlign: 'start',
+    textAlign: 'middle',
     offset: {
       x: 0,
       y: 0
@@ -32,7 +31,7 @@ const subDomain = {
 };
 
 const date = {
- start: new Date(),
+ start: new Date(now.getFullYear(), now.getMonth() - 10),
  highlight: [new Date()],
  locale: 'ja',
  timezone: 'Asia/Tokyo'
@@ -69,4 +68,12 @@ const TOOLTIP_OPTIONS = {
     return `${value ?? 0} 回のあいさつ ${dayjs(dayjsDate).format('YYYY/MM/DD')}`;
   }
 };
-cal.paint(options,[[Tooltip, TOOLTIP_OPTIONS]]);
+cal.paint(options,[[Tooltip, TOOLTIP_OPTIONS]], [
+  [
+    LegendLite,
+    {
+      gutter: 10,
+      itemSelector: '#legend-gutter',
+    },
+  ],
+]);
