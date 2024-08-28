@@ -61,7 +61,7 @@ Deno.serve({
       console.log(pathname);
 
       if(req.method == "POST" && pathname === "/activity"){
-        // アクティビティの保存処理
+        // アクティビティの保存処理aaaaa
         const dbClient = getkvData();
         console.log(await dbClient);
 
