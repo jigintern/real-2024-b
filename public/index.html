@@ -25,6 +25,13 @@
           document.getElementById("iconImg").src = "img/noImage.jpg";
         }
 
+        if (localStorage.getItem("activeImg")) {
+          document.getElementById("activeImg").src =
+            localStorage.getItem("activeImg");
+        } else {
+          document.getElementById("activeImg").src = "img/noImage.jpg";
+        }
+
         signUpButton.addEventListener("click", function (event) {
           // 名前が半角英数字、ひらがな、カタカナ、漢字のみで入力されているか確認
           if (/[^a-zA-Zぁ-んァ-ン一-龯ー]/.test(nameInput.value)) {
@@ -67,6 +74,20 @@
           reader.readAsDataURL(input.files[0]);
         }
       }
+      function activeIcon(input) {
+        // ファイルが選択されているか確認
+        if (input.files && input.files[0]) {
+          const reader = new FileReader();
+          // 画像ファイルを読み込み終えたときに発生するイベント
+          reader.onload = function (e) {
+            // 画像タグのsrcを読み込んだ画像のデータURLに変更
+            document.getElementById("activeImg").src = e.target.result;
+            localStorage.setItem("activeImg", e.target.result);
+          };
+          // ファイルをデータURLとして読み込む
+          reader.readAsDataURL(input.files[0]);
+        }
+      }
     </script>
   </head>
   <body>
@@ -76,8 +97,7 @@
           <label>名前</label>
           <input type="text" id="nameInput" placeholder="名前を入力" required />
         </div>
-
-        <div id="icon">
+        <div class="imgWrap">
           <img src="img/noImage.jpg" alt="icon image" id="iconImg" />
           <input
             type="file"
@@ -94,6 +114,15 @@
             id="activeInput"
             placeholder="最近の出来事を入力"
             required
+          />
+        </div>
+        <div class="imgWrap">
+          <img src="img/noImage.jpg" alt="activity image" id="activeImg" />
+          <input
+            type="file"
+            id="iconInput"
+            onchange="activeIcon(this)"
+            accept=".jpg, .jpeg, .png"
           />
         </div>
         <div class="buttonContainer">
