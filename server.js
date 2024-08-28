@@ -89,6 +89,7 @@ Deno.serve({
 });
 
 async function getkvData(){
+  console.log(Deno.env.get("URL"));
   return await Deno.openKv(Deno.env.get("URL"));
 }
 
