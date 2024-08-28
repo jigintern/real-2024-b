@@ -1,6 +1,8 @@
 body {
   font-family: "ヒラギノ角ゴ ProN W3", "游ゴシック", sans-serif;
   overflow: scroll;
+  margin-right: 0;
+  margin-left: 0;
 }
 
 #header {
@@ -13,6 +15,7 @@ body {
   justify-content: space-evenly;
   flex-direction: column;
   align-items: center;
+  display: flex;
 }
 
 .inputContainer {
@@ -133,7 +136,6 @@ body {
 }
 
 #signUpButton,
-#editButton,
 #homeButton {
   border: 0;
   border-radius: 3.75rem;
@@ -159,4 +161,21 @@ body {
   flex-direction: column;
   justify-content: right;
   margin-top: 20px;
+}
+
+footer { /* ここからがfooterのcssです　ぐちゃぐちゃになっていますが一応うごきます*/
+  display: flex;
+  justify-content: space-around;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: rgb(200, 200, 200,0.3);
+}
+#footterSearchButton, #footterHomeButton, #editButton{/* ボタンをまとめてます*/
+  background: transparent;/* ボタン画像の背景を透明にします*/
+  border: 2px solid transparent;/* ボタン画像の外枠を透明にします*/
+}
+
+#footer_margine {
+  height: 50px;
 }
