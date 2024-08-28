@@ -62,16 +62,16 @@
           } else {
             localStorage.setItem("name", nameInput.value); // save name
             localStorage.setItem("active", activeInput.value); // save activity
+            await fetch("/activity",{
+              method: "POST",
+              headers: {'Content-Type': 'application/json'},
+              body: JSON.stringify({
+                user_name: nameInput.value,
+                activity: activeInput.value,
+                image: localStorage.getItem("activeImg"),
+              })
+            });
           }
-          await fetch("/activity",{
-            method: "POST",
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-              user_name: nameInput.value,
-              activity: activeInput.value,
-              image: localStorage.getItem("activeImg"),
-            })
-          });
         });
         // ユーザが名前を書き換えたらエラーを消す処理
         nameInput.addEventListener("input", (e) => {
