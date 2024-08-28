@@ -155,10 +155,14 @@
             var userdata = text.split("/"); // userdata received from qr
             output_nameData.innerText = userdata[0];  // pair's username
             output_eventData.innerText = userdata[1]; // pair's user activity
+            const pairName = localStorage.setItem("pairName", userdata[0]);
+            const pairActive = localStorage.setItem("pairActive", userdata[1]);
             const myUsername = localStorage.getItem("name");  // get myUsername
             sendPair(myUsername, userdata[0]);
             //stopStream();
             //canvasElement.hidden = true;
+            var audio = new Audio('./audio/heyhey-aoi.wav');  // get audio file
+            audio.play(); // play audio
             return;
           } else {
             outputMessage.hidden = false;
