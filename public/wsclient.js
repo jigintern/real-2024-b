@@ -17,6 +17,8 @@ socket.onmessage = (m) => {
 
     case "matching-success":
       // Todo: マッチング成功したときの処理
+      var audio = new audio('./audio/goong.mp3');
+      audio.play();
       window.location.href = "/match.html"; // change page
       break;
 
