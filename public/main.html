@@ -19,6 +19,12 @@
           document.getElementById("iconImg").src = "img/noImage.jpg";
         }
 
+        if (localStorage.getItem("activeImg")) {
+          document.getElementById("activeImg").src = localStorage.getItem("activeImg")
+        } else {
+          document.getElementById("activeImg").src = "img/noImage.jpg";
+        }
+
         editButton.addEventListener("click", function (event) {
           localStorage.setItem("active", "");   // clear user's activity
           window.location.href = "/index.html"; // go back to home page(index.html)
@@ -168,11 +174,6 @@
     </script>
   </head>
   <body>
-    <!-- <div id="readQrContainer">
-      <a href="./match.html" id="qrLink">
-        <img src="./img/readQR.png" alt="QRコード読み取り" id="readQrImg" />
-      </a>
-    </div> -->
     <header id="header"></header>
     <div id="container">
       <div id="QR">
@@ -180,9 +181,8 @@
         <div>
           <div class="col-sm-6">
             <div>
-              <button class="btn btn-primary" value="100" name="size" id="qrBtn">
+              <button class="btn btn-primary" value="180" name="size" id="qrBtn">
                 QRを表示
-                <!-- <img src="./img/readQR.png" alt="QRコード読み取り" id="readQrImg" /> -->
               </button>
             </div>
           </div>
@@ -191,8 +191,6 @@
       </div>
       <div id="recordContainer">
         <div id="loadingMessage">
-          <!-- 🎥 Unable to access video stream (please make sure you have a webcam
-          enabled) -->
         </div>
         <canvas id="canvas" hidden></canvas>
         <div id="output" hidden>
@@ -203,13 +201,16 @@
           </div>
         </div>
       </div>
-      <div id="icon">
+      <div class="imgWrap">
         <img src="img/noImage.jpg" alt="icon image" id="iconImg" />
         <div id="usrName"></div>
       </div>
       <div id="textContainer">
         <div>最近あったこと</div>
         <div id="active"></div>
+      </div>
+      <div id="homeActiveImgWrap">
+        <img src="img/noImage.jpg" alt="activity image" id="activeImg" class="homeActiveImg" />
       </div>
       <div>
         <button id="editButton">Edit</button>
