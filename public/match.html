@@ -12,11 +12,7 @@
         const active = document.getElementById("pairActive");
         name.innerHTML = localStorage.getItem("pairName");
         active.innerHTML = localStorage.getItem("pairActive");
-        const response = fetch("/image?name=" + name + "?active=" + active);
-        document.getElementById("server_response").innerText = response.text();
-
         const homeButton = document.getElementById("homeButton");
-        
         homeButton.addEventListener("click", function (event) {
           window.location.href = "/main.html";
         });
