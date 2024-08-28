@@ -19,9 +19,11 @@ socket.onmessage = (m) => {
     case "matching-success":
       const pairName = data.pairName; 
       const pairActive = data.pairActive; 
+      localStorage.setItem("pairName", pairName);
+      localStorage.setItem("pairActive", pairActive);
       console.log(pairActive);
       // Todo: マッチング成功したときの処理
-      window.location.href = "/match.html?name=" + pairName + "?activity=" + pairActive;
+      window.location.href = "/match.html";
       // change page
       break;
     case "send-success":
