@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <title>HeyHey</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="manifest" href="manifest.json">
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const name = document.getElementById("usrName");
@@ -78,6 +79,13 @@
         var outputMessage = document.getElementById("outputMessage");
         var output_nameData = document.getElementById("output_nameData");
         var output_eventData = document.getElementById("output_eventData");
+        const homeIconWrap = document.getElementById("homeIconWrap");
+        const textContainer = document.getElementById("textContainer");
+        const homeActiveImgWrap = document.getElementById("homeActiveImgWrap");
+        homeIconWrap.style.display = "none";
+        textContainer.style.display = "none";
+        homeActiveImgWrap.style.display = "none";
+        
 
       function drawLine(begin, end, color) {
         canvas.beginPath();
@@ -204,16 +212,16 @@
           </div>
         </div>
       </div>
-      <div class="imgWrap">
+      <div id="homeIconWrap" class="imgWrap">
         <img src="img/noImage.jpg" alt="icon image" id="iconImg" />
         <div id="usrName"></div>
       </div>
       <div id="textContainer">
-        <div>最近あったこと</div>
+        <!-- <div>最近の出来事</div> -->
         <div id="active"></div>
       </div>
       <div id="homeActiveImgWrap">
-        <img src="img/noImage.jpg" alt="activity image" id="activeImg" class="homeActiveImg" />
+        <img src="img/noImage.jpg" alt="activity image" id="activeImg" class="homeActiveImg"/>
       </div>
     </div>
     <div>
