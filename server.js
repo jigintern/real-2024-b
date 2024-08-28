@@ -63,6 +63,7 @@ Deno.serve({
       if(req.method == "POST" && pathname === "/activity"){
         // アクティビティの保存処理
         const dbClient = getkvData();
+        console.log(await dbClient);
 
         const dateNow = new Date();
         const timeNow = dateNow.toISOString();
