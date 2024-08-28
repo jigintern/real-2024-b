@@ -62,8 +62,11 @@ data,
 scale
 };
 
-cal.paint(options,{
+// PopperOptions, see https://popper.js.org/docs/v2/constructors/#options
+const TOOLTIP_OPTIONS = {
   enabled: true,
   text: (_, value, dayjsDate) => {
-    return `${value ?? 0} 件の投稿 ${dayjs(dayjsDate).format('YYYY/MM/DD')}`;
-  }});
+    return `${value ?? 0} 回のあいさつ ${dayjs(dayjsDate).format('YYYY/MM/DD')}`;
+  }
+};
+cal.paint(options,[[Tooltip, TOOLTIP_OPTIONS]]);
