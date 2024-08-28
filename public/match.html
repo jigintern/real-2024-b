@@ -11,6 +11,9 @@
         const name = localStorage.getItem("pairName");
         const active = localStorage.getItem("pairActive");
         const homeButton = document.getElementById("homeButton");
+        name.innerHTML = localStorage.getItem("pairName");
+        const active = document.getElementById("pairActive");
+        active.innerHTML = localStorage.getItem("pairActive");
         homeButton.addEventListener("click", function (event) {
           window.location.href = "/main.html";
         });
