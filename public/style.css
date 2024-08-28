@@ -27,15 +27,6 @@ body {
   height: 100%;
 }
 
-.inputContainer2 {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-}
-
 .buttonContainer {
   display: flex;
   justify-content: center;
@@ -50,6 +41,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 25vh;
+  width: 100%;
 }
 
 #iconImg {
@@ -101,7 +93,7 @@ body {
 #activeImg {
   height: 80%;
   width: 80%;
-  border-radius: 10%;
+  /* border-radius: 15%; */
   object-fit: cover;
   border: 1px solid #000;
 }
@@ -124,6 +116,7 @@ body {
 #nameInput {
   width: 80%;
   height: 40px;
+  font-size: x-large;
 }
 
 #iconInput {
@@ -133,6 +126,7 @@ body {
 #activeInput {
   width: 80%;
   height: 40px;
+  font-size: x-large;
 }
 
 #signUpButton,
@@ -164,14 +158,22 @@ body {
 }
 
 footer {
+  /* ここからがfooterのcssです　ぐちゃぐちゃになっていますが一応うごきます*/
+  display: flex;
+  justify-content: space-around;
   position: fixed;
   bottom: 0;
   width: 100%;
-  background-color: aqua;
+  background-color: rgb(200, 200, 200, 0.3);
 }
-#footterSearchButton, #footterHomeButton, #editButton{
-  display:inline-flexbox;
-  background: transparent;
-  border: 2px solid transparent;
-  justify-content:space-around;
+#footterSearchButton,
+#footterHomeButton,
+#editButton {
+  /* ボタンをまとめてます*/
+  background: transparent; /* ボタン画像の背景を透明にします*/
+  border: 2px solid transparent; /* ボタン画像の外枠を透明にします*/
+}
+
+#footer_margine {
+  height: 50px;
 }
