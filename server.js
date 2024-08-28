@@ -3,7 +3,7 @@
 import { serve } from "http/server.ts";
 // https://deno.land/std@0.194.0/http/file_server.ts?s=serveDir
 import { serveDir } from "http/file_server.ts";
-
+import { load } from "https://deno.land/std@0.203.0/dotenv/mod.ts"
 const waitingList = new Map();  
 const clientsMap = new Map();   // all clients
 /**
@@ -72,4 +72,6 @@ Deno.serve({
   }
 });
 
-
+async function getkvData(){
+  return await Deno.openKv(Deno.env.get(URL));
+}
