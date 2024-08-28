@@ -1,6 +1,8 @@
 body {
   font-family: "ヒラギノ角ゴ ProN W3", "游ゴシック", sans-serif;
   overflow: scroll;
+  margin-right: 0;
+  margin-left: 0;
 }
 
 #header {
