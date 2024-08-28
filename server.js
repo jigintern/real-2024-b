@@ -89,7 +89,7 @@ Deno.serve({
 });
 
 async function getkvData(){
-  return await Deno.openKv(Deno.env.get(URL));
+  return await Deno.openKv(Deno.env.get("URL"));
 }
 
 async function saveAll(kv, username, activity, icon, time){await kv.set(
