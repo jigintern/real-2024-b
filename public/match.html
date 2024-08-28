@@ -8,15 +8,9 @@
     <link rel="manifest" href="manifest.json" />
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        const response = fetch("/image?name=" + name.innerHTML + "?active=" + active.innerHTML);
-        const name = document.getElementById("pairName");
-        name.innerHTML = localStorage.getItem("pairName");
-        const active = document.getElementById("pairActive");
-        active.innerHTML = localStorage.getItem("pairActive");
+        const name = localStorage.getItem("pairName");
+        const active = localStorage.getItem("pairActive");
         const homeButton = document.getElementById("homeButton");
-        
-        const imgBinary = response.text();
-        
         homeButton.addEventListener("click", function (event) {
           window.location.href = "/main.html";
         });
