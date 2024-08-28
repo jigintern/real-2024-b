@@ -17,8 +17,8 @@ socket.onmessage = (m) => {
       break;
 
     case "matching-success":
-      const pairName = waitingList.get(data.pairName); 
-      const pairActive = waitingList.get(data.pairActive); 
+      const pairName = data.pairName; 
+      const pairActive = data.pairActive; 
       console.log(pairActive);
       // Todo: マッチング成功したときの処理
       window.location.href = "/match.html?name=" + pairName + "?activity=" + pairActive;
