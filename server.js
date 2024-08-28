@@ -59,7 +59,14 @@ Deno.serve({
     }else{
       const pathname = new URL(req.url).pathname;
       console.log(pathname);
-
+      if (req.method === "GET" && pathname === "/image") {
+        const name = new URL(req.url).searchParams.get("name");
+        const active = new URL(req.url).searchParams.get("active");
+        kv = getkvData();
+        const getResult = await kv.get([name, active]);
+        return new Response("Hello, " + param);
+      }
+    
       // publicフォルダ内にあるファイルを返す
       return serveDir(req, {
 
