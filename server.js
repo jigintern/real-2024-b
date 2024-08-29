@@ -118,7 +118,7 @@ async function saveAll(kv, username, activity, icon, time){
 
 async function saveMatchAll(kv, username, pairname, pairactive, time){
   await kv.set(
-    ["username", username, "time", time, "history"],
+    ["username", username, "history","time", time],
     {   //value
       pairName: pairname,
       pairActive:pairactive,
