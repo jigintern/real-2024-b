@@ -25,7 +25,7 @@ Deno.serve({
           event: "connected",
         }));
       };
-      socket.onmessage = (message) => {
+      socket.onmessage = async (message) => {
         const data = JSON.parse(message.data);
         // 受信したときの処理
         switch (data.event) {
@@ -44,8 +44,8 @@ Deno.serve({
               const pairactive = userDataMap.get(data.pairActive);
               const nowDate = new Date();//今の時間を変数に入れる
               const timeNow = nowDate.toISOString();
-              const kv = getkvData();//databaseを開く
-              saveMatchAll(kv, username, pairname, pairactive, timeNow)
+              const kv = await getkvData();//databaseを開く
+              saveMatchAll(await kv, username, pairname, pairactive, timeNow)
               const json = JSON.stringify({event: "matching-success", pairName: data.pairName, pairActive: data.pairActive});
               const clientA = clientsMap.get(data.myName);
               clientA.send(json);
