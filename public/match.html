@@ -65,7 +65,7 @@
             method: "GET",
             headers: { "Content-Type": "application/json" },
           });
-          const json = await activeImage.json();
+          const json = await userIcon.json();
           const pairIconImage = json["image"];
           document.getElementById("iconImg").src = pairIconImage;  // 相手のアイコンの画像をここに入れる
         }
