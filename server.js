@@ -83,7 +83,11 @@ Deno.serve({
         const image = json["image"];
 
         const result = await saveAll(dbClient, username, activity, image, timeNow);
-        return new Response(result);
+        return new Response(JSON.stringify({
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({hello: "hello world!"})
+          }),
+        );
       }
 
 
