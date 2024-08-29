@@ -35,7 +35,10 @@ Deno.serve({
             const previousName = waitingList.get(data.pairName);  // get previous user's name
             if((previousName != null) && (previousName === data.myName)){
               // マッチングに成功した時の処理
-              const json = JSON.stringify({event: "matching-success", pairName: data.pairName, pairActive: data.pairActive});
+              const json = JSON.stringify({event: "matching-success", 
+                pairName: data.pairName, 
+                pairActive: data.pairActive
+              });
               const clientA = clientsMap.get(data.myName);
               clientA.send(json);
               const clientB = clientsMap.get(data.pairName);

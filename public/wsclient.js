@@ -17,12 +17,11 @@ socket.onmessage = (m) => {
       break;
 
     case "matching-success":
+      // Todo: マッチング成功したときの処理
       const pairName = data.pairName; 
       const pairActive = data.pairActive; 
-      localStorage.setItem("pairName", pairName);
-      localStorage.setItem("pairActive", pairActive);
       console.log(pairActive);
-      // Todo: マッチング成功したときの処理
+      
       audio.play();
       // Add an event listener for the 'ended' event
       audio.addEventListener('ended', function() {

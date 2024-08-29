@@ -6,6 +6,33 @@
     <title>HeyHey</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="manifest" href="manifest.json" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="img/favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="img/favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="img/favicon/favicon-16x16.png"
+    />
+    <link
+      rel="mask-icon"
+      href="img/favicon/safari-pinned-tab.svg"
+      color="#5bbad5"
+    />
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.0/dist/browser-image-compression.js"
+    ></script>
+    <script src="compressImg.js"></script>
     <script>
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker
@@ -62,14 +89,14 @@
           } else {
             localStorage.setItem("name", nameInput.value); // save name
             localStorage.setItem("active", activeInput.value); // save activity
-            await fetch("/activity",{
+            await fetch("/activity", {
               method: "POST",
-              headers: {'Content-Type': 'application/json'},
+              headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
                 user_name: nameInput.value,
                 activity: activeInput.value,
                 image: localStorage.getItem("activeImg"),
-              })
+              }),
             });
           }
         });
@@ -82,34 +109,34 @@
           activeInput.setCustomValidity("");
         });
       });
-      function previewIcon(input) {
-        // ファイルが選択されているか確認
-        if (input.files && input.files[0]) {
-          const reader = new FileReader();
-          // 画像ファイルを読み込み終えたときに発生するイベント
-          reader.onload = function (e) {
-            // 画像タグのsrcを読み込んだ画像のデータURLに変更
-            document.getElementById("iconImg").src = e.target.result;
-            localStorage.setItem("icon", e.target.result);
-          };
-          // ファイルをデータURLとして読み込む
-          reader.readAsDataURL(input.files[0]);
-        }
-      }
-      function activeIcon(input) {
-        // ファイルが選択されているか確認
-        if (input.files && input.files[0]) {
-          const reader = new FileReader();
-          // 画像ファイルを読み込み終えたときに発生するイベント
-          reader.onload = function (e) {
-            // 画像タグのsrcを読み込んだ画像のデータURLに変更
-            document.getElementById("activeImg").src = e.target.result;
-            localStorage.setItem("activeImg", e.target.result);
-          };
-          // ファイルをデータURLとして読み込む
-          reader.readAsDataURL(input.files[0]);
-        }
-      }
+      // function previewIcon(input) {
+      //   // ファイルが選択されているか確認
+      //   if (input.files && input.files[0]) {
+      //     const reader = new FileReader();
+      //     // 画像ファイルを読み込み終えたときに発生するイベント
+      //     reader.onload = function (e) {
+      //       // 画像タグのsrcを読み込んだ画像のデータURLに変更
+      //       document.getElementById("iconImg").src = e.target.result;
+      //       localStorage.setItem("icon", e.target.result);
+      //     };
+      //     // ファイルをデータURLとして読み込む
+      //     reader.readAsDataURL(input.files[0]);
+      //   }
+      // }
+      // function activeIcon(input) {
+      //   // ファイルが選択されているか確認
+      //   if (input.files && input.files[0]) {
+      //     const reader = new FileReader();
+      //     // 画像ファイルを読み込み終えたときに発生するイベント
+      //     reader.onload = function (e) {
+      //       // 画像タグのsrcを読み込んだ画像のデータURLに変更
+      //       document.getElementById("activeImg").src = e.target.result;
+      //       localStorage.setItem("activeImg", e.target.result);
+      //     };
+      //     // ファイルをデータURLとして読み込む
+      //     reader.readAsDataURL(input.files[0]);
+      //   }
+      // }
     </script>
   </head>
   <body>
