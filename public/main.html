@@ -35,7 +35,7 @@
         const active = document.getElementById("active");   
         active.innerHTML = localStorage.getItem("active");  // save activity in localStorage
         const editButton = document.getElementById("editButton");
-        const footterHomeButton = document.getElementById("footterHomeButton");
+        const footerHomeButton = document.getElementById("footerHomeButton");
         
         if (localStorage.getItem("icon")) {
           document.getElementById("iconImg").src = localStorage.getItem("icon") // get user's icon from localStorage
@@ -70,7 +70,7 @@
           window.location.href = "/index.html"; // go back to home page(index.html)
         });
 
-        footterHomeButton.addEventListener("click", function (event) {
+        footerHomeButton.addEventListener("click", function (event) {
           location.reload()
         });
       });
@@ -277,10 +277,10 @@
         <button id="editButton" type="button" style="height: 50px;">
           <img src="img/footer_edit.png" alt="editButton" style="height: 70%;">
         </button>
-        <button id = footterHomeButton onclick="" type="button" style="height: 50px;">
-          <img src="img/footer_home.png" alt="footterHome" style="height: 70%;">
+        <button id = footerHomeButton onclick="" type="button" style="height: 50px;">
+          <img src="img/footer_home.png" alt="footerHome" style="height: 70%;">
         </button><!--imgディレクトリ内の画像をボタンとして表示-->
-        <button id = footterHeatButton type="button" style="height: 50px;">
+        <button id = footerHeatButton type="button" style="height: 50px;">
           <img src="img/footer_heatmap.png" alt="fotterHeatMap" style="height: 70%;">
         </button>
       </footer><!--フッターここまで-->
