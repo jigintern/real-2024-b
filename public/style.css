@@ -171,6 +171,12 @@ body {
   margin-top: 20px;
 }
 
+#uploadIconError,
+#uploadActiveError {
+  display: none;
+  color: red;
+}
+
 footer {
   /* ここからがfooterのcssです　ぐちゃぐちゃになっていますが一応うごきます*/
   display: flex;

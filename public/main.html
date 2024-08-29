@@ -19,11 +19,28 @@
         } else {
           document.getElementById("iconImg").src = "img/noImage.jpg";
         }
+        // 画像の読み込みに失敗した場合にデフォルトの画像を表示する
+        document.getElementById("iconImg").onerror = function () {
+          console.log(
+            "画像の読み込みに失敗しました。デフォルトの画像を使用します。"
+          );
+          document.getElementById("iconImg").src = "img/noImage.jpg";
+          document.getElementById("uploadIconError").style.display = "block";
+        };
+
         if (localStorage.getItem("activeImg")) {
           document.getElementById("activeImg").src = localStorage.getItem("activeImg")
         } else {
           document.getElementById("activeImg").src = "img/noImage.jpg";
         }
+        // 画像の読み込みに失敗した場合にデフォルトの画像を表示する
+        document.getElementById("activeImg").onerror = function () {
+          console.log(
+            "画像の読み込みに失敗しました。デフォルトの画像を使用します。"
+          );
+          document.getElementById("activeImg").src = "img/noImage.jpg";
+          document.getElementById("uploadActiveError").style.display = "block";
+        };
 
         editButton.addEventListener("click", function (event) {
           localStorage.setItem("active", "");   // clear user's activity
@@ -217,14 +234,15 @@
       </div>
       <div id="homeIconWrap">
         <img src="img/noImage.jpg" alt="icon image" id="iconImg" />
+        <span id="uploadIconError">画像の取得に失敗しました</span>
         <div id="usrName"></div>
       </div>
       <div id="textContainer">
-        <!-- <div>最近の出来事</div> -->
         <div id="active"></div>
       </div>
       <div class="imgWrap" id="homeActiveImgWrap">
         <img src="img/noImage.jpg" alt="activity image" id="activeImg" class="homeActiveImg"/>
+        <span id="uploadActiveError">画像の取得に失敗しました</span>
       </div>
     </div>
     <div>
