@@ -103,8 +103,3 @@ async function saveAll(kv, username, activity, icon, time){
     }
   );
 }
-
-async function getActivityImage(kv, username, activity){
-  const actGet = await kv.get(["username", username, "activity", activity, "image"]);
-  return actGet.value;
-}
