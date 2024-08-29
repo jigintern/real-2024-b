@@ -15,7 +15,7 @@
       const username = localStorage.getItem("name");
       const fetchUsers = async () => { 
         const result = await fetch("/histories", {
-        method: "GET",
+        method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           username: username,

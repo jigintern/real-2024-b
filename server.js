@@ -130,7 +130,7 @@ Deno.serve({
           })
         );
       }
-      if(req.method == "GET" && pathname === "/histories"){
+      if(req.method == "POST" && pathname === "/histories"){
         console.log("abc");
         const json = await req.json();  // JSONのデータを受け取る
         const username = json["username"]; // ペアした人の名前、活動をGet
@@ -138,7 +138,7 @@ Deno.serve({
         const kv = await getkvData();
         console.log(kv);
         await kv.set(["teacher", 2], { name: "じぇいぴー先生" });
-        const getResult = await kv.get(["username","こばしゅん","activity","モンハンをやった","image"]);
+        //const getResult = await kv.get(["username","こばしゅん","activity","モンハンをやった","image"]);
         console.log("get_result: ", getResult);
         const listresult = kv.list({ prefix: ["username",username,"history"] });
         let array = [];
