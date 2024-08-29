@@ -104,7 +104,7 @@ Deno.serve({
         // アクティビティの保存処理aaaaa
         const dbClient = await getkvData();
         console.log(await dbClient);
-
+        console.log("ccc");
         const dateNow = new Date();
         const timeNow = dateNow.toISOString();
 
