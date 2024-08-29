@@ -5,10 +5,6 @@ body {
   margin-left: 0;
 }
 
-/* #header {
-  height: 15vh;
-} */
-
 #container {
   height: 120vh;
   display: flex;
@@ -40,6 +36,14 @@ body {
   justify-content: center;
   align-items: center;
   height: 50vh;
+  width: 100%;
+}
+
+#iconWrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   margin-top: 10px;
   margin-bottom: 10px;
@@ -161,7 +165,7 @@ body {
 }
 
 #recordContainer {
-  display: flex;
+  display: none;
   flex-direction: column;
   justify-content: right;
   margin-top: 20px;
