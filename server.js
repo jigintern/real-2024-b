@@ -103,7 +103,7 @@ Deno.serve({
         console.log("aaa")
         // アクティビティの保存処理aaaaa
         const dbClient = await getkvData();
-        console.log(await dbClient);
+        console.log(dbClient);
         console.log("ccc");
         const dateNow = new Date();
         const timeNow = dateNow.toISOString();
@@ -114,8 +114,8 @@ Deno.serve({
         const pairactive = json["pairactive"];
         // pngをjpegに変えること
 
-        const result = await saveMatchAll(await dbClient, username, pairname, pairactive, timeNow);
-        return new Response(await result);
+        const result = await saveMatchAll(dbClient, username, pairname, pairactive, timeNow);
+        return new Response(result);
       }
 
       if(req.method == "GET" && pathname === "/image"){
