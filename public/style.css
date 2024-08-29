@@ -99,6 +99,7 @@ body {
   text-align: center;
 }
 
+#pairActive,
 #active {
   font-size: x-large;
 }

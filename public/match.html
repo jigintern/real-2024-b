@@ -30,10 +30,6 @@
     />
     <script>
       document.addEventListener("DOMContentLoaded", async function () {
-
-        const name = document.getElementById("pairName");
-        const active = document.getElementById("pairActive");
-        const myname = localStorage.getItem("name");
         const pairName = document.getElementById("pairName");
         const pairActive = document.getElementById("pairActive");
         pairName.innerHTML = localStorage.getItem("pairName");
@@ -75,7 +71,7 @@
       </div>
       <div id="textContainer">
         <!-- <div>最近の出来事</div> -->
-        <div id="active"></div>
+        <div id="pairActive"></div>
       </div>
       <div id="homeActiveImgWrap">
         <img src="img/noImage.jpg" alt="activity image" id="activeImg" class="homeActiveImg"/>
