@@ -100,7 +100,7 @@ Deno.serve({
         // pngをjpegに変えること
 
         const result = saveMatchAll(await dbClient, username, pairname, pairactive, timeNow);
-        return new response(result);
+        return new Response(result);
       }
 
       // publicフォルダ内にあるファイルを返す
