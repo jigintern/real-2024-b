@@ -30,6 +30,19 @@
     />
     <script>
       document.addEventListener("DOMContentLoaded", async function () {
+
+        // ページが完全に読み込まれた後、スプラッシュスクリーンを非表示にする
+        setTimeout(function() {
+          // スプラッシュスクリーンを非表示にする
+          document.getElementById("splash-screen").style.display = "none";
+          // メインコンテンツを表示する
+          const mainContent = document.getElementById("mainContent");
+          mainContent.style.display = "flex";          
+          setTimeout(() => {
+                mainContent.classList.add("visible");
+            }, 50);
+        }, 2000); // 2秒間表示
+
         // 要素取得
         const pairNameElement = document.getElementById("pairName");
         const pairActiveElement = document.getElementById("pairActive");
@@ -39,7 +52,7 @@
         // htmlに反映
         pairNameElement.innerHTML = pairName;
         pairActiveElement.innerHTML = pairActive;
-        
+
         const homeButton = document.getElementById("homeButton");
         homeButton.addEventListener("click", function (event) {
           console.log("Home button clicked");
@@ -60,13 +73,22 @@
     </script>
   </head>
   <body>
-    <div id="container">
+    <div id="splash-screen">
+      <div class="splash-text">
+        <span style="animation-delay: 0.1s;">H</span>
+        <span style="animation-delay: 0.2s;">e</span>
+        <span style="animation-delay: 0.3s;">y</span>
+        <span style="animation-delay: 0.4s;">H</span>
+        <span style="animation-delay: 0.5s;">e</span>
+        <span style="animation-delay: 0.6s;">y</span>
+      </div>
+    </div>
+    <div id="mainContent">
       <div class="imgWrap">
         <img src="img/noImage.jpg" alt="icon image" id="iconImg" />
         <div id="pairName"></div>
       </div>
       <div id="textContainer">
-        <!-- <div>最近の出来事</div> -->
         <div id="pairActive"></div>
       </div>
       <div id="homeActiveImgWrap">
