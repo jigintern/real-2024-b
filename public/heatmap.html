@@ -22,12 +22,12 @@
         }),
       });
       document.getElementById("server_response").innerText = await result.text();
-    }      
+    }  
+    fetchUsers();
     </script>
 </head>
 <body>
   <div>
-    <h1>ヒートマップ</h1>
     <script src="heatmap.js"></script>
     <div id="cal-heatmap"></div>
   </div>
