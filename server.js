@@ -152,6 +152,7 @@ Deno.serve({
         break;
         }
       }
+      console.log(array);
       return new Response(array);
       }
       // publicフォルダ内にあるファイルを返す
