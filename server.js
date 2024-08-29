@@ -118,8 +118,15 @@ Deno.serve({
         const pairAct = url.searchParams.get("pair_active");
 
         const kv = await getkvData(); // Databaseを開く
-        console.log(kv);
-        console.log("fff");
+
+        if (pairName != null && pairAct == null) {
+          // ユーザーネームだけならユーザーのアイコンを返す
+          const image = await getUserIconImage(kv, pairName).value.img;
+          return new Response(JSON.stringify({
+            image: image
+          })
+          );
+        }
 
         const imageGet = await getActivityImage(kv, pairName, pairAct);
         const pairActImg = await imageGet.value.img;
@@ -206,4 +213,8 @@ async function saveMatchAll(kv, username, pairname, pairactive, time) {
 
 async function getActivityImage(kv, username, activity) {
   return await kv.get(["username", username, "activity", activity, "image"]);
+}
+
+async function getUserIconImage(kv, username) {
+  return await kv.get(["username", username, "icon", "image"]);
 }
