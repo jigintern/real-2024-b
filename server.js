@@ -7,11 +7,12 @@ import "https://deno.land/std@0.203.0/dotenv/mod.ts";
 
 const waitingList = new Map();  
 const clientsMap = new Map();   // all clients
-/**
+ /**
  * APIリクエストを処理する
  */
 Deno.serve({
   port: 8080,
+  
   handler: async (req) => {
     if (req.headers.get("upgrade") === "websocket") {
       const { socket, response } = Deno.upgradeWebSocket(req);
@@ -30,11 +31,11 @@ Deno.serve({
           // 送ってきた“もの”のイベント類
           case "matching-request": 
             clientsMap.set(data.myName, socket);
-            console.log(`matching-request received! user-data: ${data.myName},${data.pairName}`);
+            console.log(`matching-request received! user-data: ${data.myName},${data.pairName},${data.pairActive}`);
             const previousName = waitingList.get(data.pairName);  // get previous user's name
             if((previousName != null) && (previousName === data.myName)){
               // マッチングに成功した時の処理
-              const json = JSON.stringify({event: "matching-success"});
+              const json = JSON.stringify({event: "matching-success", pairName: data.pairName, pairActive: data.pairActive});
               const clientA = clientsMap.get(data.myName);
               clientA.send(json);
               const clientB = clientsMap.get(data.pairName);
@@ -102,4 +103,9 @@ async function saveAll(kv, username, activity, icon, time){
         time: time
     }
   );
+}
+
+async function getActivityImage(kv, username, activity){
+  const actGet = await kv.get(["username", username, "activity", activity, "image"]);
+  return actGet.value;
 }

@@ -9,8 +9,8 @@
     <script>
       document.addEventListener("DOMContentLoaded", function () {        
         const name = document.getElementById("pairName");
-        name.innerHTML = localStorage.getItem("pairName");
         const active = document.getElementById("pairActive");
+        name.innerHTML = localStorage.getItem("pairName");
         active.innerHTML = localStorage.getItem("pairActive");
         const homeButton = document.getElementById("homeButton");
         homeButton.addEventListener("click", function (event) {
