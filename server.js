@@ -35,17 +35,11 @@ Deno.serve({
             userDataMap.set("myName", data.myName);// 自分の名前、相手の名前、相手のできごとを保存
             userDataMap.set("pairName", data.pairName);
             userDataMap.set("pairActive", data.pairActive);
+            console.log(data.pairName, data.pairActive);
             console.log(`matching-request received! user-data: ${data.myName},${data.pairName},${data.pairActive}`);
             const previousName = waitingList.get(data.pairName);  // get previous user's name
             if((previousName != null) && (previousName === data.myName)){
               // マッチングに成功した時の処理
-              const username = userDataMap.get("myName");//mapからデータを取り出す
-              const pairname = userDataMap.get("pairName");
-              const pairactive = userDataMap.get(data.pairActive);
-              const nowDate = new Date();//今の時間を変数に入れる
-              const timeNow = nowDate.toISOString();
-              const kv = await getkvData();//databaseを開く
-              saveMatchAll(await kv, username, pairname, pairactive, timeNow)
               const json = JSON.stringify({event: "matching-success", pairName: data.pairName, pairActive: data.pairActive});
               const clientA = clientsMap.get(data.myName);
               clientA.send(json);
@@ -88,6 +82,23 @@ Deno.serve({
         const image = json["image"];
 
         saveAll(await dbClient, username, activity, image, timeNow);
+      }
+
+      if(req.method == "POST" && pathname === "/history"){
+        // アクティビティの保存処理aaaaa
+        const dbClient = getkvData();
+        console.log(await dbClient);
+
+        const dateNow = new Date();
+        const timeNow = dateNow.toISOString();
+
+        const json = await req.json();
+        const username = json["username"];
+        const pairname = json["pairname"];
+        const pairactive = json["pairactive"];
+        // pngをjpegに変えること
+
+        saveMatchAll(await dbClient, username, pairname, pairactive, timeNow);
       }
 
       // publicフォルダ内にあるファイルを返す
