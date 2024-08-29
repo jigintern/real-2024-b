@@ -98,7 +98,8 @@ Deno.serve({
         const pairactive = json["pairactive"];
         // pngをjpegに変えること
 
-        saveMatchAll(await dbClient, username, pairname, pairactive, timeNow);
+        const result = saveMatchAll(await dbClient, username, pairname, pairactive, timeNow);
+        return response(result);
       }
 
       // publicフォルダ内にあるファイルを返す
