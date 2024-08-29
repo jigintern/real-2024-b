@@ -6,6 +6,7 @@ import { serveDir } from "http/file_server.ts";
 import { load } from "https://deno.land/std@0.203.0/dotenv/mod.ts"
 const waitingList = new Map();  
 const clientsMap = new Map();   // all clients
+const userDataMap = new Map();
  /**
  * APIリクエストを処理する
  */
@@ -34,6 +35,9 @@ Deno.serve({
             const previousName = waitingList.get(data.pairName);  // get previous user's name
             if((previousName != null) && (previousName === data.myName)){
               // マッチングに成功した時の処理
+              userDataMap.set("myName", data.myName);
+              userDataMap.set("pairName", data.pairName);
+              userDataMap.set("pairActive", data.pairActive);
               const json = JSON.stringify({event: "matching-success", pairName: data.pairName, pairActive: data.pairActive});
               const clientA = clientsMap.get(data.myName);
               clientA.send(json);
