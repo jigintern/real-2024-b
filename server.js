@@ -73,22 +73,23 @@ Deno.serve({
 
       if (req.method == "POST" && pathname === "/activity") {
         // アクティビティの保存処理
-        console.log("bbb");
         const dbClient = await getkvData();
-        console.log(dbClient);
-        console.log("ddd");
         const dateNow = new Date();
         const timeNow = dateNow.toISOString();
 
         const json = await req.json();
         const username = json["user_name"];
         const activity = json["activity"];
+        const userIcon = json["user_icon"]
         // pngをjpegに変えること
         const image = json["image"];
 
         const result = await saveAll(dbClient, username, activity, image, timeNow);
+        const result2 = await saveUserIcon(dbClient, username, userIcon, timeNow);
         console.log(`activity: ${result}`);
-        return new Response(result);
+        console.log(`user_icon: ${result2}`);
+
+        return new Response("ok");
       }
 
 
@@ -172,9 +173,18 @@ async function getkvData() {//denokvをオープンする関数
 }
 
 async function saveAll(kv, username, activity, image, time) {
-  console.log(kv);
   return await kv.set(
     ["username", username, "activity", activity, "image"],
+    {
+      img: image,
+      time: time
+    }
+  );
+}
+
+async function saveUserIcon(kv, username, image, time) {
+  return await kv.set(
+    ["username", username, "icon", "image"],
     {
       img: image,
       time: time
