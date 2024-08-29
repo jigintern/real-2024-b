@@ -6,11 +6,12 @@ import { serveDir } from "http/file_server.ts";
 import { load } from "https://deno.land/std@0.203.0/dotenv/mod.ts"
 const waitingList = new Map();  
 const clientsMap = new Map();   // all clients
-/**
+ /**
  * APIリクエストを処理する
  */
 Deno.serve({
   port: 8080,
+  
   handler: async (req) => {
     if (req.headers.get("upgrade") === "websocket") {
       const { socket, response } = Deno.upgradeWebSocket(req);
@@ -27,9 +28,26 @@ Deno.serve({
         // 受信したときの処理
         switch (data.event) {
           // 送ってきた“もの”のイベント類
-          case "matching-request": //
-            // Todo: マッチング待ちの時の処理
-            socket.send("send-success");
+          case "matching-request": 
+            clientsMap.set(data.myName, socket);
+            console.log(`matching-request received! user-data: ${data.myName},${data.pairName},${data.pairActive}`);
+            const previousName = waitingList.get(data.pairName);  // get previous user's name
+            if((previousName != null) && (previousName === data.myName)){
+              // マッチングに成功した時の処理
+              const json = JSON.stringify({event: "matching-success", pairName: data.pairName, pairActive: data.pairActive});
+              const clientA = clientsMap.get(data.myName);
+              clientA.send(json);
+              const clientB = clientsMap.get(data.pairName);
+              clientB.send(json);
+            }else{
+              // マッチング待ちの時の処理
+              waitingList.set(data.myName, data.pairName);
+              const json = JSON.stringify({event: "send-success"});
+              socket.send(json);
+            }
+            break;
+
+          default:
             break;
         }
       };
@@ -55,4 +73,9 @@ Deno.serve({
 
 async function getkvData(){
   return await Deno.openKv(Deno.env.get(URL));
+}
+
+async function getActivityImage(kv, username, activity){
+  const actGet = await kv.get(["username", username, "activity", activity, "image"]);
+  return actGet.value;
 }
