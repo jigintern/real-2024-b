@@ -41,11 +41,28 @@
         } else {
           document.getElementById("iconImg").src = "img/noImage.jpg";
         }
+        // 画像の読み込みに失敗した場合にデフォルトの画像を表示する
+        document.getElementById("iconImg").onerror = function () {
+          console.log(
+            "画像の読み込みに失敗しました。デフォルトの画像を使用します。"
+          );
+          document.getElementById("iconImg").src = "img/noImage.jpg";
+          document.getElementById("uploadIconError").style.display = "block";
+        };
+
         if (localStorage.getItem("activeImg")) {
           document.getElementById("activeImg").src = localStorage.getItem("activeImg")
         } else {
           document.getElementById("activeImg").src = "img/noImage.jpg";
         }
+        // 画像の読み込みに失敗した場合にデフォルトの画像を表示する
+        document.getElementById("activeImg").onerror = function () {
+          console.log(
+            "画像の読み込みに失敗しました。デフォルトの画像を使用します。"
+          );
+          document.getElementById("activeImg").src = "img/noImage.jpg";
+          document.getElementById("uploadActiveError").style.display = "block";
+        };
 
         editButton.addEventListener("click", function (event) {
           localStorage.setItem("active", "");   // clear user's activity
@@ -97,6 +114,8 @@
         if(!audio){
           audio = new Audio('./audio/heyhey-aoi.wav');;
         }
+        const recordContainer = document.getElementById("recordContainer");
+        recordContainer.style.display = "flex";
         var video = document.createElement("video");
         var canvasElement = document.getElementById("canvas");
         var canvas = canvasElement.getContext("2d");
@@ -209,7 +228,6 @@
     </script>
   </head>
   <body>
-    <header id="header"></header>
     <div id="container">
       <div id="QR">
         <div id="QRCode"></div>
@@ -236,16 +254,17 @@
           </div>
         </div>
       </div>
-      <div id="homeIconWrap" class="imgWrap">
+      <div id="homeIconWrap">
         <img src="img/noImage.jpg" alt="icon image" id="iconImg" />
+        <span id="uploadIconError">画像の取得に失敗しました</span>
         <div id="usrName"></div>
       </div>
       <div id="textContainer">
-        <!-- <div>最近の出来事</div> -->
         <div id="active"></div>
       </div>
-      <div id="homeActiveImgWrap">
+      <div class="imgWrap" id="homeActiveImgWrap">
         <img src="img/noImage.jpg" alt="activity image" id="activeImg" class="homeActiveImg"/>
+        <span id="uploadActiveError">画像の取得に失敗しました</span>
       </div>
     </div>
     <div>

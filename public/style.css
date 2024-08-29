@@ -1,21 +1,16 @@
 body {
   font-family: "ヒラギノ角ゴ ProN W3", "游ゴシック", sans-serif;
-  overflow: scroll;
+  overflow: visible;
   margin-right: 0;
   margin-left: 0;
 }
 
-#header {
-  height: 15vh;
-}
-
 #container {
-  height: 95vh;
+  height: 120vh;
   display: flex;
   justify-content: space-evenly;
   flex-direction: column;
   align-items: center;
-  display: flex;
 }
 
 .inputContainer {
@@ -40,7 +35,25 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 25vh;
+  height: 50vh;
+  width: 100%;
+}
+
+#iconWrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#homeIconWrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 100%;
 }
 
@@ -56,7 +69,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 35vh;
+  /* height: 35vh; */
 }
 
 #qrImg {
@@ -98,13 +111,13 @@ body {
   border: 1px solid #000;
 }
 
-#homeActiveImgWrap {
+/* #homeActiveImgWrap {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  height: 50%;
   width: 100%;
-}
+} */
 .homeActiveImg {
   height: 100%;
   width: 100%;
@@ -138,6 +151,7 @@ body {
   font-size: large;
   width: 60vw;
   height: 60px;
+  margin-top: 10px;
 }
 
 #qrBtn {
@@ -151,10 +165,16 @@ body {
 }
 
 #recordContainer {
-  display: flex;
+  display: none;
   flex-direction: column;
   justify-content: right;
   margin-top: 20px;
+}
+
+#uploadIconError,
+#uploadActiveError {
+  display: none;
+  color: red;
 }
 
 footer {
@@ -164,7 +184,7 @@ footer {
   position: fixed;
   bottom: 0;
   width: 100%;
-  background-color: rgb(200, 200, 200, 0.3);
+  background-color: #f8f8ff;
 }
 #footterSearchButton,
 #footterHomeButton,
