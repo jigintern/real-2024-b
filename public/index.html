@@ -90,7 +90,7 @@
           document.getElementById("uploadActiveError").style.display = "block";
         };
 
-        signUpButton.addEventListener("click", function (event) {
+        signUpButton.addEventListener("click", async function (event) {
           // 名前が半角英数字、ひらがな、カタカナ、漢字のみで入力されているか確認
           if (/[^a-zA-Zぁ-んァ-ン一-龯ー]/.test(nameInput.value)) {
             nameInput.setCustomValidity(
@@ -108,21 +108,13 @@
             localStorage.setItem("name", nameInput.value); // save name
             localStorage.setItem("active", activeInput.value); // save activity
 
-            const myActive = document.getElementById("activeImg").src;
-            // アクティビティ画像を入れなかったらパス名だけを返す
-            if(myActive === "img/noimage.jpg"){
-              myActive = "img/noimage.jpg";
-            }else{
-              myActive = localStorage.getItem("activeImg");
-            }
-
-            fetch("/activity", {
+            await fetch("/activity", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
                 user_name: nameInput.value,
                 activity: activeInput.value,
-                image: myActive,
+                image: localStorage.getItem("activeImg")
               }),
             });
           }

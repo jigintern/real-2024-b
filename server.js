@@ -44,6 +44,7 @@ Deno.serve({
               // マッチングに成功した時の処理
               const jsonA = JSON.stringify({event: "matching-success", pairName: data.pairName, pairActive: data.pairActive});
               const jsonB = JSON.stringify({event: "matching-success", pairName: data.myName, pairActive: data.myActive});
+
               const clientA = clientsMap.get(data.myName);
               clientA.send(jsonA);
               const clientB = clientsMap.get(data.pairName);
@@ -72,9 +73,10 @@ Deno.serve({
 
       if(req.method == "POST" && pathname === "/activity"){
         // アクティビティの保存処理
+        console.log("bbb");
         const dbClient = await getkvData();
         console.log(dbClient);
-
+        console.log("ddd");
         const dateNow = new Date();
         const timeNow = dateNow.toISOString();
 
@@ -85,11 +87,8 @@ Deno.serve({
         const image = json["image"];
 
         const result = await saveAll(dbClient, username, activity, image, timeNow);
-        return new Response(JSON.stringify({
-          headers: {"Content-Type": "application/json"},
-          body: JSON.stringify({hello: "hello world!"})
-          }),
-        );
+        console.log(`activity: ${result}`);
+        return new Response(result);
       }
 
 
@@ -107,20 +106,25 @@ Deno.serve({
         // pngをjpegに変えること
         console.log("setDB!!",username,pairname,pairactive);
         const result = await saveMatchAll(dbClient, username, pairname, pairactive, timeNow);
-        console.log(result);
+        console.log(`history = ${result}`);
         return new Response(result);
       }
 
       if(req.method == "GET" && pathname === "/image"){
         // マッチ画面で相手の画像を返す処理
+        console.log("eee");
         const json = await req.json();  // JSONのデータを受け取る
         const pairName = json["pair_name"]; // ペアした人の名前、活動をGet
         const pairAct = json["pair_act"];
 
         const kv = await getkvData(); // Databaseを開く
+        console.log(kv);
+        console.log("fff");
 
         const imageGet = await getActivityImage(kv, pairName, pairAct);
-        console.log(imageGet.value.img);
+        const pairActImg = await imageGet.value.img;
+        console.log(`pairActImg = ${pairActImg}`);
+        console.log(await imageGet.value.img);
         return new Response(JSON.stringify({
           image: imageGet.value.img,
           })
@@ -169,7 +173,8 @@ async function getkvData(){//denokvをオープンする関数
 }
 
 async function saveAll(kv, username, activity, image, time){
-  await kv.set(
+  console.log(kv);
+  return await kv.set(
     ["username", username, "activity", activity, "image"],
     {
         img: image,
@@ -191,6 +196,5 @@ async function saveMatchAll(kv, username, pairname, pairactive, time){
 }
 
 async function getActivityImage(kv, username, activity){
-  const actGet = await kv.get(["username", username, "activity", activity, "image"]);
-  return actGet;
+  return await kv.get(["username", username, "activity", activity, "image"]);
 }
