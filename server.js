@@ -105,7 +105,7 @@ Deno.serve({
         const pairname = json["pairname"];
         const pairactive = json["pairactive"];
         // pngをjpegに変えること
-        console.log(username,pairname,pairactive);
+        console.log("setDB!!",username,pairname,pairactive);
         const result = await saveMatchAll(dbClient, username, pairname, pairactive, timeNow);
         console.log(result);
         return new Response(result);
