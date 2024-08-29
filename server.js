@@ -121,9 +121,10 @@ Deno.serve({
 
         if (pairName != null && pairAct == null) {
           // ユーザーネームだけならユーザーのアイコンを返す
-          const image = await getUserIconImage(kv, pairName).value.img;
+          const image = await getUserIconImage(kv, pairName);
+          const userIconValue = await image.value.img;
           return new Response(JSON.stringify({
-            image: image
+            image: userIconValue
           })
           );
         }
