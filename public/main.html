@@ -13,7 +13,7 @@
         const active = document.getElementById("active");   
         active.innerHTML = localStorage.getItem("active");  // save activity in localStorage
         const editButton = document.getElementById("editButton");
-        
+
         if (localStorage.getItem("icon")) {
           document.getElementById("iconImg").src = localStorage.getItem("icon") // get user's icon from localStorage
         } else {
@@ -226,12 +226,12 @@
     </div>
     <div>
       <footer class="footer"><!--ここからフッター-->
-        <button id = footterHomeButton type="button" onclick="location.href='/main.html'" style="height: 50px;">
+        <button id = footterHomeButton  onclick="location.href='/main.html'" type="button" style="height: 50px;">
           <img src="img/footer_home.png" alt="footterHome" style="height: 70%;">
         </button><!--imgディレクトリ内の画像をボタンとして表示-->
 
-        <button id = footterHeatmapButton type="button" onclick="location.href='/heatmap.html'" style="height: 50px;">
-          <img src="img/footer_heatmap.png" alt="footterHeatmap" style="height: 70%;">
+        <button id = footterHeatmapButton onclick="location.href='/heatmap.html'" type="button" style="height: 50px;">
+          <img src="img/footer_Heatmap.png" alt="footterHeatmap" style="height: 70%;">
         </button>
 
         <button id="editButton" type="button" style="height: 50px;">
