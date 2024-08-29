@@ -15,15 +15,15 @@
       const username = localStorage.getItem("name");
       const fetchUsers = async () => { 
         const result = await fetch("/histories", {
-        method: "POST",
+        method: "GET",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           username: username,
         }),
       });
-      document.getElementById("server_response").innerText = await result.text();
-    }  
-    fetchUsers();
+      document.getElementById("server_response").innerText += await result.text();
+      }  
+      fetchUsers();
     </script>
 </head>
 <body>
@@ -34,10 +34,13 @@
   <div>
     <p id="server_response">
       </p>
-</div>
+  </div>
+  <div>
+
+  </div>
   <footer class="footer"><!--ここからフッター-->
-    <button id = footterHomeButton type="button" onclick="location.href='/main.html'" style="height: 50px;">
-      <img src="img/footer_home.png" alt="footterHome" style="height: 70%;">
+    <button id = footerHomeButton type="button" onclick="location.href='/main.html'" style="height: 50px;">
+      <img src="img/footer_home.png" alt="footerHome" style="height: 70%;">
     </button><!--imgディレクトリ内の画像をボタンとして表示-->
   </footer><!--フッターここまで-->
 </body>
