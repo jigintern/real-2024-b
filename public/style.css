@@ -166,7 +166,7 @@ footer {
   position: fixed;
   bottom: 0;
   width: 100%;
-  background-color: rgb(200, 200, 200, 0.3);
+  background-color: #f8f8ff;
 }
 #footterSearchButton,
 #footterHomeButton,
