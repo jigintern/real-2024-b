@@ -8,8 +8,10 @@
     <link rel="manifest" href="manifest.json" />
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        const name = localStorage.getItem("pairName");
-        const active = localStorage.getItem("pairActive");
+        const name = document.getElementById("pairName");
+        const active = document.getElementById("pairActive");
+        name.innerHTML = localStorage.getItem("pairName");
+        active.innerHTML = localStorage.getItem("pairActive");
         const homeButton = document.getElementById("homeButton");
         homeButton.addEventListener("click", function (event) {
           window.location.href = "/main.html";
