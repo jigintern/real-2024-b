@@ -122,7 +122,7 @@ Deno.serve({
           })
         );
       }
-      if(req.method == "GET" && pathname === "/histories"){
+      if(req.method == "POST" && pathname === "/histories"){
         console.log("abc");
         const json = await req.json();  // JSONのデータを受け取る
         const username = json["username"]; // ペアした人の名前、活動をGet
