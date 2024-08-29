@@ -18,6 +18,7 @@ function previewIcon(event) {
       const img = URL.createObjectURL(compressedFile);
       document.getElementById("iconImg").src = img;
       localStorage.setItem("icon", img);
+      document.getElementById("uploadIconError").style.display = "none";
     })
     .catch(function (error) {
       console.log(error.message);
@@ -43,6 +44,7 @@ function activeIcon(event) {
       const img = URL.createObjectURL(compressedFile);
       document.getElementById("activeImg").src = img;
       localStorage.setItem("activeImg", img);
+      document.getElementById("uploadActiveError").style.display = "none";
     })
     .catch(function (error) {
       console.log(error.message);
