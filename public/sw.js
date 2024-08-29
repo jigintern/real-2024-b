@@ -2,15 +2,10 @@
 const CACHE_NAME = "pwa-heyhey-caches";
 // Cache targets
 const urlsToCache = [
-  "./",
-  "./index.html",
-  "./main.html",
-  "./match.html",
-  "./style.css",
-  "./img/noImage.jpg",
+  "./img/favicon/*",
+  ".//img/noImage.jpg",
   "./img/footer_edit.png",
   "./img/footer_home.png",
-  "./img/footer_search.png",
 ];
 
 self.addEventListener("install", (event) => {
