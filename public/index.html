@@ -107,13 +107,22 @@
           } else {
             localStorage.setItem("name", nameInput.value); // save name
             localStorage.setItem("active", activeInput.value); // save activity
+
+            const myActive = document.getElementById("activeImg").src;
+            // アクティビティ画像を入れなかったらパス名だけを返す
+            if(myActive === "img/noimage.jpg"){
+              myActive = "img/noimage.jpg";
+            }else{
+              myActive = localStorage.getItem("activeImg");
+            }
+
             await fetch("/activity", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
                 user_name: nameInput.value,
                 activity: activeInput.value,
-                image: localStorage.getItem("activeImg"),
+                image: myActive,
               }),
             });
           }
