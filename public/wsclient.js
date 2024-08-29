@@ -17,8 +17,12 @@ socket.onmessage = (m) => {
 
     case "matching-success":
       // Todo: マッチング成功したときの処理
-      //await audio.play();
-      window.location.href = "/match.html"; // change page
+      audio.play();
+      // Add an event listener for the 'ended' event
+      audio.addEventListener('ended', function() {
+        // Change the page only after the audio has finished playing
+        window.location.href = "/match.html";
+      });
       break;
 
     case "send-success":
