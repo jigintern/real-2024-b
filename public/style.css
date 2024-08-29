@@ -10,12 +10,11 @@ body {
 }
 
 #container {
-  height: 95vh;
+  height: 115vh;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   flex-direction: column;
   align-items: center;
-  display: flex;
 }
 
 .inputContainer {
@@ -40,8 +39,10 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 25vh;
+  /* height: 100%; */
   width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 #iconImg {
@@ -56,7 +57,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 35vh;
+  /* height: 35vh; */
 }
 
 #qrImg {
@@ -102,7 +103,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  /* height: 100%; */
   width: 100%;
 }
 .homeActiveImg {
@@ -138,6 +139,7 @@ body {
   font-size: large;
   width: 60vw;
   height: 60px;
+  margin-top: 10px;
 }
 
 #qrBtn {
