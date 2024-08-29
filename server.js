@@ -43,7 +43,7 @@ Deno.serve({
               const pairname = userDataMap.get("pairName")
               nowDate = new Date();
               const kv = getkvData();
-              const key = ["user-name", username, "history"];
+              const key = ["user-name", username, "history", nowDate];
               const value = {
               myName: username,
               pairName: pairname,
