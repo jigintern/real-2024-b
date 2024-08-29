@@ -35,6 +35,7 @@
         const active = document.getElementById("active");   
         active.innerHTML = localStorage.getItem("active");  // save activity in localStorage
         const editButton = document.getElementById("editButton");
+        const recordButton = document.getElementById("recordButton");
         
         if (localStorage.getItem("icon")) {
           document.getElementById("iconImg").src = localStorage.getItem("icon") // get user's icon from localStorage
@@ -67,6 +68,10 @@
         editButton.addEventListener("click", function (event) {
           localStorage.setItem("active", "");   // clear user's activity
           window.location.href = "/index.html"; // go back to home page(index.html)
+        });
+
+        recordButton.addEventListener("click", function (event) {
+          window.location.href = "/record.html"; // go to record page(record.html)
         });
       });
     </script>
@@ -112,7 +117,7 @@
       $(document).ready(function () {
       $("button[id='qrBtn']").on("click", function (e) {
         if(!audio){
-          audio = new Audio('./audio/heyhey-aoi.wav');;
+          audio = new Audio(localStorage.getItem("audio"));
         }
         const recordContainer = document.getElementById("recordContainer");
         recordContainer.style.display = "flex";
@@ -212,7 +217,7 @@
             sendPair(myUsername, userdata[0], userdata[1]);
             //stopStream();
             //canvasElement.hidden = true;
-            //audio.play(); // play audio
+            audio.play(); // play audio
             return;
           } else {
             outputMessage.hidden = false;
@@ -279,6 +284,10 @@
 
         <button id="editButton" type="button" style="height: 50px;">
           <img src="img/footer_edit.png" alt="editButton" style="height: 70%;">
+        </button>
+
+        <button id="recordButton" type="button" style="height: 50px;">
+          <img src="img/HeyHey.png" alt="recordButton" style="height: 70%;">
         </button>
       </footer><!--フッターここまで-->
    </div>
