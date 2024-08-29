@@ -20,13 +20,13 @@
         body: JSON.stringify({
           username: username,
             }),
-        
           }
-        
         );
-      document.getElementById("server_response").innerText = await result.text();
+        let arr = await result.text();
+        const theUser = arrhere[1].pairName;
+        console.log(`theUser: ${theUser}`);
+        document.getElementById("server_response").innerText = await result.text();
       }  
-      fetchUsers();
     </script>
 </head>
 <body>
@@ -35,8 +35,7 @@
     <div id="cal-heatmap"></div>
   </div>
   <div>
-    <p id="server_response">
-      </p>
+    <p id="server_response"></p>
   </div>
   <div>
 

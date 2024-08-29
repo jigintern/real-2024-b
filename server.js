@@ -146,7 +146,7 @@ Deno.serve({
         for await (const item of listresult) {
           console.log("tetete")
           console.log(item.value);
-          array.push(item.value.pairName);
+          array.push(item.value);
           index++;
           if(index >= 5){
           break;
