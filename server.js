@@ -6,11 +6,12 @@ import { serveDir } from "http/file_server.ts";
 import { load } from "https://deno.land/std@0.203.0/dotenv/mod.ts"
 const waitingList = new Map();  
 const clientsMap = new Map();   // all clients
-/**
+ /**
  * APIリクエストを処理する
  */
 Deno.serve({
   port: 8080,
+  
   handler: async (req) => {
     if (req.headers.get("upgrade") === "websocket") {
       const { socket, response } = Deno.upgradeWebSocket(req);
@@ -29,11 +30,11 @@ Deno.serve({
           // 送ってきた“もの”のイベント類
           case "matching-request": 
             clientsMap.set(data.myName, socket);
-            console.log(`matching-request received! user-data: ${data.myName},${data.pairName}`);
+            console.log(`matching-request received! user-data: ${data.myName},${data.pairName},${data.pairActive}`);
             const previousName = waitingList.get(data.pairName);  // get previous user's name
             if((previousName != null) && (previousName === data.myName)){
               // マッチングに成功した時の処理
-              const json = JSON.stringify({event: "matching-success"});
+              const json = JSON.stringify({event: "matching-success", pairName: data.pairName, pairActive: data.pairActive});
               const clientA = clientsMap.get(data.myName);
               clientA.send(json);
               const clientB = clientsMap.get(data.pairName);
@@ -59,14 +60,7 @@ Deno.serve({
     }else{
       const pathname = new URL(req.url).pathname;
       console.log(pathname);
-      if (req.method === "GET" && pathname === "/image") {
-        const name = new URL(req.url).searchParams.get("name");
-        const active = new URL(req.url).searchParams.get("active");
-        kv = getkvData();
-        const getResult = await kv.get([name, active]);
-        return new Response("Hello, " + param);
-      }
-    
+
       // publicフォルダ内にあるファイルを返す
       return serveDir(req, {
 
@@ -81,4 +75,9 @@ Deno.serve({
 
 async function getkvData(){
   return await Deno.openKv(Deno.env.get(URL));
+}
+
+async function getActivityImage(kv, username, activity){
+  const actGet = await kv.get(["username", username, "activity", activity, "image"]);
+  return actGet.value;
 }
