@@ -17,6 +17,7 @@ socket.onmessage = (m) => {
       break;
 
     case "matching-success":
+      const myName = data.myName;
       // Todo: マッチング成功したときの処理
       const pairName = data.pairName; 
       const pairActive = data.pairActive; 
@@ -25,7 +26,7 @@ socket.onmessage = (m) => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          username: myUsername,
+          username: myName,
           pairname: pairName,
           pairactive: pairActive,
         }),
