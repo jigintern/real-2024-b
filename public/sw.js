@@ -9,8 +9,8 @@ const urlsToCache = [
   "./style.css",
   "./img/noImage.jpg",
   "./img/footer_edit.png",
-  "./img/fotter_home.png",
-  "./img/fotter_search.png",
+  "./img/footer_home.png",
+  "./img/footer_search.png",
 ];
 
 self.addEventListener("install", (event) => {

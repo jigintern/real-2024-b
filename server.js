@@ -3,7 +3,8 @@
 import { serve } from "http/server.ts";
 // https://deno.land/std@0.194.0/http/file_server.ts?s=serveDir
 import { serveDir } from "http/file_server.ts";
-import { load } from "https://deno.land/std@0.203.0/dotenv/mod.ts"
+import "https://deno.land/std@0.203.0/dotenv/mod.ts";
+
 const waitingList = new Map();  
 const clientsMap = new Map();   // all clients
 const userDataMap = new Map();
@@ -65,6 +66,23 @@ Deno.serve({
       const pathname = new URL(req.url).pathname;
       console.log(pathname);
 
+      if(req.method == "POST" && pathname === "/activity"){
+        // アクティビティの保存処理aaaaa
+        const dbClient = getkvData();
+        console.log(await dbClient);
+
+        const dateNow = new Date();
+        const timeNow = dateNow.toISOString();
+
+        const json = await req.json();
+        const username = json["user_name"];
+        const activity = json["activity"];
+        // pngをjpegに変えること
+        const image = json["image"];
+
+        saveAll(await dbClient, username, activity, image, timeNow);
+      }
+
       // publicフォルダ内にあるファイルを返す
       return serveDir(req, {
 
@@ -78,7 +96,17 @@ Deno.serve({
 });
 
 async function getkvData(){
-  return await Deno.openKv(Deno.env.get(URL));
+  return await Deno.openKv(Deno.env.get("URL"));
+}
+
+async function saveAll(kv, username, activity, icon, time){
+  await kv.set(
+    ["username", username, "activity", activity, "image"],
+    {
+        img: icon,
+        time: time
+    }
+  );
 }
 
 async function getActivityImage(kv, username, activity){
