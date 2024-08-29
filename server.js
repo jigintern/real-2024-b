@@ -43,9 +43,9 @@ Deno.serve({
               const pairname = userDataMap.get("pairName");
               const pairactive = userDataMap.get(data.pairActive);
               const nowDate = new Date();//今の時間を変数に入れる
-              const timeNow = nowData.toISOString();
-              /*const kv = getkvData();//databaseを開く
-              saveMatchAll(kv, username, pairname, pairactive, timeNow)*/
+              const timeNow = nowDate.toISOString();
+              const kv = getkvData();//databaseを開く
+              saveMatchAll(kv, username, pairname, pairactive, timeNow)
               const json = JSON.stringify({event: "matching-success", pairName: data.pairName, pairActive: data.pairActive});
               const clientA = clientsMap.get(data.myName);
               clientA.send(json);
