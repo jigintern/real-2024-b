@@ -115,7 +115,7 @@ Deno.serve({
         // pngをjpegに変えること
 
         const result = await saveMatchAll(await dbClient, username, pairname, pairactive, timeNow);
-        return await new Response(await result);
+        return new Response(await result);
       }
 
       if(req.method == "GET" && pathname === "/image"){
