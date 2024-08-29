@@ -54,7 +54,7 @@ function sendPair(myName, myActive, pairName, pairActive){
     JSON.stringify({
       event: "matching-request",
       myName: myName,
-      myActive:myActive,
+      myActive: myActive,
       pairName: pairName,
       pairActive: pairActive,
     }),
