@@ -21,9 +21,7 @@
         }),
       });
       for (let i = 0; i < result.length; i++) {
-          let resultList = document.createElement('li');
-          resultList.textContent = result[i];
-          document.getElementById('list').appendChild(resultList);
+        document.getElementById('render').innerHTML += "名前" + result[i].pairName + "できごと" + result[i].pairActive + '<br>';
       }
     </script>
 </head>
@@ -33,7 +31,9 @@
     <div id="cal-heatmap"></div>
   </div>
   <div>
-  <ul id="list"></ul>
+    <p id="render">
+      <br>
+      </p>
 </div>
   <footer class="footer"><!--ここからフッター-->
     <button id = footterHomeButton type="button" onclick="location.href='/main.html'" style="height: 50px;">
