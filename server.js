@@ -7,6 +7,7 @@ import "https://deno.land/std@0.203.0/dotenv/mod.ts";
 
 const waitingList = new Map();  
 const clientsMap = new Map();   // all clients
+const userDataMap = new Map(); //名前と出来事を記録するマップ
  /**
  * APIリクエストを処理する
  */
@@ -31,14 +32,25 @@ Deno.serve({
           // 送ってきた“もの”のイベント類
           case "matching-request": 
             clientsMap.set(data.myName, socket);
+            userDataMap.set("myName", data.myName);// 自分の名前、相手の名前、相手のできごとを保存
+            userDataMap.set("pairName", data.pairName);
+            userDataMap.set("pairActive", data.pairActive);
             console.log(`matching-request received! user-data: ${data.myName},${data.pairName},${data.pairActive}`);
             const previousName = waitingList.get(data.pairName);  // get previous user's name
             if((previousName != null) && (previousName === data.myName)){
               // マッチングに成功した時の処理
-              const json = JSON.stringify({event: "matching-success", 
-                pairName: data.pairName, 
-                pairActive: data.pairActive
-              });
+              const username = userDataMap.get("myName");//mapからデータを取り出す
+              const pairname = userDataMap.get("pairName")
+              nowDate = new Date();//今の時間を変数に入れる
+              const kv = getkvData();//databaseを開く
+              const key = ["user-name", username, "history", nowDate];//key
+              const value = {   //value
+              myName: username,
+              pairName: pairname,
+              timeStamp: nowDate
+              };
+              kv.set(key, value); //data set
+              const json = JSON.stringify({event: "matching-success", pairName: data.pairName, pairActive: data.pairActive});
               const clientA = clientsMap.get(data.myName);
               clientA.send(json);
               const clientB = clientsMap.get(data.pairName);
@@ -94,7 +106,7 @@ Deno.serve({
   }
 });
 
-async function getkvData(){
+async function getkvData(){//denokvをオープンする関数
   return await Deno.openKv(Deno.env.get("URL"));
 }
 
