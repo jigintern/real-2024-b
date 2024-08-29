@@ -19,8 +19,6 @@ socket.onmessage = (m) => {
     case "matching-success":
       const pairName = data.pairName; 
       const pairActive = data.pairActive; 
-      localStorage.setItem("pairName", pairName);
-      localStorage.setItem("pairActive", pairActive);
       console.log(pairActive);
       // Todo: マッチング成功したときの処理
       audio.play();
