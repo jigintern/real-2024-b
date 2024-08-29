@@ -20,9 +20,7 @@
           username: username,
         }),
       });
-      for (let i = 0; i < result.length; i++) {
-        document.getElementById('render').innerHTML += "名前" + '<br>';
-      }
+        document.getElementById('render').innerHTML = result[0].pairName;
     </script>
 </head>
 <body>
