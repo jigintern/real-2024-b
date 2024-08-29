@@ -43,7 +43,6 @@ Deno.serve({
               // マッチングに成功した時の処理
               const json = JSON.stringify({
                 event: "matching-success",
-                myname: data.myName,
                 pairName: data.pairName,
                 pairActive: data.pairActive
               });
