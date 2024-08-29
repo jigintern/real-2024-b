@@ -112,10 +112,9 @@ Deno.serve({
 
       if (req.method == "GET" && pathname === "/image") {
         // マッチ画面で相手の画像を返す処理
-        console.log("eee");
-        const json = await req.json();  // JSONのデータを受け取る
-        const pairName = json["pair_name"]; // ペアした人の名前、活動をGet
-        const pairAct = json["pair_act"];
+        const url = new URL(req.url);
+        const pairName = url.searchParams.get("pair_name");
+        const pairAct = url.searchParams.get("pair_active");
 
         const kv = await getkvData(); // Databaseを開く
         console.log(kv);
