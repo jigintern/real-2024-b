@@ -5,12 +5,35 @@
     <meta charset="utf-8" />
     <title>HeyHey</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="manifest" href="manifest.json" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="img/favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="img/favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="img/favicon/favicon-16x16.png"
+    />
+    <link
+      rel="mask-icon"
+      href="img/favicon/safari-pinned-tab.svg"
+      color="#5bbad5"
+    />
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        // const name = document.getElementById("usrName");
-        // name.innerHTML = localStorage.getItem("name");
-        // const active = document.getElementById("active");
-        // active.innerHTML = localStorage.getItem("active");
+        const name = document.getElementById("pairName");
+        const active = document.getElementById("pairActive");
+        name.innerHTML = localStorage.getItem("pairName");
+        active.innerHTML = localStorage.getItem("pairActive");
         const homeButton = document.getElementById("homeButton");
         homeButton.addEventListener("click", function (event) {
           window.location.href = "/main.html";
@@ -20,13 +43,13 @@
   </head>
   <body>
     <div id="container">
-      <div id="icon">
+      <div class="imgWrap">
         <img src="img/noImage.jpg" alt="icon image" id="iconImg" />
-        <div id="usrName">福井 敦賀太郎</div>
+        <div id="pairName"></div>
       </div>
       <div id="textContainer">
         <div>最近あったこと</div>
-        <div id="active">鯖江でBBQをした！</div>
+        <div id="pairActive">鯖江でBBQをした！</div>
       </div>
       <div>
         <button id="homeButton">Home</button>

@@ -1,10 +1,12 @@
 body {
   font-family: "ヒラギノ角ゴ ProN W3", "游ゴシック", sans-serif;
-  height: 100vh;
+  overflow: visible;
+  margin-right: 0;
+  margin-left: 0;
 }
 
 #container {
-  height: 95vh;
+  height: 120vh;
   display: flex;
   justify-content: space-evenly;
   flex-direction: column;
@@ -12,15 +14,6 @@ body {
 }
 
 .inputContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-}
-
-.inputContainer2 {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -37,13 +30,33 @@ body {
   height: 100%;
 }
 
-#icon {
+.imgWrap {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 25vh;
+  height: 50vh;
+  width: 100%;
 }
+
+#iconWrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#homeIconWrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
 #iconImg {
   height: 15vh;
   width: 15vh;
@@ -56,7 +69,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 35vh;
+  /* height: 35vh; */
 }
 
 #qrImg {
@@ -90,9 +103,33 @@ body {
   font-size: x-large;
 }
 
+#activeImg {
+  height: 80%;
+  width: 80%;
+  /* border-radius: 15%; */
+  object-fit: cover;
+  border: 1px solid #000;
+}
+
+/* #homeActiveImgWrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50%;
+  width: 100%;
+} */
+.homeActiveImg {
+  height: 100%;
+  width: 100%;
+  border-radius: 10%;
+  object-fit: cover;
+  border: 1px solid #000;
+}
+
 #nameInput {
   width: 80%;
   height: 40px;
+  font-size: x-large;
 }
 
 #iconInput {
@@ -102,10 +139,10 @@ body {
 #activeInput {
   width: 80%;
   height: 40px;
+  font-size: x-large;
 }
 
 #signUpButton,
-#editButton,
 #homeButton {
   border: 0;
   border-radius: 3.75rem;
@@ -114,4 +151,49 @@ body {
   font-size: large;
   width: 60vw;
   height: 60px;
+  margin-top: 10px;
+}
+
+#qrBtn {
+  border: 0;
+  border-radius: 3rem;
+  background-color: cornflowerblue;
+  color: white;
+  font-size: large;
+  width: 60vw;
+  height: 60px;
+}
+
+#recordContainer {
+  display: none;
+  flex-direction: column;
+  justify-content: right;
+  margin-top: 20px;
+}
+
+#uploadIconError,
+#uploadActiveError {
+  display: none;
+  color: red;
+}
+
+footer {
+  /* ここからがfooterのcssです　ぐちゃぐちゃになっていますが一応うごきます*/
+  display: flex;
+  justify-content: space-around;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #f8f8ff;
+}
+#footterSearchButton,
+#footterHomeButton,
+#editButton {
+  /* ボタンをまとめてます*/
+  background: transparent; /* ボタン画像の背景を透明にします*/
+  border: 2px solid transparent; /* ボタン画像の外枠を透明にします*/
+}
+
+#footer_margine {
+  height: 50px;
 }

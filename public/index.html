@@ -5,6 +5,46 @@
     <meta charset="utf-8" />
     <title>HeyHey</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="manifest" href="manifest.json" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="img/favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="img/favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="img/favicon/favicon-16x16.png"
+    />
+    <link
+      rel="mask-icon"
+      href="img/favicon/safari-pinned-tab.svg"
+      color="#5bbad5"
+    />
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.0/dist/browser-image-compression.js"
+    ></script>
+    <script src="compressImg.js"></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register("./sw.js")
+          .then((registration) => {
+            console.log("ServiceWorker registration successful.");
+          })
+          .catch((err) => {
+            console.log("ServiceWorker registration failed.");
+          });
+      }
+    </script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const signUpButton = document.getElementById("signUpButton");
@@ -19,25 +59,74 @@
           document.getElementById("iconImg").src = localStorage.getItem("icon");
         }
 
-        signUpButton.addEventListener("click", function (event) {
-          localStorage.setItem("name", nameInput.value);     // save name
-          localStorage.setItem("active", activeInput.value); // save activity
+        if (localStorage.getItem("icon")) {
+          document.getElementById("iconImg").src = localStorage.getItem("icon");
+        } else {
+          document.getElementById("iconImg").src = "img/noImage.jpg";
+        }
+
+        // 画像の読み込みに失敗した場合にデフォルトの画像を表示する
+        document.getElementById("iconImg").onerror = function () {
+          console.log(
+            "画像の読み込みに失敗しました。デフォルトの画像を使用します。"
+          );
+          document.getElementById("iconImg").src = "img/noImage.jpg";
+          document.getElementById("uploadIconError").style.display = "block";
+        };
+
+        if (localStorage.getItem("activeImg")) {
+          document.getElementById("activeImg").src =
+            localStorage.getItem("activeImg");
+        } else {
+          document.getElementById("activeImg").src = "img/noImage.jpg";
+        }
+
+        // 画像の読み込みに失敗した場合にデフォルトの画像を表示する
+        document.getElementById("activeImg").onerror = function () {
+          console.log(
+            "画像の読み込みに失敗しました。デフォルトの画像を使用します。"
+          );
+          document.getElementById("activeImg").src = "img/noImage.jpg";
+          document.getElementById("uploadActiveError").style.display = "block";
+        };
+
+        signUpButton.addEventListener("click", async function (event) {
+          // 名前が半角英数字、ひらがな、カタカナ、漢字のみで入力されているか確認
+          if (/[^a-zA-Zぁ-んァ-ン一-龯ー]/.test(nameInput.value)) {
+            nameInput.setCustomValidity(
+              "半角英数字、ひらがな、カタカナ、漢字のみで入力してください"
+            );
+            // 最近の出来事が半角英数字、ひらがな、カタカナ、漢字、！、？のみで入力されているか確認
+          } else if (
+            /[^a-zA-Zぁ-んァ-ン一-龯ー!！?？]/.test(activeInput.value)
+          ) {
+            activeInput.setCustomValidity(
+              "半角英数字、ひらがな、カタカナ、漢字、！、？のみで入力してください"
+            );
+            // 名前と最近の出来事が正しく入力されている場合localStorageに保存
+          } else {
+            localStorage.setItem("name", nameInput.value); // save name
+            localStorage.setItem("active", activeInput.value); // save activity
+            await fetch("/activity", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                user_name: nameInput.value,
+                activity: activeInput.value,
+                image: localStorage.getItem("activeImg"),
+              }),
+            });
+          }
+        });
+        // ユーザが名前を書き換えたらエラーを消す処理
+        nameInput.addEventListener("input", (e) => {
+          nameInput.setCustomValidity("");
+        });
+        // ユーザが最近の出来事を書き換えたらエラーを消す処理
+        activeInput.addEventListener("input", (e) => {
+          activeInput.setCustomValidity("");
         });
       });
-      function previewIcon(input) {
-        // ファイルが選択されているか確認
-        if (input.files && input.files[0]) {
-          const reader = new FileReader();
-          // 画像ファイルを読み込み終えたときに発生するイベント
-          reader.onload = function (e) {
-            // 画像タグのsrcを読み込んだ画像のデータURLに変更
-            document.getElementById("iconImg").src = e.target.result;
-            localStorage.setItem("icon", e.target.result);
-          };
-          // ファイルをデータURLとして読み込む
-          reader.readAsDataURL(input.files[0]);
-        }
-      }
     </script>
   </head>
   <body>
@@ -45,21 +134,35 @@
       <div id="container">
         <div class="inputContainer">
           <label>名前</label>
-          <input type="text" id="nameInput" placeholder="名前を入力" />
+          <input type="text" id="nameInput" placeholder="名前を入力" required />
         </div>
-
-        <div id="icon">
+        <div id="iconWrap">
           <img src="img/noImage.jpg" alt="icon image" id="iconImg" />
-          <input type="file" id="iconInput" onchange="previewIcon(this)" />
+          <span id="uploadIconError">画像の取得に失敗しました</span>
+          <input
+            type="file"
+            id="iconInput"
+            onchange="previewIcon(this)"
+            accept=".jpg, .jpeg, .png"
+          />
         </div>
-        <div></div>
         <div class="inputContainer">
-
           <label>最近の出来事</label>
           <input
             type="text"
             id="activeInput"
             placeholder="最近の出来事を入力"
+            required
+          />
+        </div>
+        <div class="imgWrap">
+          <img src="img/noImage.jpg" alt="activity image" id="activeImg" />
+          <span id="uploadActiveError">画像の取得に失敗しました</span>
+          <input
+            type="file"
+            id="iconInput"
+            onchange="activeIcon(this)"
+            accept=".jpg, .jpeg, .png"
           />
         </div>
         <div class="buttonContainer">
