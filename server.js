@@ -87,7 +87,7 @@ Deno.serve({
       if(req.method == "POST" && pathname === "/history"){
         console.log("aaa")
         // アクティビティの保存処理aaaaa
-        const dbClient = getkvData();
+        const dbClient = await getkvData();
         console.log(await dbClient);
 
         const dateNow = new Date();
@@ -99,8 +99,8 @@ Deno.serve({
         const pairactive = json["pairactive"];
         // pngをjpegに変えること
 
-        const result = saveMatchAll(await dbClient, username, pairname, pairactive, timeNow);
-        return new Response(await result);
+        const result = await saveMatchAll(await dbClient, username, pairname, pairactive, timeNow);
+        return await new Response(await result);
       }
 
       // publicフォルダ内にあるファイルを返す
