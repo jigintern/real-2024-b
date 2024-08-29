@@ -25,7 +25,7 @@ Deno.serve({
           event: "connected",
         }));
       };
-      socket.onmessage = (message) => {
+      socket.onmessage = async (message) => {
         const data = JSON.parse(message.data);
         // 受信したときの処理
         switch (data.event) {
@@ -41,7 +41,7 @@ Deno.serve({
 
             if((previousName != null) && (previousName === data.myName)){
               // マッチングに成功した時の処理
-              fetch("/history", {
+              const response = await fetch("/history", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
