@@ -134,6 +134,7 @@ Deno.serve({
         let array = [];
         let index = 0;
         for await (const item of listresult) {
+        console.log("tetete")
         console.log(item.value);
         array.push(item.value);
         index++;
