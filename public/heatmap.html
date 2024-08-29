@@ -19,21 +19,12 @@
         body: JSON.stringify({
           username: username,
         }),
-
       });
-
-      function dataArray(els) {
-      let array = document.querySelector('.array');
-      els.forEach(el => {
-    let pairname = el.pairName;
-    let pairactive = el.pairActive;
-    let code = '<ul class="list">'+
-    '<li class="listItem">名前：' + name + '</li>'+
-    '<li class="listItem">出来事：' + pairactive + '</li>'+
-    '</ul>';
-    array.insertAdjacentHTML('beforeend',code);
-  });
-}
+      for (let i = 0; i < result.length; i++) {
+          let resultList = document.createElement('li');
+          resultList.textContent = result[i];
+          document.getElementById('list').appendChild(resultList);
+      }
     </script>
 </head>
 <body>
@@ -41,7 +32,9 @@
     <script src="heatmap.js"></script>
     <div id="cal-heatmap"></div>
   </div>
-  <div class="array"></div>
+  <div>
+  <ul id="list"></ul>
+</div>
   <footer class="footer"><!--ここからフッター-->
     <button id = footterHomeButton type="button" onclick="location.href='/main.html'" style="height: 50px;">
       <img src="img/footer_home.png" alt="footterHome" style="height: 70%;">
