@@ -52,7 +52,11 @@ Deno.serve({
             break;
         }
       };
-      socket.onclose = () => console.log("DISCONNECTED"); // 接続が終わったときの処理
+      socket.onclose = () => {
+        console.log("DISCONNECTED"); // 接続が終わったときの処理
+        clientsMap.clear(); // 接続が切れたらデータを消すようにしている
+        waitingList.clear();
+        }
       
       socket.onerror = (error) => console.error("ERROR:", error); // エラーが発生したときの処理
 
