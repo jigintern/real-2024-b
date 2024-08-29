@@ -56,11 +56,14 @@
         const pairActImage = json["image"];
         document.getElementById("activeImg").src = pairActImage;  // 相手のアクティビティの画像をここに入れる
 
-        if (localStorage.getItem("activeImg")) {
-          document.getElementById("activeImg").src = localStorage.getItem("activeImg")
-        } else {
-          document.getElementById("activeImg").src = "img/noImage.jpg";
-        }
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          document.getElementById("activeImg").src = e.target.result;
+          localStorage.setItem("activeImg", e.target.result);
+          document.getElementById("uploadIconError").style.display = "none";
+        };
+        // ここでBlobオブジェクトを読み込み、読み込みが完了したタイミングでreader.onloadに定義した関数が実行される
+        reader.readAsDataURL(compressedFile);
       });
     </script>
   </head>
