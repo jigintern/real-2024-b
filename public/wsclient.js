@@ -20,8 +20,8 @@ socket.onmessage = (m) => {
       // Todo: マッチング成功したときの処理
       const pairName = data.pairName; 
       const pairActive = data.pairActive; 
-      console.log(pairActive);
-      /*fetch("/history", {
+      console.log("matching-success",pairName,pairActive);
+      fetch("/history", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -30,7 +30,7 @@ socket.onmessage = (m) => {
           pairactive: pairActive,
 
         }),
-      });*/
+      });
       audio.play();
       // Add an event listener for the 'ended' event
       

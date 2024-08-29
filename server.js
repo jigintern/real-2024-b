@@ -41,16 +41,6 @@ Deno.serve({
 
             if((previousName != null) && (previousName === data.myName)){
               // マッチングに成功した時の処理
-              const response = fetch("/history", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                    username: data.myName,
-                    pairname: data.pairName,
-                    pairactive: data.pairActive,
-          
-                    }),
-                    });
               const json = JSON.stringify({event: "matching-success", pairName: data.pairName, pairActive: data.pairActive});
               const clientA = clientsMap.get(data.myName);
               clientA.send(json);
