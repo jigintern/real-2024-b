@@ -35,6 +35,12 @@
         pairName.innerHTML = localStorage.getItem("pairName");
         pairActive.innerHTML = localStorage.getItem("pairActive");
 
+        const homeButton = document.getElementById("homeButton");
+        homeButton.addEventListener("click", function (event) {
+          console.log("Home button clicked");
+          window.location.href = "/main.html";
+        });
+
         const activeImage = await fetch("/image",{
           // 画像をサーバーに取ってきてもらう
           method: "GET",
@@ -55,11 +61,6 @@
         } else {
           document.getElementById("activeImg").src = "img/noImage.jpg";
         }
-
-        const homeButton = document.getElementById("homeButton");
-        homeButton.addEventListener("click", function (event) {
-          window.location.href = "/main.html";
-        });
       });
     </script>
   </head>

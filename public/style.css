@@ -112,13 +112,13 @@ body {
   border: 1px solid #000;
 }
 
-/* #homeActiveImgWrap {
+#homeActiveImgWrap {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 50%;
   width: 100%;
-} */
+}
 .homeActiveImg {
   height: 100%;
   width: 100%;
