@@ -59,6 +59,17 @@
           window.location.href = "/main.html";
         });
 
+        if(pairName != null){
+          const userIcon = await fetch(`/image?pair_name=${pairName}`, {
+            // 画像をサーバーに取ってきてもらう
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+          });
+          const json = await userIcon.json();
+          const pairIconImage = json["image"];
+          document.getElementById("iconImg").src = pairIconImage;  // 相手のアイコンの画像をここに入れる
+        }
+
         if (pairName != null && pairActive != null) { // 相手の名前と相手の出来事は必須
           const activeImage = await fetch(`/image?pair_name=${pairName}&pair_active=${pairActive}`, {
             // 画像をサーバーに取ってきてもらう

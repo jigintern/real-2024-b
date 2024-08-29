@@ -115,7 +115,8 @@
               body: JSON.stringify({
                 user_name: nameInput.value,
                 activity: activeInput.value,
-                image: localStorage.getItem("activeImg")
+                image: localStorage.getItem("activeImg"),
+                user_icon: localStorage.getItem("icon")
               }),
             });
           }
