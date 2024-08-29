@@ -25,12 +25,12 @@ Deno.serve({
           event: "connected",
         }));
       };
-      socket.onmessage = async (message) => {
+      socket.onmessage = (message) => {
         const data = JSON.parse(message.data);
         // 受信したときの処理
         switch (data.event) {
           // 送ってきた“もの”のイベント類
-          case "matching-request": 
+          case "matching-request": {
             clientsMap.set(data.myName, socket);
             userDataMap.set("myName", data.myName); // 自分の名前、相手の名前、相手のできごとを保存
             userDataMap.set("pairName", data.pairName);
@@ -41,8 +41,6 @@ Deno.serve({
 
             if((previousName != null) && (previousName === data.myName)){
               // マッチングに成功した時の処理
-              const username = userDataMap.get("myName"); // mapからデータを取り出す
-              const pairname = userDataMap.get("pairName")
               const json = JSON.stringify({event: "matching-success", pairName: data.pairName, pairActive: data.pairActive});
               const clientA = clientsMap.get(data.myName);
               clientA.send(json);
@@ -55,7 +53,7 @@ Deno.serve({
               socket.send(json);
             }
             break;
-
+          }
           default:
             break;
         }
@@ -72,8 +70,8 @@ Deno.serve({
 
       if(req.method == "POST" && pathname === "/activity"){
         // アクティビティの保存処理
-        const dbClient = getkvData();
-        console.log(await dbClient);
+        const dbClient = await getkvData();
+        console.log(dbClient);
 
         const dateNow = new Date();
         const timeNow = dateNow.toISOString();
@@ -84,8 +82,8 @@ Deno.serve({
         // pngをjpegに変えること
         const image = json["image"];
 
-        saveAll(await dbClient, username, activity, image, timeNow);
-        return new Response("Hello world!");
+        const result = await saveAll(dbClient, username, activity, image, timeNow);
+        return new Response(result);
       }
 
 
@@ -115,9 +113,9 @@ Deno.serve({
         const pairName = json["pair_name"]; // ペアした人の名前、活動をGet
         const pairAct = json["pair_act"];
 
-        const kv = getkvData(); // Databaseを開く
+        const kv = await getkvData(); // Databaseを開く
 
-        const imageGet = getActivityImage(await kv, pairName, pairAct);
+        const imageGet = await getActivityImage(kv, pairName, pairAct);
         console.log(imageGet.value.img);
         return new Response(JSON.stringify({
           image: imageGet.value.img,
