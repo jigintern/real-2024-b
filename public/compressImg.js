@@ -15,10 +15,14 @@ function previewIcon(event) {
           2
         )} MB`
       );
-      const img = URL.createObjectURL(compressedFile);
-      document.getElementById("iconImg").src = img;
-      localStorage.setItem("icon", img);
-      document.getElementById("uploadIconError").style.display = "none";
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        document.getElementById("iconImg").src = e.target.result;
+        localStorage.setItem("icon", e.target.result);
+        document.getElementById("uploadIconError").style.display = "none";
+      };
+      // ここでBlobオブジェクトを読み込み、読み込みが完了したタイミングでreader.onloadに定義した関数が実行される
+      reader.readAsDataURL(compressedFile);
     })
     .catch(function (error) {
       console.log(error.message);
@@ -41,10 +45,14 @@ function activeIcon(event) {
           2
         )} MB`
       );
-      const img = URL.createObjectURL(compressedFile);
-      document.getElementById("activeImg").src = img;
-      localStorage.setItem("activeImg", img);
-      document.getElementById("uploadActiveError").style.display = "none";
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        document.getElementById("activeImg").src = e.target.result;
+        localStorage.setItem("activeImg", e.target.result);
+        document.getElementById("uploadIconError").style.display = "none";
+      };
+      // ここでBlobオブジェクトを読み込み、読み込みが完了したタイミングでreader.onloadに定義した関数が実行される
+      reader.readAsDataURL(compressedFile); //
     })
     .catch(function (error) {
       console.log(error.message);
