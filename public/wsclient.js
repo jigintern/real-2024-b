@@ -16,20 +16,21 @@ socket.onmessage = (m) => {
       // Todo: 接続成功した時の処理
       break;
 
-    case "matching-success":
+    case "matching-success":{
       // Todo: マッチング成功したときの処理
       const pairName = data.pairName; 
       const pairActive = data.pairActive; 
       console.log(pairActive);
-      fetch("/history", {
+      /*fetch("/history", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           username: myUsername,
           pairname: pairName,
           pairactive: pairActive,
+
         }),
-      });
+      });*/
       audio.play();
       // Add an event listener for the 'ended' event
       
@@ -38,7 +39,7 @@ socket.onmessage = (m) => {
         
         window.location.href = "/match.html";
       });
-      break;
+      break;}
     case "send-success":
       // Todo: 送信成功した時の処理
       // Todo: heyhey by ikebou
