@@ -21,11 +21,21 @@ socket.onmessage = (m) => {
       const pairName = data.pairName; 
       const pairActive = data.pairActive; 
       console.log(pairActive);
-      
+      fetch("/history", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: myUsername,
+          pairname: pairName,
+          pairactive: pairActive,
+        }),
+      });
       audio.play();
       // Add an event listener for the 'ended' event
+      
       audio.addEventListener('ended', function() {
         // Change the page only after the audio has finished playing
+        
         window.location.href = "/match.html";
       });
       break;

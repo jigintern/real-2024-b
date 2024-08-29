@@ -35,15 +35,6 @@
         const myname = localStorage.getItem("name");
         name.innerHTML = localStorage.getItem("pairName");
         active.innerHTML = localStorage.getItem("pairActive");
-        await fetch("/history", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                username: myname,
-                pairname: name.innerHTML,
-                pairactive: active.innerHTML,
-              }),
-            });
         const homeButton = document.getElementById("homeButton");
         homeButton.addEventListener("click", function (event) {
           window.location.href = "/main.html";
