@@ -21,10 +21,8 @@
           username: username,
         }),
       });
-      await document.write("<p>" + result[0] + "aaa" + "</p>");
-    }
-      const array = fetchUsers();
-      
+      document.getElementById("server_response").innerText = await result.text();
+    }      
     </script>
 </head>
 <body>
@@ -33,7 +31,7 @@
     <div id="cal-heatmap"></div>
   </div>
   <div>
-    <p id="render">
+    <p id="server_response">
       <br>
       </p>
 </div>

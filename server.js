@@ -153,7 +153,7 @@ Deno.serve({
         }
       }
       console.log(array);
-      return new Response(array);
+      return new Response(array[0].pairName);
       }
       // publicフォルダ内にあるファイルを返す
       return serveDir(req, {
