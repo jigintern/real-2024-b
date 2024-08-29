@@ -43,7 +43,7 @@ Deno.serve({
               // マッチングに成功した時の処理
               const username = userDataMap.get("myName"); // mapからデータを取り出す
               const pairname = userDataMap.get("pairName")
-              nowDate = new Date(); // 今の時間を変数に入れる
+              const nowDate = new Date(); // 今の時間を変数に入れる
               const kv = getkvData(); // databaseを開く
               const key = ["user-name", username, "history", nowDate];  // key
               const value = {   // value
