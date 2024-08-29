@@ -126,6 +126,7 @@ Deno.serve({
         console.log("abc");
         const json = await req.json();  // JSONのデータを受け取る
         const username = json["username"]; // ペアした人の名前、活動をGet
+        console.log(username);
         const kv = await getkvData();
         const listresult = await kv.list({
                  prefix: ["username", username,"history"],
