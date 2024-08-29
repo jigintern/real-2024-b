@@ -109,8 +109,3 @@ async function getActivityImage(kv, username, activity){
   const actGet = await kv.get(["username", username, "activity", activity, "image"]);
   return actGet.value;
 }
-
-async function getActivityImage(kv, username, activity){
-  const actGet = await kv.get(["username", username, "activity", activity, "image"]);
-  return actGet.value;
-}
