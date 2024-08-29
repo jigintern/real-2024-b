@@ -30,14 +30,16 @@
     />
     <script>
       document.addEventListener("DOMContentLoaded", async function () {
-
-        const name = document.getElementById("pairName");
-        const active = document.getElementById("pairActive");
-        const myname = localStorage.getItem("name");
         const pairName = document.getElementById("pairName");
         const pairActive = document.getElementById("pairActive");
         pairName.innerHTML = localStorage.getItem("pairName");
         pairActive.innerHTML = localStorage.getItem("pairActive");
+
+        const homeButton = document.getElementById("homeButton");
+        homeButton.addEventListener("click", function (event) {
+          console.log("Home button clicked");
+          window.location.href = "/main.html";
+        });
 
         const activeImage = await fetch("/image",{
           // 画像をサーバーに取ってきてもらう
@@ -59,11 +61,6 @@
         } else {
           document.getElementById("activeImg").src = "img/noImage.jpg";
         }
-
-        const homeButton = document.getElementById("homeButton");
-        homeButton.addEventListener("click", function (event) {
-          window.location.href = "/main.html";
-        });
       });
     </script>
   </head>
@@ -75,7 +72,7 @@
       </div>
       <div id="textContainer">
         <!-- <div>最近の出来事</div> -->
-        <div id="active"></div>
+        <div id="pairActive"></div>
       </div>
       <div id="homeActiveImgWrap">
         <img src="img/noImage.jpg" alt="activity image" id="activeImg" class="homeActiveImg"/>
