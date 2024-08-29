@@ -92,11 +92,9 @@ Deno.serve({
 
 
       if(req.method == "POST" && pathname === "/history"){
-        console.log("aaa")
         // アクティビティの保存処理aaaaa
         const dbClient = await getkvData();
         console.log(dbClient);
-        console.log("ccc");
         const dateNow = new Date();
         const timeNow = dateNow.toISOString();
 
@@ -105,7 +103,7 @@ Deno.serve({
         const pairname = json["pairname"];
         const pairactive = json["pairactive"];
         // pngをjpegに変えること
-
+        console.log(username,pairname,pairactive);
         const result = await saveMatchAll(dbClient, username, pairname, pairactive, timeNow);
         console.log(result);
         return new Response(result);
@@ -132,6 +130,7 @@ Deno.serve({
         const username = json["username"]; // ペアした人の名前、活動をGet
         console.log(username);
         const kv = await getkvData();
+        console.log(kv);
         await kv.set(["teacher", 2], { name: "じぇいぴー先生" });
         const getResult = await kv.get(["teacher", 2]);
         console.log("get_result: ", getResult);
