@@ -28,7 +28,7 @@ socket.onmessage = (m) => {
     case "send-success":
       // Todo: 送信成功した時の処理
       // Todo: heyhey by ikebou
-      audio.play();
+      //audio.play();
       break;
   }
 };
