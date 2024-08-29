@@ -74,12 +74,30 @@
           document.getElementById("uploadIconError").style.display = "block";
         };
 
+        // 画像の読み込みに失敗した場合にデフォルトの画像を表示する
+        document.getElementById("iconImg").onerror = function () {
+          console.log(
+            "画像の読み込みに失敗しました。デフォルトの画像を使用します。"
+          );
+          document.getElementById("iconImg").src = "img/noImage.jpg";
+          document.getElementById("uploadIconError").style.display = "block";
+        };
+
         if (localStorage.getItem("activeImg")) {
           document.getElementById("activeImg").src =
             localStorage.getItem("activeImg");
         } else {
           document.getElementById("activeImg").src = "img/noImage.jpg";
         }
+
+        // 画像の読み込みに失敗した場合にデフォルトの画像を表示する
+        document.getElementById("activeImg").onerror = function () {
+          console.log(
+            "画像の読み込みに失敗しました。デフォルトの画像を使用します。"
+          );
+          document.getElementById("activeImg").src = "img/noImage.jpg";
+          document.getElementById("uploadActiveError").style.display = "block";
+        };
 
         // 画像の読み込みに失敗した場合にデフォルトの画像を表示する
         document.getElementById("activeImg").onerror = function () {
@@ -123,6 +141,7 @@
                 user_name: nameInput.value,
                 activity: activeInput.value,
                 image: myActive,
+                image: myActive,
               }),
             });
           }
@@ -146,7 +165,9 @@
           <input type="text" id="nameInput" placeholder="名前を入力" required />
         </div>
         <div id="iconWrap">
+        <div id="iconWrap">
           <img src="img/noImage.jpg" alt="icon image" id="iconImg" />
+          <span id="uploadIconError">画像の取得に失敗しました</span>
           <span id="uploadIconError">画像の取得に失敗しました</span>
           <input
             type="file"
@@ -166,6 +187,7 @@
         </div>
         <div class="imgWrap">
           <img src="img/noImage.jpg" alt="activity image" id="activeImg" />
+          <span id="uploadActiveError">画像の取得に失敗しました</span>
           <span id="uploadActiveError">画像の取得に失敗しました</span>
           <input
             type="file"
