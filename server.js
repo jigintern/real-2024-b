@@ -40,18 +40,12 @@ Deno.serve({
             if((previousName != null) && (previousName === data.myName)){
               // マッチングに成功した時の処理
               const username = userDataMap.get("myName");//mapからデータを取り出す
-              const pairname = userDataMap.get("pairName")
-              const pairactive = userDataMap.get(data.pairActive)
+              const pairname = userDataMap.get("pairName");
+              const pairactive = userDataMap.get(data.pairActive);
               const nowDate = new Date();//今の時間を変数に入れる
               const timeNow = nowData.toISOString();
               const kv = getkvData();//databaseを開く
-              const key = ["user-name", username, "time",nowDate,"history", ];//key
-              const value = {   //value
-              pairName: pairname,
-              pairActive:pairactive,
-              timeStamp: nowDate
-              };
-              kv.set(key, value); //data set
+              saveMatchAll(kv, username, pairname, pairactive, timeNow)
               const json = JSON.stringify({event: "matching-success", pairName: data.pairName, pairActive: data.pairActive});
               const clientA = clientsMap.get(data.myName);
               clientA.send(json);
@@ -119,6 +113,17 @@ async function saveAll(kv, username, activity, icon, time){
         img: icon,
         time: time
     }
+  );
+}
+
+async function saveMatchAll(kv, username, pairname, pairactive, time){
+  await kv.set(
+    ["username", username, "time", time, "history"],
+    {   //value
+      pairName: pairname,
+      pairActive:pairactive,
+      time: time
+      }
   );
 }
 
