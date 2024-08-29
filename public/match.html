@@ -30,11 +30,39 @@
     />
     <script>
       document.addEventListener("DOMContentLoaded", async function () {
+
         const name = document.getElementById("pairName");
         const active = document.getElementById("pairActive");
         const myname = localStorage.getItem("name");
         name.innerHTML = localStorage.getItem("pairName");
         active.innerHTML = localStorage.getItem("pairActive");
+
+        const pairName = document.getElementById("pairName");
+        const pairActive = document.getElementById("pairActive");
+        pairName.innerHTML = localStorage.getItem("pairName");
+        pairActive.innerHTML = localStorage.getItem("pairActive");
+
+        const activeImage = await fetch("/image",{
+          // 画像をサーバーに取ってきてもらう
+          method: "GET",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({
+            // データベースのアクセスに必要なキー
+            pair_name: pairName.innerHTML,
+            pair_act: pairActive.innerHTML,
+          }),
+        });
+
+        const json = await activeImage.json();
+        const pairActImage = json["image"];
+        document.getElementById("activeImg").src = pairActImage;  // 相手のアクティビティの画像をここに入れる
+
+        if (localStorage.getItem("activeImg")) {
+          document.getElementById("activeImg").src = localStorage.getItem("activeImg")
+        } else {
+          document.getElementById("activeImg").src = "img/noImage.jpg";
+        }
+
         const homeButton = document.getElementById("homeButton");
         homeButton.addEventListener("click", function (event) {
           window.location.href = "/main.html";
@@ -49,10 +77,12 @@
         <div id="pairName"></div>
       </div>
       <div id="textContainer">
-        <div>最近あったこと</div>
-        <div id="pairActive">鯖江でBBQをした！</div>
+        <!-- <div>最近の出来事</div> -->
+        <div id="active"></div>
       </div>
-      <div>
+      <div id="homeActiveImgWrap">
+        <img src="img/noImage.jpg" alt="activity image" id="activeImg" class="homeActiveImg"/>
+      </div>
         <button id="homeButton">Home</button>
       </div>
     </div>
