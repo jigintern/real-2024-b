@@ -140,9 +140,7 @@ Deno.serve({
         await kv.set(["teacher", 2], { name: "じぇいぴー先生" });
         const getResult = await kv.get(["username","こばしゅん","activity","モンハンをやった","image"]);
         console.log("get_result: ", getResult);
-        const listresult = kv.list({
-                 prefix: [username],
-             });
+        const listresult = await kv.list({ prefix: ["username",username,"history"] });
         let array = [];
         let index = 0;
         for await (const item of listresult) {
