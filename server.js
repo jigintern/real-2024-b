@@ -85,6 +85,7 @@ Deno.serve({
         const image = json["image"];
 
         saveAll(await dbClient, username, activity, image, timeNow);
+        return new Response("Hello world!");
       }
 
 
