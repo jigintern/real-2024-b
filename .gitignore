@@ -1,3 +1,9 @@
 deno.lock
 
+test.html
+
+image-compression.js
+
 .vscode
+
+.env
