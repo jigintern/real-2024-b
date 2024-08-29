@@ -7,7 +7,7 @@ import "https://deno.land/std@0.203.0/dotenv/mod.ts";
 
 const waitingList = new Map();  
 const clientsMap = new Map();   // all clients
-const userDataMap = new Map(); //名前と出来事を記録するマップ
+const userDataMap = new Map(); // 名前と出来事を記録するマップ
  /**
  * APIリクエストを処理する
  */
@@ -32,14 +32,28 @@ Deno.serve({
           // 送ってきた“もの”のイベント類
           case "matching-request": 
             clientsMap.set(data.myName, socket);
-            userDataMap.set("myName", data.myName);// 自分の名前、相手の名前、相手のできごとを保存
+            userDataMap.set("myName", data.myName); // 自分の名前、相手の名前、相手のできごとを保存
             userDataMap.set("pairName", data.pairName);
             userDataMap.set("pairActive", data.pairActive);
             console.log(data.pairName, data.pairActive);
             console.log(`matching-request received! user-data: ${data.myName},${data.pairName},${data.pairActive}`);
             const previousName = waitingList.get(data.pairName);  // get previous user's name
+
             if((previousName != null) && (previousName === data.myName)){
               // マッチングに成功した時の処理
+              const username = userDataMap.get("myName"); // mapからデータを取り出す
+              const pairname = userDataMap.get("pairName")
+              nowDate = new Date(); // 今の時間を変数に入れる
+              const kv = getkvData(); // databaseを開く
+              const key = ["user-name", username, "history", nowDate];  // key
+              const value = {   // value
+              myName: username,
+              pairName: pairname,
+              timeStamp: nowDate
+              };
+              kv.set(key, value); // data set
+
+
               const json = JSON.stringify({event: "matching-success", pairName: data.pairName, pairActive: data.pairActive});
               const clientA = clientsMap.get(data.myName);
               clientA.send(json);
@@ -68,7 +82,7 @@ Deno.serve({
       console.log(pathname);
 
       if(req.method == "POST" && pathname === "/activity"){
-        // アクティビティの保存処理aaaaa
+        // アクティビティの保存処理
         const dbClient = getkvData();
         console.log(await dbClient);
 
@@ -83,6 +97,7 @@ Deno.serve({
 
         saveAll(await dbClient, username, activity, image, timeNow);
       }
+
 
       if(req.method == "POST" && pathname === "/history"){
         console.log("aaa")
@@ -103,6 +118,22 @@ Deno.serve({
         return await new Response(await result);
       }
 
+      if(req.method == "GET" && pathname === "/image"){
+        // マッチ画面で相手の画像を返す処理
+        const json = await req.json();  // JSONのデータを受け取る
+        const pairName = json["pair_name"]; // ペアした人の名前、活動をGet
+        const pairAct = json["pair_act"];
+
+        const kv = getkvData(); // Databaseを開く
+
+        const imageGet = getActivityImage(await kv, pairName, pairAct);
+        console.log(imageGet.value.img);
+        return new Response(JSON.stringify({
+          image: imageGet.value.img,
+          })
+        );
+      }
+
       // publicフォルダ内にあるファイルを返す
       return serveDir(req, {
 
@@ -119,11 +150,11 @@ async function getkvData(){//denokvをオープンする関数
   return await Deno.openKv(Deno.env.get("URL"));
 }
 
-async function saveAll(kv, username, activity, icon, time){
+async function saveAll(kv, username, activity, image, time){
   await kv.set(
     ["username", username, "activity", activity, "image"],
     {
-        img: icon,
+        img: image,
         time: time
     }
   );
@@ -143,5 +174,5 @@ async function saveMatchAll(kv, username, pairname, pairactive, time){
 
 async function getActivityImage(kv, username, activity){
   const actGet = await kv.get(["username", username, "activity", activity, "image"]);
-  return actGet.value;
+  return actGet;
 }

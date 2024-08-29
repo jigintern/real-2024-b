@@ -65,12 +65,30 @@
           document.getElementById("iconImg").src = "img/noImage.jpg";
         }
 
+        // 画像の読み込みに失敗した場合にデフォルトの画像を表示する
+        document.getElementById("iconImg").onerror = function () {
+          console.log(
+            "画像の読み込みに失敗しました。デフォルトの画像を使用します。"
+          );
+          document.getElementById("iconImg").src = "img/noImage.jpg";
+          document.getElementById("uploadIconError").style.display = "block";
+        };
+
         if (localStorage.getItem("activeImg")) {
           document.getElementById("activeImg").src =
             localStorage.getItem("activeImg");
         } else {
           document.getElementById("activeImg").src = "img/noImage.jpg";
         }
+
+        // 画像の読み込みに失敗した場合にデフォルトの画像を表示する
+        document.getElementById("activeImg").onerror = function () {
+          console.log(
+            "画像の読み込みに失敗しました。デフォルトの画像を使用します。"
+          );
+          document.getElementById("activeImg").src = "img/noImage.jpg";
+          document.getElementById("uploadActiveError").style.display = "block";
+        };
 
         signUpButton.addEventListener("click", async function (event) {
           // 名前が半角英数字、ひらがな、カタカナ、漢字のみで入力されているか確認
@@ -89,13 +107,22 @@
           } else {
             localStorage.setItem("name", nameInput.value); // save name
             localStorage.setItem("active", activeInput.value); // save activity
+
+            const myActive = document.getElementById("activeImg").src;
+            // アクティビティ画像を入れなかったらパス名だけを返す
+            if(myActive === "img/noimage.jpg"){
+              myActive = "img/noimage.jpg";
+            }else{
+              myActive = localStorage.getItem("activeImg");
+            }
+
             await fetch("/activity", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
                 user_name: nameInput.value,
                 activity: activeInput.value,
-                image: localStorage.getItem("activeImg"),
+                image: myActive,
               }),
             });
           }
@@ -109,34 +136,6 @@
           activeInput.setCustomValidity("");
         });
       });
-      // function previewIcon(input) {
-      //   // ファイルが選択されているか確認
-      //   if (input.files && input.files[0]) {
-      //     const reader = new FileReader();
-      //     // 画像ファイルを読み込み終えたときに発生するイベント
-      //     reader.onload = function (e) {
-      //       // 画像タグのsrcを読み込んだ画像のデータURLに変更
-      //       document.getElementById("iconImg").src = e.target.result;
-      //       localStorage.setItem("icon", e.target.result);
-      //     };
-      //     // ファイルをデータURLとして読み込む
-      //     reader.readAsDataURL(input.files[0]);
-      //   }
-      // }
-      // function activeIcon(input) {
-      //   // ファイルが選択されているか確認
-      //   if (input.files && input.files[0]) {
-      //     const reader = new FileReader();
-      //     // 画像ファイルを読み込み終えたときに発生するイベント
-      //     reader.onload = function (e) {
-      //       // 画像タグのsrcを読み込んだ画像のデータURLに変更
-      //       document.getElementById("activeImg").src = e.target.result;
-      //       localStorage.setItem("activeImg", e.target.result);
-      //     };
-      //     // ファイルをデータURLとして読み込む
-      //     reader.readAsDataURL(input.files[0]);
-      //   }
-      // }
     </script>
   </head>
   <body>
@@ -146,8 +145,9 @@
           <label>名前</label>
           <input type="text" id="nameInput" placeholder="名前を入力" required />
         </div>
-        <div class="imgWrap">
+        <div id="iconWrap">
           <img src="img/noImage.jpg" alt="icon image" id="iconImg" />
+          <span id="uploadIconError">画像の取得に失敗しました</span>
           <input
             type="file"
             id="iconInput"
@@ -166,6 +166,7 @@
         </div>
         <div class="imgWrap">
           <img src="img/noImage.jpg" alt="activity image" id="activeImg" />
+          <span id="uploadActiveError">画像の取得に失敗しました</span>
           <input
             type="file"
             id="iconInput"
