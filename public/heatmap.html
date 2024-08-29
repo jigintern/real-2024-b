@@ -13,7 +13,7 @@
     <script src="https://unpkg.com/cal-heatmap/dist/plugins/LegendLite.min.js"></script>
     <script>
       const username = localStorage.getItem("name");
-      const result = fetch("/histories", {
+      const result = await fetch("/histories", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
