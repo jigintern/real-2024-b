@@ -33,6 +33,7 @@ Deno.serve({
           case "matching-request": {
             clientsMap.set(data.myName, socket);
             userDataMap.set("myName", data.myName); // 自分の名前、相手の名前、相手のできごとを保存
+            userDataMap.set("myActive", data.myActive);
             userDataMap.set("pairName", data.pairName);
             userDataMap.set("pairActive", data.pairActive);
             console.log(data.pairName, data.pairActive);
@@ -41,15 +42,13 @@ Deno.serve({
 
             if((previousName != null) && (previousName === data.myName)){
               // マッチングに成功した時の処理
-              const json = JSON.stringify({
-                event: "matching-success",
-                pairName: data.pairName,
-                pairActive: data.pairActive
-              });
+              const jsonA = JSON.stringify({event: "matching-success", pairName: data.pairName, pairActive: data.pairActive});
+              const jsonB = JSON.stringify({event: "matching-success", pairName: data.myName, pairActive: data.myActive});
+
               const clientA = clientsMap.get(data.myName);
-              clientA.send(json);
+              clientA.send(jsonA);
               const clientB = clientsMap.get(data.pairName);
-              clientB.send(json);
+              clientB.send(jsonB);
             }else{
               // マッチング待ちの時の処理
               waitingList.set(data.myName, data.pairName);
@@ -94,11 +93,9 @@ Deno.serve({
 
 
       if(req.method == "POST" && pathname === "/history"){
-        console.log("aaa")
         // アクティビティの保存処理aaaaa
         const dbClient = await getkvData();
         console.log(dbClient);
-        console.log("ccc");
         const dateNow = new Date();
         const timeNow = dateNow.toISOString();
 
@@ -107,7 +104,7 @@ Deno.serve({
         const pairname = json["pairname"];
         const pairactive = json["pairactive"];
         // pngをjpegに変えること
-
+        console.log("setDB!!",username,pairname,pairactive);
         const result = await saveMatchAll(dbClient, username, pairname, pairactive, timeNow);
         console.log(`history = ${result}`);
         return new Response(result);
@@ -133,7 +130,32 @@ Deno.serve({
           })
         );
       }
-
+      if(req.method == "POST" && pathname === "/histories"){
+        console.log("abc");
+        const json = await req.json();  // JSONのデータを受け取る
+        const username = json["username"]; // ペアした人の名前、活動をGet
+        console.log(username);
+        const kv = await getkvData();
+        console.log(kv);
+        await kv.set(["teacher", 2], { name: "じぇいぴー先生" });
+        const getResult = await kv.get(["teacher", 2]);
+        console.log("get_result: ", getResult);
+        const listresult = kv.list({
+                 prefix: ["username", "hoge", "history"],
+             });
+        let array = [];
+        let index = 0;
+        for await (const item of listresult) {
+        console.log("tetete")
+        console.log(item.value);
+        array.push(item.value);
+        index++;
+        if(index >= 5){
+        break;
+        }
+      }
+      return new Response(array);
+      }
       // publicフォルダ内にあるファイルを返す
       return serveDir(req, {
 

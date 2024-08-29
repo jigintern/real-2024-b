@@ -1,5 +1,6 @@
 const uri = new URL(window.location.href);
 const myUsername = localStorage.getItem('name');
+const myActive = localStorage.getItem('active')
 const protocol = uri.host === "localhost:8080" ? "ws" : "wss";
 const socket = new WebSocket(  
     `${protocol}://${uri.host}/start_web_socket?username=${myUsername}`, // put username from url
@@ -16,11 +17,11 @@ socket.onmessage = (m) => {
       // Todo: 接続成功した時の処理
       break;
 
-    case "matching-success":
+    case "matching-success":{
       // Todo: マッチング成功したときの処理
       const pairName = data.pairName; 
       const pairActive = data.pairActive; 
-      console.log(pairActive);
+      console.log("matching-success",pairName,pairActive);
       fetch("/history", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -28,6 +29,7 @@ socket.onmessage = (m) => {
           username: myUsername,
           pairname: pairName,
           pairactive: pairActive,
+
         }),
       });
       audio.play();
@@ -38,7 +40,7 @@ socket.onmessage = (m) => {
         
         window.location.href = "/match.html";
       });
-      break;
+      break;}
     case "send-success":
       // Todo: 送信成功した時の処理
       // Todo: heyhey by ikebou
@@ -47,11 +49,12 @@ socket.onmessage = (m) => {
 };
 
 // sendPair(自分の名前、相手の名前、相手の出来事)でサーバに送信する
-function sendPair(myName, pairName, pairActive){
+function sendPair(myName, myActive, pairName, pairActive){
   socket.send(
     JSON.stringify({
       event: "matching-request",
       myName: myName,
+      myActive: myActive,
       pairName: pairName,
       pairActive: pairActive,
     }),
