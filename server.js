@@ -33,6 +33,7 @@ Deno.serve({
           case "matching-request": {
             clientsMap.set(data.myName, socket);
             userDataMap.set("myName", data.myName); // 自分の名前、相手の名前、相手のできごとを保存
+            userDataMap.set("myActive", data.myActive);
             userDataMap.set("pairName", data.pairName);
             userDataMap.set("pairActive", data.pairActive);
             console.log(data.pairName, data.pairActive);
@@ -41,11 +42,12 @@ Deno.serve({
 
             if((previousName != null) && (previousName === data.myName)){
               // マッチングに成功した時の処理
-              const json = JSON.stringify({event: "matching-success", pairName: data.pairName, pairActive: data.pairActive});
+              const jsonA = JSON.stringify({event: "matching-success", pairName: data.pairName, pairActive: data.pairActive});
+              const jsonB = JSON.stringify({event: "matching-success", pairName: data.myName, pairActive: data.myActive});
               const clientA = clientsMap.get(data.myName);
-              clientA.send(json);
+              clientA.send(jsonA);
               const clientB = clientsMap.get(data.pairName);
-              clientB.send(json);
+              clientB.send(jsonB);
             }else{
               // マッチング待ちの時の処理
               waitingList.set(data.myName, data.pairName);
