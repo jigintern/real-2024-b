@@ -92,13 +92,13 @@
 
         signUpButton.addEventListener("click", async function (event) {
           // 名前が半角英数字、ひらがな、カタカナ、漢字のみで入力されているか確認
-          if (/[^a-zA-Zぁ-んァ-ン一-龯ー]/.test(nameInput.value)) {
+          if (/[^0-9a-zA-Zぁ-んァ-ン一-龯ー]/.test(nameInput.value)) {
             nameInput.setCustomValidity(
               "半角英数字、ひらがな、カタカナ、漢字のみで入力してください"
             );
             // 最近の出来事が半角英数字、ひらがな、カタカナ、漢字、！、？のみで入力されているか確認
           } else if (
-            /[^a-zA-Zぁ-んァ-ン一-龯ー!！?？]/.test(activeInput.value)
+            /[^0-9a-zA-Zぁ-んァ-ン一-龯ー!！?？]/.test(activeInput.value)
           ) {
             activeInput.setCustomValidity(
               "半角英数字、ひらがな、カタカナ、漢字、！、？のみで入力してください"
@@ -107,8 +107,9 @@
           } else {
             localStorage.setItem("name", nameInput.value); // save name
             localStorage.setItem("active", activeInput.value); // save activity
-
+            
             await fetch("/activity", {
+
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
