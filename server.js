@@ -129,7 +129,7 @@ Deno.serve({
         console.log(username);
         const kv = await getkvData();
         const listresult = kv.list({
-                 prefix: ["username", username,"history"],
+                 prefix: ["username", "hoge", "history"],
              });
         let array = [];
         let index = 0;
