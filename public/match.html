@@ -30,6 +30,10 @@
     />
     <script>
       document.addEventListener("DOMContentLoaded", async function () {
+
+        const name = document.getElementById("pairName");
+        const active = document.getElementById("pairActive");
+        const myname = localStorage.getItem("name");
         const pairName = document.getElementById("pairName");
         const pairActive = document.getElementById("pairActive");
         pairName.innerHTML = localStorage.getItem("pairName");
