@@ -19,9 +19,12 @@
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           username: username,
-        }),
-      });
-      document.getElementById("server_response").innerText += await result.text();
+            }),
+        
+          }
+        
+        );
+      document.getElementById("server_response").innerText = await result.text();
       }  
       fetchUsers();
     </script>
