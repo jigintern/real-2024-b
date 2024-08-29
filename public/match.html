@@ -7,12 +7,7 @@
     <link rel="stylesheet" href="style.css" />
     <link rel="manifest" href="manifest.json" />
     <script>
-      var audio;
-      if(!audio){
-        audio = new Audio('./audio/heyhey-aoi.wav');;
-      }
-      document.addEventListener("DOMContentLoaded", function () {
-        audio.play();        
+      document.addEventListener("DOMContentLoaded", function () {        
         const name = document.getElementById("pairName");
         name.innerHTML = localStorage.getItem("pairName");
         const active = document.getElementById("pairActive");
