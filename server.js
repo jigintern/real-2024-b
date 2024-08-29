@@ -138,15 +138,13 @@ Deno.serve({
         })
         );
       }
-      if (req.method == "POST" && pathname === "/histories") {
+      if (req.method == "GET" && pathname === "/histories") {
         console.log("abc");
-        const json = await req.json();  // JSONのデータを受け取る
-        const username = json["username"]; // ペアした人の名前、活動をGet
+        const username = new URL(req.url).searchParams.get("user_name"); // ペアした人の名前、活動をGet
         console.log(username);
         const kv = await getkvData();
-        console.log(kv);
-        const listresult = await kv.list({ prefix: ["username",username,"history"] });
-        let array = [];
+        const listresult = await getHistories(kv, username);
+        const array = [];
         let index = 0;
         for await (const item of listresult) {
           console.log("tetete")
@@ -157,7 +155,8 @@ Deno.serve({
             break;
           }
         }
-        return new Response(array);
+        console.log(array);
+        return new Response(JSON.stringify(array));
       }
       // publicフォルダ内にあるファイルを返す
       return serveDir(req, {
@@ -205,6 +204,10 @@ async function saveMatchAll(kv, username, pairname, pairactive, time) {
       time: time
     }
   );
+}
+
+async function getHistories(kv, username) {
+  return await await kv.list({ prefix: ["username", username, "history"] });
 }
 
 async function getActivityImage(kv, username, activity) {
