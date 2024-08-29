@@ -6,6 +6,11 @@
     <title>HeyHey</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="manifest" href="manifest.json" />
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.0/dist/browser-image-compression.js"
+    ></script>
+    <script src="compressImg.js"></script>
     <script>
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker
@@ -82,34 +87,34 @@
           activeInput.setCustomValidity("");
         });
       });
-      function previewIcon(input) {
-        // ファイルが選択されているか確認
-        if (input.files && input.files[0]) {
-          const reader = new FileReader();
-          // 画像ファイルを読み込み終えたときに発生するイベント
-          reader.onload = function (e) {
-            // 画像タグのsrcを読み込んだ画像のデータURLに変更
-            document.getElementById("iconImg").src = e.target.result;
-            localStorage.setItem("icon", e.target.result);
-          };
-          // ファイルをデータURLとして読み込む
-          reader.readAsDataURL(input.files[0]);
-        }
-      }
-      function activeIcon(input) {
-        // ファイルが選択されているか確認
-        if (input.files && input.files[0]) {
-          const reader = new FileReader();
-          // 画像ファイルを読み込み終えたときに発生するイベント
-          reader.onload = function (e) {
-            // 画像タグのsrcを読み込んだ画像のデータURLに変更
-            document.getElementById("activeImg").src = e.target.result;
-            localStorage.setItem("activeImg", e.target.result);
-          };
-          // ファイルをデータURLとして読み込む
-          reader.readAsDataURL(input.files[0]);
-        }
-      }
+      // function previewIcon(input) {
+      //   // ファイルが選択されているか確認
+      //   if (input.files && input.files[0]) {
+      //     const reader = new FileReader();
+      //     // 画像ファイルを読み込み終えたときに発生するイベント
+      //     reader.onload = function (e) {
+      //       // 画像タグのsrcを読み込んだ画像のデータURLに変更
+      //       document.getElementById("iconImg").src = e.target.result;
+      //       localStorage.setItem("icon", e.target.result);
+      //     };
+      //     // ファイルをデータURLとして読み込む
+      //     reader.readAsDataURL(input.files[0]);
+      //   }
+      // }
+      // function activeIcon(input) {
+      //   // ファイルが選択されているか確認
+      //   if (input.files && input.files[0]) {
+      //     const reader = new FileReader();
+      //     // 画像ファイルを読み込み終えたときに発生するイベント
+      //     reader.onload = function (e) {
+      //       // 画像タグのsrcを読み込んだ画像のデータURLに変更
+      //       document.getElementById("activeImg").src = e.target.result;
+      //       localStorage.setItem("activeImg", e.target.result);
+      //     };
+      //     // ファイルをデータURLとして読み込む
+      //     reader.readAsDataURL(input.files[0]);
+      //   }
+      // }
     </script>
   </head>
   <body>
