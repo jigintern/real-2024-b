@@ -186,8 +186,8 @@ footer {
   width: 100%;
   background-color: #f8f8ff;
 }
-#footterSearchButton,
-#footterHomeButton,
+#footerHeatButton,
+#footerHomeButton,
 #editButton {
   /* ボタンをまとめてます*/
   background: transparent; /* ボタン画像の背景を透明にします*/
