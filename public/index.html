@@ -45,7 +45,7 @@
           document.getElementById("activeImg").src = "img/noImage.jpg";
         }
 
-        signUpButton.addEventListener("click", function (event) {
+        signUpButton.addEventListener("click", async function (event) {
           // 名前が半角英数字、ひらがな、カタカナ、漢字のみで入力されているか確認
           if (/[^a-zA-Zぁ-んァ-ン一-龯ー]/.test(nameInput.value)) {
             nameInput.setCustomValidity(
@@ -62,6 +62,15 @@
           } else {
             localStorage.setItem("name", nameInput.value); // save name
             localStorage.setItem("active", activeInput.value); // save activity
+            await fetch("/activity",{
+              method: "POST",
+              headers: {'Content-Type': 'application/json'},
+              body: JSON.stringify({
+                user_name: nameInput.value,
+                activity: activeInput.value,
+                image: localStorage.getItem("activeImg"),
+              })
+            });
           }
         });
         // ユーザが名前を書き換えたらエラーを消す処理

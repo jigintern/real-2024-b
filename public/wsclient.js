@@ -22,13 +22,16 @@ socket.onmessage = (m) => {
       localStorage.setItem("pairActive", pairActive);
       console.log(pairActive);
       // Todo: マッチング成功したときの処理
-      window.location.href = "/match.html";
-      // change page
+      audio.play();
+      // Add an event listener for the 'ended' event
+      audio.addEventListener('ended', function() {
+        // Change the page only after the audio has finished playing
+        window.location.href = "/match.html";
+      });
       break;
     case "send-success":
       // Todo: 送信成功した時の処理
       // Todo: heyhey by ikebou
-      
       break;
   }
 };

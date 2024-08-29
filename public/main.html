@@ -69,8 +69,12 @@
       });
     </script>
     <script>
+      var audio;
       $(document).ready(function () {
       $("button[id='qrBtn']").on("click", function (e) {
+        if(!audio){
+          audio = new Audio('./audio/heyhey-aoi.wav');;
+        }
         var video = document.createElement("video");
         var canvasElement = document.getElementById("canvas");
         var canvas = canvasElement.getContext("2d");
@@ -85,7 +89,6 @@
         homeIconWrap.style.display = "none";
         textContainer.style.display = "none";
         homeActiveImgWrap.style.display = "none";
-        
 
       function drawLine(begin, end, color) {
         canvas.beginPath();
@@ -168,8 +171,7 @@
             sendPair(myUsername, userdata[0], userdata[1]);
             //stopStream();
             //canvasElement.hidden = true;
-            var audio = new Audio('./audio/heyhey-aoi.wav');  // get audio file
-            audio.play(); // play audio
+            //audio.play(); // play audio
             return;
           } else {
             outputMessage.hidden = false;
