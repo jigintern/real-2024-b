@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cal-heatmap</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://unpkg.com/cal-heatmap/dist/cal-heatmap.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/cal-heatmap/dist/cal-heatmap.css">
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/cal-heatmap/dist/plugins/Tooltip.min.js"></script>
+    <script src="https://unpkg.com/cal-heatmap/dist/plugins/LegendLite.min.js"></script>
+    <script>
+      const username = localStorage.getItem("name");
+      const result = await fetch("/histories", {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: username,
+        }),
+
+      });
+
+      function dataArray(els) {
+      let array = document.querySelector('.array');
+      els.forEach(el => {
+    let pairname = el.pairName;
+    let pairactive = el.pairActive;
+    let code = '<ul class="list">'+
+    '<li class="listItem">名前：' + name + '</li>'+
+    '<li class="listItem">出来事：' + pairactive + '</li>'+
+    '</ul>';
+    array.insertAdjacentHTML('beforeend',code);
+  });
+}
+    </script>
+</head>
+<body>
+  <div>
+    <script src="heatmap.js"></script>
+    <div id="cal-heatmap"></div>
+  </div>
+  <div class="array"></div>
+  <footer class="footer"><!--ここからフッター-->
+    <button id = footterHomeButton type="button" onclick="location.href='/main.html'" style="height: 50px;">
+      <img src="img/footer_home.png" alt="footterHome" style="height: 70%;">
+    </button><!--imgディレクトリ内の画像をボタンとして表示-->
+  </footer><!--フッターここまで-->
+</body>
+</html>

@@ -139,6 +139,7 @@ Deno.serve({
         break;
         }
       }
+      return new Response(array);
       }
       // publicフォルダ内にあるファイルを返す
       return serveDir(req, {
