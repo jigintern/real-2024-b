@@ -128,8 +128,9 @@ Deno.serve({
         const username = json["username"]; // ペアした人の名前、活動をGet
         console.log(username);
         const kv = await getkvData();
-        const result = await kv.get(["username","kim","history","time","2024-08-29T08:13:37.505Z"]);
-        console.log("get_result: ", result);
+        await kv.set(["teacher", 2], { name: "じぇいぴー先生" });
+        const getResult = await kv.get(["teacher", 2]);
+        console.log("get_result: ", getResult);
         const listresult = kv.list({
                  prefix: ["username", "hoge", "history"],
              });
