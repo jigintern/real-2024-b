@@ -19,9 +19,12 @@
           method: "GET",
           headers: { "Content-Type": "application/json" },
         });
-        document.getElementById("server_response").innerText = await result.text();
+        const arrayText = await result.text();
+        const array = JSON.parse(arrayText);
+        
       }  
-      fetchUsers();
+      const array = fetchUsers();
+      document.getElementById("server_response").innerText = await result.text();
     }
     
     </script>
