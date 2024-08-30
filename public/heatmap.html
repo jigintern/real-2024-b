@@ -12,10 +12,8 @@
     <script src="https://unpkg.com/cal-heatmap/dist/plugins/Tooltip.min.js"></script>
     <script src="https://unpkg.com/cal-heatmap/dist/plugins/LegendLite.min.js"></script>
     <script>
-      const username = localStorage.getItem("name");
-
-      const fetchHistories = async () => {
-        const result = await fetch(`/heatmap?user_name=${username}`, {
+      const fetchHistories = async (name) => {
+        const result = await fetch(`/heatmap?user_name=${name}`, {
           method: "GET",
           headers: { "Content-Type": "application/json" },
         });
@@ -23,8 +21,9 @@
         return array;
       }
 
+      const username = localStorage.getItem("name");
       if (username != null) {
-        const array = await fetchHistories();
+        const array = fetchHistories(username);
 
         // HTML生成
         const container = document.getElementById('server_response');
