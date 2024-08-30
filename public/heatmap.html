@@ -24,9 +24,8 @@
         
       }  
       const array = fetchUsers();
-      document.getElementById("server_response").innerText = await result.text();
+      document.getElementById("server_response").innerText = await array[0].pairName;
     }
-    
     </script>
 </head>
 <body>
