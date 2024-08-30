@@ -17,7 +17,7 @@
           method: "GET",
           headers: { "Content-Type": "application/json" },
         });
-        const array = await result.getJson();
+        const array = await result.json();
         return array;
       }
 
@@ -36,7 +36,7 @@
         dateHeader.className = 'date-header';
         dateSection.appendChild(dateHeader);
 
-        console.log(array);
+        await console.log(array);
         for (const item of array.values()){
           const itemDiv = document.createElement('div');
           itemDiv.className = 'item';
