@@ -15,7 +15,7 @@
       const username = localStorage.getItem("name");
 
       const fetchHistories = async () => {
-        const result = await fetch(`/histories?user_name=${username}`, {
+        const result = await fetch(`/heatmap?user_name=${username}`, {
           method: "GET",
           headers: { "Content-Type": "application/json" },
         });
