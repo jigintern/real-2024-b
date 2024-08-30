@@ -13,19 +13,39 @@
     <script src="https://unpkg.com/cal-heatmap/dist/plugins/LegendLite.min.js"></script>
     <script>
       const username = localStorage.getItem("name");
-      if(username != null){
-        const fetchUsers = async () => { 
-          const result = await fetch(`/histories?user_name=${username}`, {
+
+      const fetchHistories = async () => {
+        const result = await fetch(`/histories?user_name=${username}`, {
           method: "GET",
           headers: { "Content-Type": "application/json" },
         });
-        const arrayText = await result.text();
-        const array = JSON.parse(arrayText);
-        document.getElementById("server_response").innerText = array[0].pairName;
-      }  
-      const array = fetchUsers();
-      
-    }
+        const array = await JSON.parse(result.text());
+        return array;
+      }
+
+      if (username != null) {
+        const array = await fetchHistories();
+
+        // HTML生成
+        const container = document.getElementById('server_response');
+
+        const dateSection = document.createElement('div');
+        dateSection.className = 'date-section';
+
+        const dateHeader = document.createElement('div');
+        dateHeader.className = 'date-header';
+        dateHeader.textContent = item;
+        dateSection.appendChild(dateHeader);
+
+        array[item].forEach(item => {
+          const itemDiv = document.createElement('div');
+          itemDiv.className = 'item';
+          itemDiv.textContent = `pairName: ${item.pairName}, pairActive: ${item.pairActive}, time: ${item.time}`;
+          dateSection.appendChild(itemDiv);
+        });
+
+        container.appendChild(dateSection);
+      }
     </script>
 </head>
 <body>
