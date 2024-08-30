@@ -36,7 +36,7 @@
         dateHeader.className = 'date-header';
         dateSection.appendChild(dateHeader);
 
-        for(const item of array){
+        for(const item of array.values()){
           const itemDiv = document.createElement('div');
           itemDiv.className = 'item';
           itemDiv.textContent = `pairName: ${item.pairName}, pairActive: ${item.pairActive}, time: ${item.time}`;
