@@ -138,20 +138,33 @@ Deno.serve({
         })
         );
       }
-      if (req.method == "POST" && pathname === "/histories") {
+      if (req.method == "GET" && pathname === "/heatmap") {
         console.log("abc");
-        const json = await req.json();  // JSONのデータを受け取る
-        const username = json["username"]; // ペアした人の名前、活動をGet
+        const username = new URL(req.url).searchParams.get("user_name"); // ペアした人の名前、活動をGet
+        const kv = await getkvData();
+        const listresult = await getHistories(kv, username);
+        const countByDate = {};
+        for await (const item of listresult) {
+          // "time"の値から日付部分だけを抽出
+          const date = item.value.time.split('T')[0];
+          // オブジェクトに日付が存在するか確認し、存在すればカウントを増やし、存在しなければ初期化
+          if (countByDate[date]) {
+            countByDate[date]++;
+          } else {
+            countByDate[date] = 1;
+          }
+        }
+        console.log(countByDate);
+        return new Response(JSON.stringify(countByDate));
+      }
+
+      if (req.method == "GET" && pathname === "/histories") {
+        console.log("abc");
+        const username = new URL(req.url).searchParams.get("user_name"); // ペアした人の名前、活動をGet
         console.log(username);
         const kv = await getkvData();
-        console.log(kv);
-        await kv.set(["teacher", 2], { name: "じぇいぴー先生" });
-        const getResult = await kv.get(["teacher", 2]);
-        console.log("get_result: ", getResult);
-        const listresult = kv.list({
-          prefix: ["username", "hoge", "history"],
-        });
-        let array = [];
+        const listresult = await getHistories(kv, username);
+        const array = [];
         let index = 0;
         for await (const item of listresult) {
           console.log("tetete")
@@ -162,7 +175,8 @@ Deno.serve({
             break;
           }
         }
-        return new Response(array);
+        console.log(array);
+        return new Response(JSON.stringify(array));
       }
       // publicフォルダ内にあるファイルを返す
       return serveDir(req, {
@@ -210,6 +224,10 @@ async function saveMatchAll(kv, username, pairname, pairactive, time) {
       time: time
     }
   );
+}
+
+async function getHistories(kv, username) {
+  return await await kv.list({ prefix: ["username", username, "history"] });
 }
 
 async function getActivityImage(kv, username, activity) {

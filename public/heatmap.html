@@ -12,28 +12,51 @@
     <script src="https://unpkg.com/cal-heatmap/dist/plugins/Tooltip.min.js"></script>
     <script src="https://unpkg.com/cal-heatmap/dist/plugins/LegendLite.min.js"></script>
     <script>
-      const username = localStorage.getItem("name");
-      const result = fetch("/histories", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          username: username,
-        }),
+      // 草の取得
+      async function fetchHeatmap(name){
+        const result = await fetch(`/heatmap?user_name=${name}`, {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        });
+        const array = await result.json();
+        return array;
+      }
 
+      // 履歴の取得
+      async function fetchHistories(name) {
+        const result = await fetch(`/histories?user_name=${name}`, {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        });
+        const array = await result.json();
+        return array;
+      }
+
+      document.addEventListener("DOMContentLoaded", async function () {
+        const username = localStorage.getItem("name");
+        if (username != null) {
+          const array = await fetchHistories(username);
+
+          // HTML生成
+          const container = document.getElementById('server_response');
+
+          const dateSection = document.createElement('div');
+          dateSection.className = 'date-section';
+
+          const dateHeader = document.createElement('div');
+          dateHeader.className = 'date-header';
+          dateSection.appendChild(dateHeader);
+
+          await console.log(array);
+          for (const item of array.values()){
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'item';
+            itemDiv.textContent = `pairName: ${item.pairName}, pairActive: ${item.pairActive}, time: ${item.time}`;
+            dateSection.appendChild(itemDiv);
+          }
+          container.appendChild(dateSection);
+        }
       });
-
-      function dataArray(els) {
-      let array = document.querySelector('.array');
-      els.forEach(el => {
-    let pairname = el.pairName;
-    let pairactive = el.pairActive;
-    let code = '<ul class="list">'+
-    '<li class="listItem">名前：' + name + '</li>'+
-    '<li class="listItem">出来事：' + pairactive + '</li>'+
-    '</ul>';
-    array.insertAdjacentHTML('beforeend',code);
-  });
-}
     </script>
 </head>
 <body>
@@ -41,7 +64,10 @@
     <script src="heatmap.js"></script>
     <div id="cal-heatmap"></div>
   </div>
-  <div class="array"></div>
+  <div>
+    <p id="server_response">
+      </p>
+</div>
   <footer class="footer"><!--ここからフッター-->
     <button id = footterHomeButton type="button" onclick="location.href='/main.html'" style="height: 50px;">
       <img src="img/footer_home.png" alt="footterHome" style="height: 70%;">
