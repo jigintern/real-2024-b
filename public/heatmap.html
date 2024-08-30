@@ -17,14 +17,14 @@
           method: "GET",
           headers: { "Content-Type": "application/json" },
         });
-        const array = await JSON.parse(result.text());
+        const array = await result.getJson();
         return array;
       }
 
     document.addEventListener("DOMContentLoaded", async function () {
       const username = localStorage.getItem("name");
       if (username != null) {
-        const array = fetchHistories(username);
+        const array = await fetchHistories(username);
 
         // HTML生成
         const container = document.getElementById('server_response');
@@ -36,7 +36,8 @@
         dateHeader.className = 'date-header';
         dateSection.appendChild(dateHeader);
 
-        for(const item of array.values()){
+        console.log(array);
+        for (const item of array.values()){
           const itemDiv = document.createElement('div');
           itemDiv.className = 'item';
           itemDiv.textContent = `pairName: ${item.pairName}, pairActive: ${item.pairActive}, time: ${item.time}`;
