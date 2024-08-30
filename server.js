@@ -141,6 +141,26 @@ Deno.serve({
       if (req.method == "GET" && pathname === "/histories") {
         console.log("abc");
         const username = new URL(req.url).searchParams.get("user_name"); // ペアした人の名前、活動をGet
+        const kv = await getkvData();
+        const listresult = await getHistories(kv, username);
+        const countByDate = {};
+        for await (const item of listresult) {
+          // "time"の値から日付部分だけを抽出
+          const date = item.value.time.split('T')[0];
+          // オブジェクトに日付が存在するか確認し、存在すればカウントを増やし、存在しなければ初期化
+          if (countByDate[date]) {
+            countByDate[date]++;
+          } else {
+            countByDate[date] = 1;
+          }
+        }
+        console.log(countByDate);
+        return new Response(JSON.stringify(countByDate));
+      }
+
+      if (req.method == "GET" && pathname === "/heatmap") {
+        console.log("abc");
+        const username = new URL(req.url).searchParams.get("user_name"); // ペアした人の名前、活動をGet
         console.log(username);
         const kv = await getkvData();
         const listresult = await getHistories(kv, username);
