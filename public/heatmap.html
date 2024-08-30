@@ -21,10 +21,10 @@
         });
         const arrayText = await result.text();
         const array = JSON.parse(arrayText);
-        
+        document.getElementById("server_response").innerText = array[0].pairName;
       }  
       const array = fetchUsers();
-      document.getElementById("server_response").innerText = await array[0].pairName;
+      
     }
     </script>
 </head>
