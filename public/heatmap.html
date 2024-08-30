@@ -12,7 +12,8 @@
     <script src="https://unpkg.com/cal-heatmap/dist/plugins/Tooltip.min.js"></script>
     <script src="https://unpkg.com/cal-heatmap/dist/plugins/LegendLite.min.js"></script>
     <script>
-      async function fetchHistories(name){
+      // 草の取得
+      async function fetchHeatmap(name){
         const result = await fetch(`/heatmap?user_name=${name}`, {
           method: "GET",
           headers: { "Content-Type": "application/json" },
@@ -21,31 +22,41 @@
         return array;
       }
 
-    document.addEventListener("DOMContentLoaded", async function () {
-      const username = localStorage.getItem("name");
-      if (username != null) {
-        const array = await fetchHistories(username);
-
-        // HTML生成
-        const container = document.getElementById('server_response');
-
-        const dateSection = document.createElement('div');
-        dateSection.className = 'date-section';
-
-        const dateHeader = document.createElement('div');
-        dateHeader.className = 'date-header';
-        dateSection.appendChild(dateHeader);
-
-        await console.log(array);
-        for (const item of array.values()){
-          const itemDiv = document.createElement('div');
-          itemDiv.className = 'item';
-          itemDiv.textContent = `pairName: ${item.pairName}, pairActive: ${item.pairActive}, time: ${item.time}`;
-          dateSection.appendChild(itemDiv);
-        }
-        container.appendChild(dateSection);
+      // 履歴の取得
+      async function fetchHistories(name) {
+        const result = await fetch(`/histories?user_name=${name}`, {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        });
+        const array = await result.json();
+        return array;
       }
-    });
+
+      document.addEventListener("DOMContentLoaded", async function () {
+        const username = localStorage.getItem("name");
+        if (username != null) {
+          const array = await fetchHistories(username);
+
+          // HTML生成
+          const container = document.getElementById('server_response');
+
+          const dateSection = document.createElement('div');
+          dateSection.className = 'date-section';
+
+          const dateHeader = document.createElement('div');
+          dateHeader.className = 'date-header';
+          dateSection.appendChild(dateHeader);
+
+          await console.log(array);
+          for (const item of array.values()){
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'item';
+            itemDiv.textContent = `pairName: ${item.pairName}, pairActive: ${item.pairActive}, time: ${item.time}`;
+            dateSection.appendChild(itemDiv);
+          }
+          container.appendChild(dateSection);
+        }
+      });
     </script>
 </head>
 <body>

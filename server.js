@@ -138,7 +138,7 @@ Deno.serve({
         })
         );
       }
-      if (req.method == "GET" && pathname === "/histories") {
+      if (req.method == "GET" && pathname === "/heatmap") {
         console.log("abc");
         const username = new URL(req.url).searchParams.get("user_name"); // ペアした人の名前、活動をGet
         const kv = await getkvData();
@@ -158,7 +158,7 @@ Deno.serve({
         return new Response(JSON.stringify(countByDate));
       }
 
-      if (req.method == "GET" && pathname === "/heatmap") {
+      if (req.method == "GET" && pathname === "/histories") {
         console.log("abc");
         const username = new URL(req.url).searchParams.get("user_name"); // ペアした人の名前、活動をGet
         console.log(username);
