@@ -12,7 +12,7 @@
     <script src="https://unpkg.com/cal-heatmap/dist/plugins/Tooltip.min.js"></script>
     <script src="https://unpkg.com/cal-heatmap/dist/plugins/LegendLite.min.js"></script>
     <script>
-      const fetchHistories = async (name) => {
+      async function fetchHistories(name){
         const result = await fetch(`/heatmap?user_name=${name}`, {
           method: "GET",
           headers: { "Content-Type": "application/json" },
@@ -21,9 +21,10 @@
         return array;
       }
 
+    document.addEventListener("DOMContentLoaded", async function () {
       const username = localStorage.getItem("name");
       if (username != null) {
-        const array = await fetchHistories(username);
+        const array = fetchHistories(username);
 
         // HTML生成
         const container = document.getElementById('server_response');
@@ -45,6 +46,7 @@
 
         container.appendChild(dateSection);
       }
+    });
     </script>
 </head>
 <body>
