@@ -34,16 +34,14 @@
 
         const dateHeader = document.createElement('div');
         dateHeader.className = 'date-header';
-        dateHeader.textContent = item;
         dateSection.appendChild(dateHeader);
 
-        array.forEach(item => {
+        for(const item of array){
           const itemDiv = document.createElement('div');
           itemDiv.className = 'item';
           itemDiv.textContent = `pairName: ${item.pairName}, pairActive: ${item.pairActive}, time: ${item.time}`;
           dateSection.appendChild(itemDiv);
-        });
-
+        }
         container.appendChild(dateSection);
       }
     });
