@@ -4,6 +4,6 @@
     "testing/": "https://deno.land/std@0.193.0/testing/"
   },
   "tasks": {
-    "start": "deno run --watch --allow-net --allow-read server.js"
+    "start": "deno run --watch --allow-net --allow-read --allow-env --unstable-kv server.js"
   }
 }
