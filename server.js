@@ -12,7 +12,7 @@ const userDataMap = new Map(); // 名前と出来事を記録するマップ
 * APIリクエストを処理する
 */
 Deno.serve({
-  port: Deno.args[0] || 8080,
+  port: Deno.args[0] ?? 8080,
   hostname: "[::]",
 
   handler: async (req) => {
