@@ -6,7 +6,7 @@ body {
 }
 
 #container {
-  height: 120vh;
+  padding-bottom: 52px;
   display: flex;
   justify-content: space-evenly;
   flex-direction: column;
@@ -70,6 +70,11 @@ body {
   justify-content: center;
   align-items: center;
   /* height: 35vh; */
+}
+
+#QRCode > canvas {
+  padding: 5vw 0;
+  width: min(85vw, 100vh - 50px - 16px);
 }
 
 #qrImg {
